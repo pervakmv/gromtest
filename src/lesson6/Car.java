@@ -3,6 +3,7 @@ package lesson6;
 public class Car {
 
     //1 field
+    // Добавление коментария для отслеживания работы Git
     int price;
     int yearOfManufacturing;
     String color;
