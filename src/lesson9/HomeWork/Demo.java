@@ -24,17 +24,17 @@ public class Demo {
         System.out.println(Arrays.toString(userRepository.getUserIds()));
         System.out.println(Arrays.toString(userRepository.getUserNames()));
 
-//        System.out.println(userRepository.getUserNameById(120));
-//
-//        System.out.println(userRepository.getUserNameById(435));
+        System.out.println(userRepository.getUserNameById(120));
 
-        //Обкатка функцій з третього завдання
-//        System.out.println("---- Відпрацьовуємо методи з третього уроку -------");
-//        userRepository.getUserByName("Katia").printDataOfUser();
-//        userRepository.getUserByName("Kucherenko").printDataOfUser();
-//
-//        userRepository.getUserById(100).printDataOfUser();
-//        userRepository.getUserBySessionId("Fine").printDataOfUser();
+        System.out.println(userRepository.getUserNameById(435));
+
+      //  Обкатка функцій з третього завдання
+        System.out.println("---- Відпрацьовуємо методи з третього уроку -------");
+        userRepository.getUserByName("Katia").printDataOfUser();
+        userRepository.getUserByName("Kucherenko").printDataOfUser();
+
+        userRepository.getUserById(100).printDataOfUser();
+        userRepository.getUserBySessionId("Fine").printDataOfUser();
         //Четверте завдання
         System.out.println("---- Відпрацьовуємо методи з четвертого уроку -------");
         User newUser = new User(554, "Yulia", "Girl");
