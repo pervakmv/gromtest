@@ -1,20 +1,41 @@
+
 package lesson7;
-import lesson6.Car;
-import lesson6.DbConnector;
-import lesson6.User;
+
+//import lesson6.Order;
+
+import java.util.Date;
 
 public class Demo {
+
     public static void main(String[] args) {
 
-        User user = new User();
-        User user1 = new User();
-        User user2 = new User();
+        Order order = createOrder();
+        System.out.print(order.dateCreated.getDate());
+        System.out.print(".");
+        System.out.print(order.dateCreated.getMonth());
+        System.out.print(".");
+        System.out.println(order.dateCreated.getYear());
+        System.out.println(order.city);
 
-        User user3 = new User("Jack");
+        Order order2 = createOrderAndCallMethods();
+        System.out.println(order2.city);
+    }
 
-        Car car = new Car(10000, 2015, "Anton");
+    public static Order createOrder() {
+        Date curDate = new Date(2018, 04, 30);
 
-        DbConnector dbConnecor = new DbConnector();
+        return new Order(100, curDate, false, null, "Dnepr", "Ukraine", "Buy");
 
+    }
+
+    public static Order createOrderAndCallMethods() {
+        Date curDate = new Date(2018, 04, 30);
+        Order orderObject = new Order(100, curDate, true, curDate, "Kiev", "Ukraine", "SomeValue");
+        orderObject.confirmOrder();
+        boolean isValidate = orderObject.isValidType();
+        System.out.println(isValidate);
+
+
+        return orderObject;
     }
 }

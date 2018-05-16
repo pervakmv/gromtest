@@ -8,6 +8,7 @@ public class Demo {
 
         System.out.println(adder.check(a));
         System.out.println(adder.add(50, 25));
+        System.out.println(adder.add(50, 125));
 
     }
 }
