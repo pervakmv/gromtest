@@ -25,6 +25,12 @@ public class ElectronicsOrder extends Order {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "ElectronicsOrder{" +
+                "guaranteeMonths=" + guaranteeMonths +
+                '}';
+    }
 
     @Override
     public void calculatePrice() {

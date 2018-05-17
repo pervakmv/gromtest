@@ -12,6 +12,15 @@ public class Customer {
         this.gender = gender;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

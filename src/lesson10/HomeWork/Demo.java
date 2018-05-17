@@ -22,8 +22,8 @@ public class Demo {
         FurnitureOrder furnitureOrder2 = new FurnitureOrder("Ручка", curDate, "Киев", "Бровары", 600, customerPavel,  "122");
 
 
-
-
+       // System.out.println(electronicsOrder1.toString());
+        //System.out.println();
         electronicsOrder1.validateOrder();
         electronicsOrder1.calculatePrice();
         electronicsOrder1.confirmShipping();

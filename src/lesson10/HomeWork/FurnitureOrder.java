@@ -30,6 +30,13 @@ public class FurnitureOrder extends Order {
     }
 
     @Override
+    public String toString() {
+        return "FurnitureOrder{" +
+                "furnitureCode='" + furnitureCode + '\'' +
+                '}';
+    }
+
+    @Override
     public void validateOrder() {
         String[] validCity = {"Киев", "Львов"};
         String[] validGender = {"Мужской", "Женский"};

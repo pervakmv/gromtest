@@ -23,6 +23,21 @@ public abstract class Order {
         this.customerOwned = customerOwned;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "itemName='" + itemName + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", dateConfirmed=" + dateConfirmed +
+                ", dateShipped=" + dateShipped +
+                ", shipFromCity='" + shipFromCity + '\'' +
+                ", shipToCity='" + shipToCity + '\'' +
+                ", basePrice=" + basePrice +
+                ", totalPrice=" + totalPrice +
+                ", customerOwned=" + customerOwned +
+                '}';
+    }
+
     public abstract void validateOrder();
 
     public abstract void calculatePrice();
