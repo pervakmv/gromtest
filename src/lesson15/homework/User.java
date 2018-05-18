@@ -16,8 +16,8 @@ public class User {
         return id;
     }
 
-    public User(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public String getSessionId() {
