@@ -3,6 +3,8 @@ package lesson15.homework;
 public class UserRepository {
     private User[] users = new User[10];
 
+    public UserRepository() {
+    }
 
     public UserRepository(User[] users) {
         this.users = users;
