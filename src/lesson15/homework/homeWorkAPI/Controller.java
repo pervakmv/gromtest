@@ -1,5 +1,7 @@
 package lesson15.homework.homeWorkAPI;
 
+import java.util.Arrays;
+
 public class Controller {
     private API[] apis;
 
@@ -17,7 +19,7 @@ public class Controller {
 
         for (API element : apis) {
             res = AddArrays(res, element.findRooms(price, persons, city, hotel));
-            element.findRooms(price, persons, city, hotel);
+           // element.findRooms(price, persons, city, hotel);
         }
         return res;
     }
@@ -61,4 +63,19 @@ public class Controller {
         return res[0].deleteNullElements(res);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Controller that = (Controller) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(apis, that.apis);
+    }
+
+    @Override
+    public int hashCode() {
+        return apis.hashCode();
+    }
 }

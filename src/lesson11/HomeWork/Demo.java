@@ -32,6 +32,7 @@ public class Demo {
         sysoutRoomsArray(apis1[1].findRooms(300, 1, "Zvolen", "Almada"));
         sysoutRoomsArray(apis1[2].findRooms(300, 1, "Zvolen", "Almada"));
         System.out.println("~~~~~~~~~~~~~~~");
+        System.out.println(" request room ");
         sysoutRoomsArray(controller.requestRooms(300, 1, "Zvolen", "Almada"));
         System.out.println("------------ Пробуем сheck ---------------");
         sysoutRoomsArray(controller.check(apis1[0], apis1[2]));
