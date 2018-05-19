@@ -1,6 +1,8 @@
 package lesson15.homework.homeWorkAPI;
 
 
+import java.util.Arrays;
+
 public class BookingComAPI implements API {
     private Room[] rooms;
 
@@ -32,5 +34,22 @@ public class BookingComAPI implements API {
     @Override
     public Room[] getAll() {
         return rooms;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BookingComAPI that = (BookingComAPI) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(rooms, that.rooms);
+    }
+
+    @Override
+    public int hashCode() {
+        return rooms.hashCode();
     }
 }

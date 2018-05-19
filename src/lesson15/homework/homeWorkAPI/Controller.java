@@ -43,7 +43,6 @@ public class Controller {
                 index++;
             }
         }
-
         return res;
     }
 
