@@ -1,4 +1,4 @@
-package lesson16.homework;
+package lesson17.hw4;
 
 import java.util.Arrays;
 
@@ -43,14 +43,18 @@ public class Solution {
         System.out.println(minWord(string5));
 
         System.out.println("Виводимо слово, що найбільше разів повторюються варіант 1");
-        System.out.println(mostCountedWordsRev1(string1));
+        System.out.println(mostCountedWord(string1));
+        System.out.println(mostCountedWord(string2));
+        System.out.println(mostCountedWord(string3));
+        System.out.println(mostCountedWord(string4));
+        System.out.println(mostCountedWord(string5));
 
         System.out.println("Виводимо слово, що найбільше разів повторюються варіант 2");
-        System.out.println(mostCountedWords(string1));
-        System.out.println(mostCountedWords(string2));
-        System.out.println(mostCountedWords(string3));
-        System.out.println(mostCountedWords(string4));
-        System.out.println(mostCountedWords(string5));
+        System.out.println(mostCountedWordsRev2(string1));
+        System.out.println(mostCountedWordsRev2(string2));
+        System.out.println(mostCountedWordsRev2(string3));
+        System.out.println(mostCountedWordsRev2(string4));
+        System.out.println(mostCountedWordsRev2(string5));
 
         System.out.println("Перевіряємо просту валідацію інтернет адреси");
 
@@ -112,7 +116,7 @@ public class Solution {
         return false;
     }
 
-    public static String mostCountedWordsRev1(String input) {
+    public static String mostCountedWord(String input) {
         if (input == null)
             return null;
         String[] subStrings = input.split(" ");
@@ -141,7 +145,7 @@ public class Solution {
     }
 
 
-    public static String mostCountedWords(String input) {
+    public static String mostCountedWordsRev2(String input) {
         if (input == null
                 || input.isEmpty())
             return null;
@@ -296,11 +300,9 @@ public class Solution {
             return false;
         char[] chrAr = str.toCharArray();
 
-        Character character = chrAr[0];
-
         for (char element : chrAr) {
 
-            if (!character.isLetter(element))
+            if (!Character.isLetter(element))
                 return false;
         }
         return true;
@@ -312,11 +314,9 @@ public class Solution {
             return false;
         char[] chrAr = str.toCharArray();
 
-        Character character = chrAr[0];
-
         for (char element : chrAr) {
 
-            if (!character.isLetter(element) && !character.isDigit(element))
+            if (!Character.isLetter(element) && !Character.isDigit(element))
                 return false;
         }
         return true;
