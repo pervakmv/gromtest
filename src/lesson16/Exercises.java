@@ -2,13 +2,13 @@ package lesson16;
 
 import java.util.Arrays;
 
-public class Exericises {
+public class Exercises {
 
     public static void main(String[] args) {
         String test = "There is Test somethig new or jot sdf sdf sdf Test op or";
-        System.out.println(deleteDuplicate(test));
+        System.out.println(deleteDuplicates(test));
 
-        System.out.println(Arrays.toString(countDuplicate(test, new String[]{"or", "some", "test"})));
+        System.out.println(Arrays.toString(countDuplicates(test, new String[]{"or", "some", "test"})));
 
         String str = "Today is good day... Hello dpsd";
         //da -> PPPPPPPPP
@@ -22,24 +22,16 @@ public class Exericises {
 
 
     //delete replacin worlds
-    public static String deleteDuplicate(String input) {
-
-        //Найти повторения
-        //удалить их
-
+    public static String deleteDuplicates(String input) {
         String[] words = input.split(" ");
-
-
         for (int i = 0; i < words.length; i++) {
             for (int j = i + 1; j < words.length; j++) {
-                if (words[i].equals(words[j])) {
+                if (words[i].equals(words[j]))
                     words[i] = "";
-                }
+
             }
         }
-
         String res = "";
-
         for (String word : words) {
             res += word;
 
@@ -47,11 +39,10 @@ public class Exericises {
                 res += " ";
         }
         return res;
-
     }
 
     //count replaces
-    public static int[] countDuplicate(String input, String[] words) {
+    public static int[] countDuplicates(String input, String[] words) {
 
         String[] strings = input.split(" ");
 
@@ -79,7 +70,7 @@ public class Exericises {
         for (int index : indexes) {
             if (checkReplace(input, target, index)) {
 
-                return replaceByIndex(input, target, replacement, index);
+                return replace(input, target, replacement, index);
 
             }
         }
@@ -87,7 +78,7 @@ public class Exericises {
         return input;
     }
 
-    private static String replaceByIndex(String input, String target, String replacement, int index) {
+    private static String replace(String input, String target, String replacement, int index) {
         char[] res1 = new char[index];
         for (int i = 0; i < index; i++) {
             res1[i] = input.toCharArray()[i];
