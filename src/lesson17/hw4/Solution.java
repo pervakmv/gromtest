@@ -7,7 +7,7 @@ public class Solution {
     public static void main(String[] args) {
 
         String string1 = new String("For example in Sect 6.13, for For  well Well well well for for 6.13  6.13 6.13 6.13 6.13 for Well well Well");
-        String string2 = new String("Cпорт лото 89978676 ");
+        String string2 = new String("45Спорт спорт лото 89978676 Спорт ");
         String string3 = new String("  2323");
         String string4 = new String("");
         String string5 = null;
@@ -128,7 +128,7 @@ public class Solution {
             counter = 1;
             for (int j = index + 1; j < subStrings.length; j++) {
                 if (stringConsistsOfLetters(subStrings[index]) &&
-                        subStrings[index].equals(subStrings[j])) {
+                        subStrings[index].equalsIgnoreCase(subStrings[j])) {
                     counter++;
                 }
 
