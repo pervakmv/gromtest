@@ -8,8 +8,8 @@ public class Solution {
 
         String string1 = new String("For example in Sect 6.13, for For  well Well well well for for 6.13  6.13 6.13 6.13 6.13 for Well well Well");
         String string2 = new String("45Спорт спорт лото 89978676 Спорт ");
-        String string3 = new String("  2323");
-        String string4 = new String("");
+        String string3 = new String("  2323 а баба галамага а галамага ваывяфва 4958350в а баба галамага галамага Галамага");
+        String string4 = new String("356 3487 4573 974 8ук78");
         String string5 = null;
 
         System.out.println(" Підрахунок слів за домопогою методу countWords");
@@ -116,10 +116,23 @@ public class Solution {
         return false;
     }
 
+    private static int numberValidateStrings(String[] arr){
+        int count = 0;
+        for(String element : arr){
+            if(stringConsistsOfLetters(element))
+                count++;
+        }
+        return count;
+    }
+
     public static String mostCountedWord(String input) {
         if (input == null)
             return null;
         String[] subStrings = input.split(" ");
+
+        if(numberValidateStrings(subStrings)==0)
+            return null;
+        
         int index = 0;
         int maxDuplicateElementIndex = -1;
         int counter = 1;
