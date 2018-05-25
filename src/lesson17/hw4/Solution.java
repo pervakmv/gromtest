@@ -8,7 +8,7 @@ public class Solution {
 
         String string1 = new String("For example in Sect 6.13, for For  well Well well well for for 6.13  6.13 6.13 6.13 6.13 for Well well Well");
         String string2 = new String("45Спорт спорт лото 89978676 Спорт ");
-        String string3 = new String("  2323 а баба галамага а галамага ваывяфва 4958350в а баба галамага галамага Галамага");
+        String string3 = new String("");
         String string4 = new String("356 3487 4573 974 8ук78");
         String string5 = null;
 
@@ -134,7 +134,7 @@ public class Solution {
     }
 
 
-    public static String mostCountedWord(String input) {
+    public static String mostCountedWordRev3(String input) {
         if (input == null ||
                 input.isEmpty()) return null;
 
@@ -152,13 +152,13 @@ public class Solution {
         }
         Arrays.sort(validStringsArray);
 
-        String resWord = "";
-        String word = "";
+        String resWord = null;
+        String word = null;
         int numberDuplicate = 1;
         int maxNumber = 0;
 
         for (String validElement : validStringsArray) {
-            if (validElement.equals(word)) {
+            if (validElement.equalsIgnoreCase(word)) {
                 numberDuplicate++;
             } else {
                 if (numberDuplicate > maxNumber) {
@@ -176,24 +176,57 @@ public class Solution {
         return resWord;
     }
 
+//
+//    public static String[] sortStringIgnoreCase(String[] array) {
+//        String resultArray[] = new String[array.length];
+//        resultArray = array;
+//        int exchangesCounter = 0;
+//        int index = 0;
+//
+//        do {
+//            exchangesCounter = 0;
+//            index = 0;
+//            while (index < (resultArray.length - 1)) {
+//
+//                if (resultArray[index] < resultArray[index + 1]) {
+//                    int tempValue = resultArray[index];
+//                    resultArray[index] = resultArray[index + 1];
+//                    resultArray[index + 1] = tempValue;
+//                    exchangesCounter++;
+//                }
+//                index++;
+//            }
+//        } while (exchangesCounter != 0);
+//        return resultArray;
+//    }
+//
 
-    public static String mostCountedWordRev3(String input) {
+    public static String mostCountedWord(String input) {
         if (input == null)
             return null;
         String[] subStrings = input.split(" ");
 
-        if (numberValidateStrings(subStrings) == 0)
-            return null;
 
+        int numberValidateWord = numberValidateStrings(subStrings);
+        if (numberValidateWord == 0)
+            return null;
+        String[] validStringsArray = new String[numberValidateWord];
         int index = 0;
+        for (String element : subStrings) {
+            if (stringConsistsOfLetters(element)) {
+                validStringsArray[index] = element;
+                index++;
+            }
+        }
+
+        index = 0;
         int maxDuplicateElementIndex = -1;
         int counter = 1;
         int counterPreviousValue = 0;
-        for (index = 0; index < subStrings.length; index++) {
+        for (index = 0; index < validStringsArray.length; index++) {
             counter = 1;
-            for (int j = index + 1; j < subStrings.length; j++) {
-                if (stringConsistsOfLetters(subStrings[index]) &&
-                        subStrings[index].equals(subStrings[j])) {
+            for (int j = index + 1; j < validStringsArray.length; j++) {
+                if (validStringsArray[index].equalsIgnoreCase(validStringsArray[j])) {
                     counter++;
                 }
 
@@ -206,7 +239,7 @@ public class Solution {
                 }
             }
         }
-        return maxDuplicateElementIndex > 0 ? subStrings[maxDuplicateElementIndex] : null;
+        return maxDuplicateElementIndex > 0 ? validStringsArray[maxDuplicateElementIndex] : null;
     }
 
 
