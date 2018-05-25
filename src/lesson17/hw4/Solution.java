@@ -7,7 +7,7 @@ public class Solution {
     public static void main(String[] args) {
 
         String string1 = new String("For example in Sect 6.13, for For  well Well well well for for 6.13  6.13 6.13 6.13 6.13 for Well well Well");
-        String string2 = new String("45Спорт спорт лото 89978676 Спорт ");
+        String string2 = new String("45Спорт Cпорт лото 89978676 cпорт ");
         String string3 = new String("");
         String string4 = new String("356 3487 4573 974 8ук78");
         String string5 = null;
@@ -218,6 +218,7 @@ public class Solution {
                 index++;
             }
         }
+       // System.out.println(Arrays.toString(validStringsArray));
 
         index = 0;
         int maxDuplicateElementIndex = -1;
@@ -232,14 +233,15 @@ public class Solution {
 
             }//for
 
-            if (counter > 1) {
-                if (counter > counterPreviousValue) {
-                    maxDuplicateElementIndex = index;
-                    counterPreviousValue = counter;
-                }
+
+            if (counter > counterPreviousValue) {
+                maxDuplicateElementIndex = index;
+                counterPreviousValue = counter;
             }
+
+//            System.out.println(validStringsArray[index] + " " + counter + " раз");
         }
-        return maxDuplicateElementIndex > 0 ? validStringsArray[maxDuplicateElementIndex] : null;
+        return maxDuplicateElementIndex > -1 ? validStringsArray[maxDuplicateElementIndex] : null;
     }
 
 
