@@ -56,6 +56,14 @@ public class Solution {
         System.out.println(mostCountedWordsRev2(string4));
         System.out.println(mostCountedWordsRev2(string5));
 
+        System.out.println("Виводимо слово, що найбільше разів повторюються варіант 3");
+        System.out.println(mostCountedWordRev3(string1));
+        System.out.println(mostCountedWordRev3(string2));
+        System.out.println(mostCountedWordRev3(string3));
+        System.out.println(mostCountedWordRev3(string4));
+        System.out.println(mostCountedWordRev3(string5));
+
+
         System.out.println("Перевіряємо просту валідацію інтернет адреси");
 
         String internetAddress = new String("http://WWW.UKR34.net");
@@ -116,23 +124,67 @@ public class Solution {
         return false;
     }
 
-    private static int numberValidateStrings(String[] arr){
+    private static int numberValidateStrings(String[] arr) {
         int count = 0;
-        for(String element : arr){
-            if(stringConsistsOfLetters(element))
+        for (String element : arr) {
+            if (stringConsistsOfLetters(element))
                 count++;
         }
         return count;
     }
 
+
     public static String mostCountedWord(String input) {
+        if (input == null ||
+                input.isEmpty()) return null;
+
+        String[] subStrings = input.split(" ");
+        int numberValidateWord = numberValidateStrings(subStrings);
+        if (numberValidateWord == 0)
+            return null;
+        String[] validStringsArray = new String[numberValidateWord];
+        int index = 0;
+        for (String element : subStrings) {
+            if (stringConsistsOfLetters(element)) {
+                validStringsArray[index] = element;
+                index++;
+            }
+        }
+        Arrays.sort(validStringsArray);
+
+        String resWord = "";
+        String word = "";
+        int numberDuplicate = 1;
+        int maxNumber = 0;
+
+        for (String validElement : validStringsArray) {
+            if (validElement.equals(word)) {
+                numberDuplicate++;
+            } else {
+                if (numberDuplicate > maxNumber) {
+                    maxNumber = numberDuplicate;
+                    resWord = word;
+                }
+                word = validElement;
+                numberDuplicate = 1;
+            }
+            if (numberDuplicate > maxNumber) {
+                maxNumber = numberDuplicate;
+                resWord = word;
+            }
+        }
+        return resWord;
+    }
+
+
+    public static String mostCountedWordRev3(String input) {
         if (input == null)
             return null;
         String[] subStrings = input.split(" ");
 
-        if(numberValidateStrings(subStrings)==0)
+        if (numberValidateStrings(subStrings) == 0)
             return null;
-        
+
         int index = 0;
         int maxDuplicateElementIndex = -1;
         int counter = 1;
@@ -141,7 +193,7 @@ public class Solution {
             counter = 1;
             for (int j = index + 1; j < subStrings.length; j++) {
                 if (stringConsistsOfLetters(subStrings[index]) &&
-                        subStrings[index].equalsIgnoreCase(subStrings[j])) {
+                        subStrings[index].equals(subStrings[j])) {
                     counter++;
                 }
 
