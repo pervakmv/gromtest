@@ -81,7 +81,7 @@ public class Controller {
         }
     }
 
-    public void TransferAll(Storage storageFrom, Storage storageTo) throws Exception {
+    public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
         //Первірка об'єктів на null
         //Перевіряємо формат +
         //Перевіряємо чи вмістяться нові файли в цільове сховище+

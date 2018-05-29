@@ -78,14 +78,14 @@ public class Demo {
         System.out.println(" -------- метод transferAll -------- ");
 
         try {
-            controler.TransferAll(storage1, storage2);
+            controler.transferAll(storage1, storage2);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         //Збільшуємо розмір сховища 2
         storage2.setStorageSize(200);
         try {
-            controler.TransferAll(storage1, storage2);
+            controler.transferAll(storage1, storage2);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
