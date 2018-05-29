@@ -5,7 +5,8 @@ public class Demo {
         InternetProvider provider = (InternetProvider)test();
         FoodProvider foodProvider = (FoodProvider) testFood();
 
-        System.out.println(provider);
+
+
 
     }
   private static Provider  test(){

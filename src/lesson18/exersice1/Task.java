@@ -26,6 +26,6 @@ public class Task {
         }
 
         //soulution 2
-        //HW
+        //HW2
     }
 }
