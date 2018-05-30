@@ -27,7 +27,7 @@ public class Demo {
         System.out.println(" Пробуємо put ");
         Controller controler = new Controller();
         try {
-            controler.put(storage1, new File(106, "system", "dat", 25));
+            controler.put(storage1, new File(106, "systemsystemsystem", "dat", 25));
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

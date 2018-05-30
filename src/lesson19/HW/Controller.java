@@ -169,26 +169,18 @@ public class Controller {
         int maxNameLonFiles = 10;
         String filesName = file.getName();
         if (filesName.length() > 10) {
-            throw new Exception("file's name is to long");
+            throw new Exception("CheckFile: file's name is to long " + "file id: " + file.getId() + " storage id: " + storage.getId());
+
         }
 
         if (storage.supportedFormatValid(file.getFormat())) {
             return true;
         } else {
-            throw new Exception("check file: files format is  not valid");
+            throw new Exception("CheckFile: files format is not valid" + "file id: " + file.getId() + " storage id: " + storage.getId());
         }
     }
 
-//    private boolean supportedFormatValid(String[] supportedFormats, String format) {
-//        if (supportedFormats == null)
-//            return false;
-//
-//        for (String element : supportedFormats) {
-//            if (element != null && element.equalsIgnoreCase(format))
-//                return true;
-//        }
-//        return false;
-//    }
+
 
 }
 
