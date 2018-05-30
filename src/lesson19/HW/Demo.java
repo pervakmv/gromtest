@@ -28,26 +28,31 @@ public class Demo {
         Controller controler = new Controller();
         try {
             controler.put(storage1, new File(106, "systemsystemsystem", "dat", 25));
+            System.out.println("Done ...");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         try {
-            controler.put(storage1, new File(107, "system", "dat", 23));
+            controler.put(storage1, new File(108, "system", "dat", 23));
+            System.out.println("Done ...");
         } catch (Exception e) {
             System.out.println("storage 1 " + e.getMessage());
         }
 
         try {
             controler.put(storage2, new File(107, "system", "dat", 28));
+            System.out.println("Done ...");
         } catch (Exception e) {
-            System.out.println("storage 2" + e.getMessage());
+            System.out.println("storage 2 " + e.getMessage());
         }
         try {
-            controler.put(null, null);
+            controler.put(storage1, null);
+            System.out.println("Done ...");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
 
         System.out.println(storage1.toString());
         System.out.println(storage2.toString());
@@ -57,16 +62,19 @@ public class Demo {
 
         try {
             controler.delete(storage1, new File(111, "autoexec", "dat", 25));
+            System.out.println("Done ... ");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         try {
             controler.delete(storage2, new File(201, "paris", "dat", 22));
+            System.out.println("2 Done ...");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         try {
             controler.delete(null, null);
+            System.out.println("Done ...");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -81,6 +89,7 @@ public class Demo {
 
         try {
             controler.transferAll(storage1, storage2);
+            System.out.println("Done 1...");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -89,9 +98,11 @@ public class Demo {
         System.out.println(storage2.toString());
 
 
-
+        storage2.setStorageSize(310);
         try {
             controler.transferAll(storage1, storage2);
+
+            System.out.println("Done 2...");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

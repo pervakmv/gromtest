@@ -13,7 +13,7 @@ public class File {
             this.format = format;
             this.size = siz;
         } else {
-            throw new Exception("create file is not impossible " + "file id " + id + "file name: " + name);
+            throw new Exception("create file is not impossible " + "file id " + id + " file name: " + name);
         }
     }
 

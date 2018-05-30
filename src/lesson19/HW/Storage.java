@@ -91,4 +91,88 @@ public class Storage {
         }
         return false;
     }
+
+    public boolean validFile(File file) {
+        //перевіряємо формат +
+        //перевіряємо розмір +
+        //перевірка наявності файлу +
+        if (file == null)
+            return false;
+        if (!supportedFormatValid(file.getFormat()))
+            return false;
+        if ((storageSizeCur() + file.getSize()) > storageSize)
+            return false;
+
+        return true;
+
+    }
+
+    public boolean validFiles(File[] f) {
+        long size = 0;
+
+        for (File element : f) {
+
+            if (element != null) {
+                if (!validFile(element))
+                    return false;
+                if(!fileNoAlreadyExistChecking(element))
+                    return false;
+                size += element.getSize();
+            }
+        }
+        long storageSizeCur = 0;
+        for (File file : files) {
+            if (file != null)
+                storageSizeCur += file.getSize();
+        }
+        if ((size + storageSizeCur) > storageSize)
+            return false;
+
+
+        return true;
+    }
+
+    public int indexOfFile(File file) throws Exception {
+        int index = 0;
+        for (File element : files) {
+            if (element != null && element.equals(file))
+                return index;
+            index++;
+        }
+        throw new Exception("file is not exist in this storage");
+    }
+
+    public boolean fileNoAlreadyExistChecking(File file) {
+
+        for (File element : files) {
+            if (element != null && element.equals(file))
+                return false;
+
+        }
+        return true;
+    }
+
+    public int indexOfFirstFreeCell() throws Exception {
+        int index = 0;
+        for (File element : files) {
+            if (element == null)
+                return index;
+            index++;
+        }
+        throw new Exception("no free cells");
+
+    }
+
+    public File findFileById(long id) {
+        if (id < 0)
+            return null;
+
+
+        for (File element : files) {
+            if (element != null && element.getId() == id)
+                return element;
+        }
+        return null;
+    }
+
 }
