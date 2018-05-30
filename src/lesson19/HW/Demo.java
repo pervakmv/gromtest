@@ -126,7 +126,7 @@ public class Demo {
 
                 files[fileId] = new File((long) fileId + offsetId, fileName[fileId], formatFile, sizeOfFiles);
 
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch ( Exception e ) {
                 System.err.println("індекc за межами масиву " + "index = " + fileId);
             }
         }

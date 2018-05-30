@@ -6,11 +6,15 @@ public class File {
     private String format;
     private long size;
 
-    public File(long id, String name, String format, long siz) {
-        this.id = id;
-        this.name = name;
-        this.format = format;
-        this.size = siz;
+    public File(long id, String name, String format, long siz) throws Exception {
+        if (name.length() < 11) {
+            this.id = id;
+            this.name = name;
+            this.format = format;
+            this.size = siz;
+        } else {
+            throw new Exception("create file is not impossible " + "file id " + id + "file name: " + name);
+        }
     }
 
     public long getId() {

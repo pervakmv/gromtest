@@ -165,14 +165,14 @@ public class Controller {
 
     private boolean CheckFile(Storage storage, File file) throws Exception {
         //перевіряємо чи файл відповідає усім критеріям
-        //Довжина імені не може бути більша за 10 +
+        //Довжина імені не може бути більша за 10 + //переносимо в конструктор
         //Перевіряємо чи допустимий формат файлу +
-        int maxNameLonFiles = 10;
-        String filesName = file.getName();
-        if (filesName.length() > 10) {
-            throw new Exception("CheckFile: file's name is to long " + "file id: " + file.getId() + " storage id: " + storage.getId());
-
-        }
+//        int maxNameLonFiles = 10;
+//        String filesName = file.getName();
+//        if (filesName.length() > 10) {
+//            throw new Exception("CheckFile: file's name is to long " + "file id: " + file.getId() + " storage id: " + storage.getId());
+//
+//        }
 
         if (storage.supportedFormatValid(file.getFormat())) {
             return true;
