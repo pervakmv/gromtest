@@ -39,6 +39,22 @@ public class File {
                 '}';
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        File file = (File) o;
+//
+//        return id == file.id;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return (int) (id ^ (id >>> 32));
+//    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,11 +62,14 @@ public class File {
 
         File file = (File) o;
 
-        return id == file.id;
+        if (id != file.id) return false;
+        return name.equals(file.name);
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }
