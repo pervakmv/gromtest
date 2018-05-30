@@ -61,7 +61,7 @@ public class Demo {
             System.out.println(e.getMessage());
         }
         try {
-            controler.delete(storage2, new File(201, "paris", "xml", 22));
+            controler.delete(storage2, new File(201, "paris", "dat", 22));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

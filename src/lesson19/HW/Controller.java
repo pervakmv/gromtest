@@ -80,7 +80,8 @@ public class Controller {
                 files[index] = null;
             } else {
 
-                throw new Exception("delete: no file here");
+
+                throw new Exception("delete: no file exist " + "file id: " + file.getId() + " storage id: " + storage.getId());
             }
         }
     }
@@ -179,7 +180,6 @@ public class Controller {
             throw new Exception("CheckFile: files format is not valid" + "file id: " + file.getId() + " storage id: " + storage.getId());
         }
     }
-
 
 
 }
