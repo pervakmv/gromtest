@@ -9,16 +9,19 @@ public class Controller {
         //перевіряємо чи вистачить місця в сховищі +
         //шукаю вільне місце в масиві щоб записати туди наш фал +
 
-        if (storage != null && file != null) {
+        if (storage == null && file == null) {
+            System.out.println("null object" + "file id: " + file.getId() + " storage id: " + storage.getId());
+        } else {
+
+
             File files[] = storage.getFiles();
             //Перевіряємо чи відповідає файл критеріям репозиторію +
             if (!CheckFile(storage, file)) {
-                throw new Exception("put: file is not valid");
+                throw new Exception("put: file is not valid " + "file id: " + file.getId() + " storage id: " + storage.getId());
             }
             if ((storage.storageSizeCur() + file.getSize()) > storage.getStorageSize()) {
-                throw new Exception("put: not enough memory");
+                throw new Exception("put: not enught memory " + "file id: " + file.getId() + " storage id: " + storage.getId());
             }
-
 
             if (!findFile(storage, file)) {
                 int index = 0;
@@ -34,14 +37,15 @@ public class Controller {
 
                 }
                 if (putSuccses == false)
-                    throw new Exception("put: no free place");
+                    throw new Exception("put: no free place " + "file id: " + file.getId() + " storage id: " + storage.getId());
+
             } else {
-                throw new Exception("put: file allready exist");
-                //System.out.println("file allready exist");
+
+                throw new Exception("put: file allready exist " + "file id: " + file.getId() + " storage id: " + storage.getId());
             }
-        } else
-            System.out.println("null object");
-    }
+        }
+
+    }//put
 
     private File findFileById(Storage storage, long id) {
         if (storage == null &&
@@ -63,7 +67,7 @@ public class Controller {
         //визначаємо індекс +
         if (storage == null
                 || file == null) {
-            System.out.println("storage or file is null");
+            System.out.println("delete: storage or file is null");
 
         } else {
 
@@ -76,36 +80,21 @@ public class Controller {
                 files[index] = null;
             } else {
 
-                throw new Exception("no file here");
+                throw new Exception("delete: no file here");
             }
         }
     }
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
         //Первірка об'єктів на null
-        //Перевіряємо формат +
-        //Перевіряємо чи вмістяться нові файли в цільове сховище+
+
+
         //переносимо файли за допомогою функцій delete and put+
         if (storageFrom == null
                 || storageTo == null
                 || storageFrom.getFiles() == null) {
-            System.out.println("null object");
+            System.out.println("transferAll: null object");
         } else {
-            String[] destStorageSupportedFormats = storageTo.getFormatsSupported();
-            String[] sourcStorageSupportedFormats = storageFrom.getFormatsSupported();
-            boolean flagFormatsOk = true;
-            for (String element : sourcStorageSupportedFormats) {
-                if (element != null) {
-                    if (!supportedFormatValid(destStorageSupportedFormats, element)) {
-                        flagFormatsOk = false;
-                        throw new Exception("new storage doesn't support this formats");
-
-                    }
-                }
-            }
-
-            if ((storageTo.storageSizeCur() + storageFrom.storageSizeCur()) > storageTo.getStorageSize())
-                throw new Exception("size of files is to big");
 
             File[] storageFromFiles = storageFrom.getFiles();
 
@@ -128,12 +117,12 @@ public class Controller {
             System.out.println("transferFile: null object");
         } else {
             File file = findFileById(storageFrom, id);
-            if(file!=null){
-                try{
+            if (file != null) {
+                try {
                     put(storageTo, file);
                     delete(storageFrom, file);
-                }catch(Exception e){
-                    System.out.println("put:"+e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("transferFile:" + e.getMessage());
                 }
             }
 
@@ -183,23 +172,23 @@ public class Controller {
             throw new Exception("file's name is to long");
         }
 
-        if (supportedFormatValid(storage.getFormatsSupported(), file.getFormat())) {
+        if (storage.supportedFormatValid(file.getFormat())) {
             return true;
         } else {
-            throw new Exception("files format is  not valid");
+            throw new Exception("check file: files format is  not valid");
         }
     }
 
-    private boolean supportedFormatValid(String[] supportedFormats, String format) {
-        if (supportedFormats == null)
-            return false;
-
-        for (String element : supportedFormats) {
-            if (element != null && element.equalsIgnoreCase(format))
-                return true;
-        }
-        return false;
-    }
+//    private boolean supportedFormatValid(String[] supportedFormats, String format) {
+//        if (supportedFormats == null)
+//            return false;
+//
+//        for (String element : supportedFormats) {
+//            if (element != null && element.equalsIgnoreCase(format))
+//                return true;
+//        }
+//        return false;
+//    }
 
 }
 

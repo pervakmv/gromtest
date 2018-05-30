@@ -71,14 +71,24 @@ public class Storage {
         this.storageSize = storageSize;
     }
 
-    public long storageSizeCur(){
+    public long storageSizeCur() {
         //визначаємо розмір усіх файлів в сховищі +
-        long res=0;
-        for(File element : files){
-            if(element!=null){
+        long res = 0;
+        for (File element : files) {
+            if (element != null) {
                 res += element.getSize();
             }
         }
         return res;
+    }
+
+
+    public boolean supportedFormatValid(String format) {
+
+        for (String element : formatsSupported) {
+            if (element != null && element.equalsIgnoreCase(format))
+                return true;
+        }
+        return false;
     }
 }

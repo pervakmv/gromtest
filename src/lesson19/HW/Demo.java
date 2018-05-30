@@ -35,13 +35,13 @@ public class Demo {
         try {
             controler.put(storage1, new File(107, "system", "dat", 23));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("storage 1 " + e.getMessage());
         }
 
         try {
             controler.put(storage2, new File(107, "system", "dat", 28));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("storage 2" + e.getMessage());
         }
         try {
             controler.put(null, null);
@@ -76,14 +76,20 @@ public class Demo {
 
         //Пробуємо метод transferAll
         System.out.println(" -------- метод transferAll -------- ");
+        //Збільшуємо розмір сховища 2
+        storage2.setStorageSize(110);
 
         try {
             controler.transferAll(storage1, storage2);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        //Збільшуємо розмір сховища 2
-        storage2.setStorageSize(200);
+
+        System.out.println(storage1.toString());
+        System.out.println(storage2.toString());
+
+
+
         try {
             controler.transferAll(storage1, storage2);
         } catch (Exception e) {
