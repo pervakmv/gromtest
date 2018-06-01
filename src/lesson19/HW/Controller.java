@@ -52,12 +52,8 @@ public class Controller {
 
             File[] storageFromFiles = storageFrom.getFiles();
 
-            try {
-                storageTo.checkFiles(storageFromFiles);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                flagAllOk = false;
-            }
+
+            storageTo.checkFiles(storageFromFiles);
 
             //перевірка наявних вільних місць в масиві сховища
 
@@ -65,19 +61,15 @@ public class Controller {
                 throw new Exception(" no free celses at the storage id: " + storageTo.getId());
             }
 
-            if (flagAllOk == true) {
-                for (File transferFile : storageFromFiles) {
-                    if (transferFile == null)
-                        continue;
-                    try {
-                        put(storageTo, transferFile);
-                        delete(storageFrom, transferFile);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
+
+            for (File transferFile : storageFromFiles) {
+                if (transferFile == null)
+                    continue;
+                storageTo.putFile( transferFile);
+                delete(storageFrom, transferFile);
             }
         }
+
     }
 
     private int numberNullElementFileArray(File[] files) {
