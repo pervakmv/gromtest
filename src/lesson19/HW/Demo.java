@@ -13,10 +13,10 @@ public class Demo {
         String[] formatSupportedStorage1 = {"dat", "sys", "doc", "bat"};
 
         String[] fileNameStorage2 = {"kyiv", "paris", "london", "boston", "warsaw", "riga"};
-        String formatFileStorage2 = "exe";
+        String formatFileStorage2 = "dat";
         long idOffsetStorage2 = 100;
-        //String[] formatSupportedStorage2 = {"dat", "exe", "doc", "bat"};
-        String[] formatSupportedStorage2 = {"mem", "exe", "doc", "bat"};
+        String[] formatSupportedStorage2 = {"dat", "exe", "doc", "bat"};
+        //String[] formatSupportedStorage2 = {"mem", "exe", "doc", "bat"};
 
 
         Storage storage1 = CreateStorage(1, 100, fileNameStorage1, formatFileStorage1, formatSupportedStorage1);
@@ -56,6 +56,17 @@ public class Demo {
 
         System.out.println(storage1.toString());
         System.out.println(storage2.toString());
+
+
+        try{
+            controler.put(storage1, new File(200, "msconfig", "dat", 10));
+            System.out.println("5. Done...");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println(storage1.toString());
+        System.out.println(storage2.toString());
+
 
         //Пробуємо метод delete
         System.out.println(" -------- метод delete -------- ");

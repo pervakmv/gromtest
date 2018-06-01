@@ -4,18 +4,21 @@ public class Controller {
 
     public void put(Storage storage, File file) throws Exception {
 
+
         //зчитуємо масив файлів з репозиторію +
         //перевіряємо файл +
         //записуємо файл +
+        if (storage != null && file != null) {
 
-        File files[] = storage.getFiles();
-        try {
-            storage.checkFile(file);
-            storage.putFile(file);
-        } catch (Exception e) {
-            System.out.println("put: " + e.getMessage());
+
+            File files[] = storage.getFiles();
+            try {
+                storage.checkFile(file);
+                storage.putFile(file);
+            } catch (Exception e) {
+                System.out.println("put: " + e.getMessage());
+            }
         }
-
 
     }//put
 
