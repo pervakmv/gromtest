@@ -46,12 +46,12 @@ public class Controller {
         //переносимо файли за допомогою функцій delete and put+
         if (storageFrom == null
                 || storageTo == null
-                || storageFrom.getFiles() == null) {
+                || storageFrom.getFiles() == null
+                ||storageTo.getFiles() == null) {
             System.out.println("transferAll: null object");
         } else {
 
             File[] storageFromFiles = storageFrom.getFiles();
-
 
             storageTo.checkFiles(storageFromFiles);
 

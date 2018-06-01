@@ -118,6 +118,7 @@ public class Storage {
                     throw new Exception("file already exist. File" + " file id: " + element.getId() + " storage id: " + id);
                 if (findFileById(element.getId()) != null)
                     throw new Exception("file with same ID is already exist " + "file id: " + element.getId() + " storage id: " + id);
+
                 size += element.getSize();
             }
         }
@@ -127,7 +128,7 @@ public class Storage {
                 storageSizeCur += file.getSize();
         }
         if ((size + storageSizeCur) > storageSize)
-            throw new Exception("siz of files is to big");
+            throw new Exception("siz of files is to big" + "storage id " + id);
     }
 
     public int indexOfFile(File file) throws Exception {

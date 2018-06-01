@@ -18,10 +18,16 @@ public class Demo {
         String[] formatSupportedStorage2 = {"dat", "exe", "doc", "bat"};
         //String[] formatSupportedStorage2 = {"mem", "exe", "doc", "bat"};
 
+        String[] fileNameStorage3 = {null, null, null, null };
+        String formatFileStorage3 = "dat";
+        long idOffsetStorage3 = 100;
+        String[] formatSupportedStorage3 = {"dat", "exe", "doc", "bat"};
+        //String[] formatSupportedStorage2 = {"mem", "exe", "doc", "bat"};
+
 
         Storage storage1 = CreateStorage(1, 100, fileNameStorage1, formatFileStorage1, formatSupportedStorage1);
         Storage storage2 = CreateStorage(2, 200, fileNameStorage2, formatFileStorage2, formatSupportedStorage2);
-        Storage storage3 = new Storage();
+        Storage storage3 = CreateStorage( 3, 300,fileNameStorage3,formatFileStorage3, formatSupportedStorage3);
         Controller controller = new Controller();
       //PUT
         System.out.println(" - PUT - ");
@@ -54,7 +60,21 @@ public class Demo {
         System.out.println(storage2.toString());
         System.out.println(storage3.toString());
 
+        //Transfer All
+        System.out.println(" - Transfer all - ");
+        System.out.println(storage1.toString());
+        System.out.println(storage2.toString());
+        System.out.println(storage3.toString());
 
+        try{
+            controller.transferAll(storage1, storage3);
+            System.out.println("Result");
+            System.out.println(storage1.toString());
+            System.out.println(storage2.toString());
+            System.out.println(storage3.toString());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
 
