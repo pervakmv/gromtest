@@ -99,21 +99,17 @@ public class Controller {
         return res;
     }
 
-    public void transferFile(Storage storageFrom, Storage storageTo, long id) {
+    public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
         if (storageFrom == null ||
                 storageTo == null) {
             System.out.println("transferFile: null object");
         } else {
             File file = storageFrom.findFileById(id);
             if (file != null) {
+                storageTo.checkFile(file);
+                storageTo.putFile(file);
+                delete(storageFrom, file);
 
-
-                try {
-                    put(storageTo, file);
-                    delete(storageFrom, file);
-                } catch (Exception e) {
-                    System.out.println("transferFile:" + e.getMessage());
-                }
 
             }
 

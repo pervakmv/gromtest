@@ -39,7 +39,7 @@ public class Demo {
         }
 
         try {
-            controller.put(storage2, new File(299, "elas", "dat", 10));
+            controller.put(storage2, new File(299, "elSas", "dat", 10));
             controller.put(storage2, new File(300, "vailand", "doc", 10));
             controller.put(storage2, new File(301, "visman", "doc", 10));
 //            controller.put(storage2, new File(302, "gogog", "doc", 10));
