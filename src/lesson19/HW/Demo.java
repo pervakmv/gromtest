@@ -59,7 +59,7 @@ public class Demo {
 
 
         try{
-            controler.put(storage1, new File(200, "msconfig", "dat", 2));
+            controler.put(storage2, new File(200, "msconfig", "dat", 2));
             System.out.println("5. Done...");
         }catch(Exception e){
             System.out.println(e.getMessage());
