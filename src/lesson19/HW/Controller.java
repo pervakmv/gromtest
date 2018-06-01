@@ -8,18 +8,9 @@ public class Controller {
         //зчитуємо масив файлів з репозиторію +
         //перевіряємо файл +
         //записуємо файл +
-        if (storage != null && file != null) {
-
-
             File files[] = storage.getFiles();
-            try {
-                storage.checkFile(file);
-                storage.putFile(file);
-            } catch (Exception e) {
-                System.out.println("put: " + e.getMessage());
-            }
-        }
-
+            storage.checkFile(file);
+            storage.putFile(file);
     }//put
 
 

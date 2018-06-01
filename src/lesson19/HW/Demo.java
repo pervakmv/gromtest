@@ -22,119 +22,24 @@ public class Demo {
         Storage storage1 = CreateStorage(1, 100, fileNameStorage1, formatFileStorage1, formatSupportedStorage1);
         Storage storage2 = CreateStorage(2, 200, fileNameStorage2, formatFileStorage2, formatSupportedStorage2);
         Storage storage3 = new Storage();
-        System.out.println(storage1.toString() + "storageSizeCur " + storage1.storageSizeCur());
-        System.out.println(storage2.toString() + "storageSizeCur " + storage2.storageSizeCur());
-        System.out.println(" Пробуємо put ");
-        Controller controler = new Controller();
-        try {
-            controler.put(storage1, new File(106, "systemsystemsystem", "dat", 25));
-            System.out.println("1.Done ...");
+        Controller controller = new Controller();
+      //PUT
+        System.out.println(" - PUT - ");
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            controler.put(storage1, new File(102, "config", "dat", 23));
-            System.out.println("2.Done ...");
-        } catch (Exception e) {
-            System.out.println("storage 1 " + e.getMessage());
-        }
 
         try {
-            controler.put(storage2, new File(107, "system", "dat", 28));
-            System.out.println("3.Done ...");
-        } catch (Exception e) {
-            System.out.println("storage 2 " + e.getMessage());
-        }
-        try {
-            controler.put(storage1, null);
-            System.out.println("4.Done ...");
-        } catch (Exception e) {
+            controller.put(storage1, new File(110, "elas", "dat", 10));
+            System.out.println("Result");
+            System.out.println(storage1.toString());
+        }catch (Exception e){
+            System.out.print("Error : = ");
             System.out.println(e.getMessage());
         }
 
 
-        System.out.println(storage1.toString());
-        System.out.println(storage2.toString());
 
 
-        try{
-            controler.put(storage2, new File(200, "msconfig", "dat", 2));
-            System.out.println("5. Done...");
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        System.out.println(storage1.toString());
-        System.out.println(storage2.toString());
 
-
-        //Пробуємо метод delete
-        System.out.println(" -------- метод delete -------- ");
-
-        try {
-            controler.delete(storage1, new File(111, "autoexec", "dat", 25));
-            System.out.println("Done ... ");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            controler.delete(storage2, new File(201, "paris", "dat", 22));
-            System.out.println("2 Done ...");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            controler.delete(null, null);
-            System.out.println("Done ...");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println(storage1.toString());
-        System.out.println(storage2.toString());
-
-        //Пробуємо метод transferAll
-        System.out.println(" -------- метод transferAll -------- ");
-        //Збільшуємо розмір сховища 2
-        storage2.setStorageSize(110);
-
-        try {
-            controler.transferAll(storage1, storage2);
-            System.out.println("Done 1...");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println(storage1.toString());
-        System.out.println(storage2.toString());
-
-
-        storage2.setStorageSize(310);
-
-//        try {
-//            controler.put(storage1, new File(200, "kyiv", "dat", 10));
-//            System.out.println("add done");
-//        }catch(Exception e){
-//            System.out.println(e.getMessage());
-//        }
-
-        try {
-            controler.transferAll(storage1, storage2);
-
-            System.out.println("Done 2...");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println(storage1.toString());
-        System.out.println(storage2.toString());
-
-        //Пробуємо метод transfer
-        System.out.println(" -------- метод transferFile -------- ");
-        controler.transferFile(storage2, storage1, 202);
-
-        System.out.println(storage1.toString());
-        System.out.println(storage2.toString());
 
     }
 
@@ -144,7 +49,8 @@ public class Demo {
         //створюю репозиторій +
         //виводимо репозиторій +
 
-        int filesNumber = 30;
+
+        int filesNumber = 8;
         File[] files = new File[filesNumber];
 
 
