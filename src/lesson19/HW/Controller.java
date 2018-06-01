@@ -44,7 +44,7 @@ public class Controller {
     }
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-        //Первірка об'єктів на null
+        boolean flagAllOk = true;
 
 
         //переносимо файли за допомогою функцій delete and put+
@@ -60,6 +60,7 @@ public class Controller {
                 storageTo.checkFiles(storageFromFiles);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                flagAllOk = false;
             }
 
             //перевірка наявних вільних місць в масиві сховища
@@ -68,15 +69,16 @@ public class Controller {
                 throw new Exception(" no free celses at the storage id: " + storageTo.getId());
             }
 
-
-            for (File transferFile : storageFromFiles) {
-                if (transferFile == null)
-                    continue;
-                try {
-                    storageTo.putFile(transferFile);
-                    delete(storageFrom, transferFile);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+            if (flagAllOk == true) {
+                for (File transferFile : storageFromFiles) {
+                    if (transferFile == null)
+                        continue;
+                    try {
+                        storageTo.putFile(transferFile);
+                        delete(storageFrom, transferFile);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }
