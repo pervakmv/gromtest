@@ -10,13 +10,13 @@ public class Demo {
         String[] fileNameStorage1 = {"msconfig", "autoexec", "config", "main", "agregat", "menu"};
         String formatFileStorage1 = "dat";
         long idOffsetStorage1 = 100;
-        String[] formatSupportedStorage1 = {"dat", "exe", "doc", "bat"};
+        String[] formatSupportedStorage1 = {"dat", "sys", "doc", "bat"};
 
         String[] fileNameStorage2 = {"kyiv", "paris", "london", "boston", "warsaw", "riga"};
-        String formatFileStorage2 = "dat";
+        String formatFileStorage2 = "exe";
         long idOffsetStorage2 = 100;
-        String[] formatSupportedStorage2 = {"dat", "exe", "doc", "bat"};
-        //String[] formatSupportedStorage2 = {"mem", "exe", "doc", "bat"};
+        //String[] formatSupportedStorage2 = {"dat", "exe", "doc", "bat"};
+        String[] formatSupportedStorage2 = {"mem", "exe", "doc", "bat"};
 
 
         Storage storage1 = CreateStorage(1, 100, fileNameStorage1, formatFileStorage1, formatSupportedStorage1);
