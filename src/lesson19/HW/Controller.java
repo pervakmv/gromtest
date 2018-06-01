@@ -11,11 +11,12 @@ public class Controller {
         File files[] = storage.getFiles();
         try {
             storage.checkFile(file);
+            storage.putFile(file);
         } catch (Exception e) {
-            System.out.println("Yes = " + e.getMessage());
+            System.out.println("put" + e.getMessage());
         }
 
-        storage.putFile(file);
+
     }//put
 
 

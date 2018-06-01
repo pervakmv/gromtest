@@ -34,7 +34,7 @@ public class Demo {
             System.out.println(e.getMessage());
         }
         try {
-            controler.put(storage1, new File(108, "system", "dat", 23));
+            controler.put(storage1, new File(108, "system", "mem", 23));
             System.out.println("2.Done ...");
         } catch (Exception e) {
             System.out.println("storage 1 " + e.getMessage());
