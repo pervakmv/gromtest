@@ -99,8 +99,8 @@ public class Storage {
         if ((file != null) && !checkFormatFile(file.getFormat()))
             throw new Exception("format file is not supported " + "file id: " + file.getId() + " storage id: " + id);
         if (file != null && ((storageSizeCur() + file.getSize()) > storageSize))
-            throw new Exception("file's size is to big " + "file id: " + file.getId() + " storage id: " + id);
-        if ((file != null) && !verifyFileNonExistence(file))
+            throw new Exception("size of file is to big " + "file id: " + file.getId() + " storage id: " + id);
+        if ((file != null) && !verifyFileNonExistenceById(file))
             throw new Exception("file already exist " + "file id: " + file.getId() + " storage id: " + id);
     }
 
@@ -112,7 +112,7 @@ public class Storage {
             if (element != null) {
                 if (!checkFormatFile(element.getFormat()))
                     throw new Exception("format files not supported files " + "file id: " + element.getId() + " storage id: " + id);
-                if (!verifyFileNonExistence(element))
+                if (!verifyFileNonExistenceById(element))
                     throw new Exception("file already exist. File" + " file id: " + element.getId() + " storage id: " + id);
                 size += element.getSize();
             }
@@ -136,10 +136,10 @@ public class Storage {
         throw new Exception("file is not exist in this storage" + "file id: " + file.getId() + "storage id: " + id);
     }
 
-    public boolean verifyFileNonExistence(File file) {
+    public boolean verifyFileNonExistenceById(File file) {
 
         for (File element : files) {
-            if (element != null && element.equals(file))
+            if (element != null && element.getId()==file.getId())
                 return false;
 
         }

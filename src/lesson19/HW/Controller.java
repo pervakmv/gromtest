@@ -34,7 +34,7 @@ public class Controller {
 
             File[] files = storage.getFiles();
 
-            if (storage.verifyFileNonExistence(file)) {
+            if (storage.verifyFileNonExistenceById(file)) {
                 throw new Exception("delete: no file exist " + "file id: " + file.getId() + " storage id: " + storage.getId());
             }
             try {
@@ -77,7 +77,7 @@ public class Controller {
                     if (transferFile == null)
                         continue;
                     try {
-                        storageTo.putFile(transferFile);
+                        put(storageTo,transferFile);
                         delete(storageFrom, transferFile);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());

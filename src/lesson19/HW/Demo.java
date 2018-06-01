@@ -59,7 +59,7 @@ public class Demo {
 
 
         try{
-            controler.put(storage1, new File(200, "msconfig", "dat", 10));
+            controler.put(storage1, new File(200, "msconfig", "dat", 2));
             System.out.println("5. Done...");
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -110,6 +110,14 @@ public class Demo {
 
 
         storage2.setStorageSize(310);
+
+//        try {
+//            controler.put(storage1, new File(200, "kyiv", "dat", 10));
+//            System.out.println("add done");
+//        }catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+
         try {
             controler.transferAll(storage1, storage2);
 
