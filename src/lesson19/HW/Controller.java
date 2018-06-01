@@ -109,20 +109,15 @@ public class Controller {
 
                 try {
                     put(storageTo, storageFrom.findFileById(id));
-                }catch(Exception e){
-                    System.out.println(e.getMessage());
-                }
-                try {
                     delete(storageFrom, file);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-
+                
             }
 
         }
     }
-
 
 }
 
