@@ -107,13 +107,14 @@ public class Controller {
             File file = storageFrom.findFileById(id);
             if (file != null) {
 
+
                 try {
-                    put(storageTo, storageFrom.findFileById(id));
+                    put(storageTo, file);
                     delete(storageFrom, file);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    System.out.println("transferFile:" + e.getMessage());
                 }
-                
+
             }
 
         }
