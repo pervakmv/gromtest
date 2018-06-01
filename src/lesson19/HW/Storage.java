@@ -169,11 +169,14 @@ public class Storage {
         return null;
     }
 
-    public void putFile(File file) throws ArrayIndexOutOfBoundsException {
+    public void putFile(File file) throws Exception {
 
         int index = 0;
         while (files[index] != null) {
             index++;
+            if(index== files.length){
+                throw new Exception("ArryIndexOutBound" + "storage id" + id);
+            }
         }
         files[index] = file;
 
