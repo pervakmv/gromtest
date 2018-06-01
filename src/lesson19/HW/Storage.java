@@ -83,7 +83,7 @@ public class Storage {
     }
 
 
-    public boolean supportedFormatValid(String format) {
+    public boolean checkFormatFile(String format) {
 
         for (String element : formatsSupported) {
             if (element != null && element.equalsIgnoreCase(format))
@@ -92,31 +92,28 @@ public class Storage {
         return false;
     }
 
-    public boolean validFile(File file) {
+    public void checkFile(File file) throws Exception {
         //перевіряємо формат +
         //перевіряємо розмір +
         //перевірка наявності файлу +
-        if (file == null)
-            return false;
-        if (!supportedFormatValid(file.getFormat()))
-            return false;
-        if ((storageSizeCur() + file.getSize()) > storageSize)
-            return false;
-
-        return true;
-
+        if ((file != null) && !checkFormatFile(file.getFormat()))
+            throw new Exception("format files not supported files id: " + file.getId() + " storage id: " + id);
+        if (file!=null &&((storageSizeCur() + file.getSize()) > storageSize))
+            throw new Exception("file's size is to big. Files id: " + file.getId() + " storage id: " + id);
+        if (!verifyFileNonExistence(file))
+            throw new Exception("file already exist. File id:" + file.getId() + " storage id: " + id);
     }
 
-    public boolean validFiles(File[] f) {
+    public void checkFiles(File[] f) throws Exception {
         long size = 0;
 
         for (File element : f) {
 
             if (element != null) {
-                if (!validFile(element))
-                    return false;
-                if(!fileNoAlreadyExistChecking(element))
-                    return false;
+                if (!checkFormatFile(element.getFormat()))
+                    throw new Exception("format files not supported files id: " + element.getId() + " storage id: " + id);
+                if (!verifyFileNonExistence(element))
+                    throw new Exception("file already exist. File id: " + element.getId() + " storage id: " + id);
                 size += element.getSize();
             }
         }
@@ -126,10 +123,7 @@ public class Storage {
                 storageSizeCur += file.getSize();
         }
         if ((size + storageSizeCur) > storageSize)
-            return false;
-
-
-        return true;
+            throw new Exception("siz of files is to big. Storage id: " + id);
     }
 
     public int indexOfFile(File file) throws Exception {
@@ -142,7 +136,7 @@ public class Storage {
         throw new Exception("file is not exist in this storage");
     }
 
-    public boolean fileNoAlreadyExistChecking(File file) {
+    public boolean verifyFileNonExistence(File file) {
 
         for (File element : files) {
             if (element != null && element.equals(file))
@@ -159,7 +153,7 @@ public class Storage {
                 return index;
             index++;
         }
-        throw new Exception("no free cells");
+        throw new Exception("no free cells storage id " + id);
 
     }
 
@@ -173,6 +167,17 @@ public class Storage {
                 return element;
         }
         return null;
+    }
+
+    public void putFile(File file) {
+
+        if (file != null) {
+            try {
+                files[indexOfFirstFreeCell()] = file;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 }

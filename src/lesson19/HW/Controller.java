@@ -5,67 +5,17 @@ public class Controller {
     public void put(Storage storage, File file) throws Exception {
 
         //зчитуємо масив файлів з репозиторію +
-        //перевіряємо чи в репозиторії немає уже такого файлу +
-        //перевіряємо чи вистачить місця в сховищі +
-        //шукаю вільне місце в масиві щоб записати туди наш фал +
+        //перевіряємо файл +
+        //записуємо файл +
 
-
-        if (storage == null || file == null) {
-            System.out.println("null object");
-
-
-        } else {
-
-
-            File files[] = storage.getFiles();
-//            //Перевіряємо чи відповідає файл критеріям репозиторію +
-//            if (!CheckFile(storage, file)) {
-//                throw new Exception("put: file is not valid " + "file id: " + file.getId() + " storage id: " + storage.getId());
-//            }
-//            if ((storage.storageSizeCur() + file.getSize()) > storage.getStorageSize()) {
-//                throw new Exception("put: not enught memory " + "file id: " + file.getId() + " storage id: " + storage.getId());
-//            }
-//
-//            if (!findFile(storage, file)) {
-//                int index = 0;
-//                boolean putSuccses = false;
-//                for (File element : files) {
-//
-//                    if (element == null) {
-//                        files[index] = file;
-//                        putSuccses = true;
-//                        break;
-//                    }
-//                    index++;
-//
-//                }
-//                if (putSuccses == false)
-//                    throw new Exception("put: no free place " + "file id: " + file.getId() + " storage id: " + storage.getId());
-//
-//            } else {
-//
-//                throw new Exception("put: file allready exist " + "file id: " + file.getId() + " storage id: " + storage.getId());
-//            }
-
-
-            if (!storage.validFile(file)) {
-                throw new Exception("put: file is not valid for this storage " + " File Id: " + file.getId() + " storage id: " + storage.getId());
-            }
-
-
-            if (!storage.fileNoAlreadyExistChecking(file))
-                throw new Exception("put: file already exist in this storage " + " File Id " + file.getId() + " storage id: " + storage.getId());
-
-
-            try {
-                files[storage.indexOfFirstFreeCell()] = file;
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
+        File files[] = storage.getFiles();
+        try {
+            storage.checkFile(file);
+        } catch (Exception e) {
+            System.out.println("Yes = " + e.getMessage());
         }
 
+        storage.putFile(file);
     }//put
 
 
@@ -78,20 +28,9 @@ public class Controller {
 
         } else {
 
-//            int index = indexOfFile(storage, file);
-//
             File[] files = storage.getFiles();
-//
-//            if (index > -1) {
-//
-//                files[index] = null;
-//            } else {
-//
-//
-//                throw new Exception("delete: no file exist " + "file id: " + file.getId() + " storage id: " + storage.getId());
-//            }
 
-            if (storage.fileNoAlreadyExistChecking(file)) {
+            if (storage.verifyFileNonExistence(file)) {
                 throw new Exception("delete: no file exist " + "file id: " + file.getId() + " storage id: " + storage.getId());
             }
             try {
@@ -116,10 +55,10 @@ public class Controller {
 
             File[] storageFromFiles = storageFrom.getFiles();
 
-
-            //валідація
-            if (!storageTo.validFiles(storageFromFiles)) {
-                throw new Exception(" it's not impossible to transfer files to storage id: " + storageTo.getId());
+            try {
+                storageTo.checkFiles(storageFromFiles);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
 
             //перевірка наявних вільних місць в масиві сховища
@@ -133,7 +72,7 @@ public class Controller {
                 if (transferFile == null)
                     continue;
                 try {
-                    put(storageTo, transferFile);
+                    storageTo.putFile(transferFile);
                     delete(storageFrom, transferFile);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -151,10 +90,10 @@ public class Controller {
         return res;
     }
 
-    private int numberNotNullElementFileArray(File[] files){
+    private int numberNotNullElementFileArray(File[] files) {
         int res = 0;
-        for(File element : files){
-            if(element!=null)
+        for (File element : files) {
+            if (element != null)
                 res++;
 
         }
@@ -178,57 +117,6 @@ public class Controller {
 
         }
     }
-
-
-//    private int indexOfFile(Storage storage, File file) {
-//
-//        if (storage == null)
-//            return -1;
-//        if (file == null)
-//            return -1;
-//        //зчитуємо масив файлів +
-//        File[] files = storage.getFiles();
-//        int index = 0;
-//        for (File element : files) {
-//
-//            if (element != null && element.equals(file)) {
-//                return index;
-//            }
-//            index++;
-//        }
-//        return -1;
-//    }
-//
-//
-//    private boolean findFile(Storage storage, File file) {
-//        if (storage == null)
-//            return false;
-//        File files[] = storage.getFiles();
-//        for (File element : files) {
-//            if (element != null && file.equals(element))
-//                return true;
-//        }
-//        return false;
-//    }
-
-
-//    private boolean CheckFile(Storage storage, File file) throws Exception {
-//        //перевіряємо чи файл відповідає усім критеріям
-//        //Довжина імені не може бути більша за 10 + //переносимо в конструктор
-//        //Перевіряємо чи допустимий формат файлу +
-////        int maxNameLonFiles = 10;
-////        String filesName = file.getName();
-////        if (filesName.length() > 10) {
-////            throw new Exception("CheckFile: file's name is to long " + "file id: " + file.getId() + " storage id: " + storage.getId());
-////
-////        }
-//
-//        if (storage.supportedFormatValid(file.getFormat())) {
-//            return true;
-//        } else {
-//            throw new Exception("CheckFile: files format is not valid" + "file id: " + file.getId() + " storage id: " + storage.getId());
-//        }
-//    }
 
 
 }

@@ -28,27 +28,27 @@ public class Demo {
         Controller controler = new Controller();
         try {
             controler.put(storage1, new File(106, "systemsystemsystem", "dat", 25));
-            System.out.println("Done ...");
+            System.out.println("1.Done ...");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         try {
             controler.put(storage1, new File(108, "system", "dat", 23));
-            System.out.println("Done ...");
+            System.out.println("2.Done ...");
         } catch (Exception e) {
             System.out.println("storage 1 " + e.getMessage());
         }
 
         try {
             controler.put(storage2, new File(107, "system", "dat", 28));
-            System.out.println("Done ...");
+            System.out.println("3.Done ...");
         } catch (Exception e) {
             System.out.println("storage 2 " + e.getMessage());
         }
         try {
             controler.put(storage1, null);
-            System.out.println("Done ...");
+            System.out.println("4.Done ...");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
