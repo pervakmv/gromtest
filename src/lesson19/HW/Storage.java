@@ -102,8 +102,8 @@ public class Storage {
             throw new Exception("size of file is to big " + "file id: " + file.getId() + " storage id: " + id);
         if ((file != null) && !verifyFileNonExistence(file))
             throw new Exception("file already exist " + "file id: " + file.getId() + " storage id: " + id);
-//        if((file!= null) && (findFileById(file.getId())!=null))
-//            throw new Exception("file with same ID is already exist " + "file id: " + file.getId() + " storage id: " + id);
+        if ((file != null) && (findFileById(file.getId()) != null))
+            throw new Exception("file with same ID is already exist " + "file id: " + file.getId() + " storage id: " + id);
     }
 
     public void checkFiles(File[] f) throws Exception {
@@ -148,16 +148,14 @@ public class Storage {
         return true;
     }
 
-    public int indexOfFirstFreeCell() throws Exception {
-        int index = 0;
-        for (File element : files) {
-            if (element == null)
-                return index;
-            index++;
-        }
-        throw new Exception("no free cells ");
-
-    }
+//    public int indexOfFirstFreeCell() throws Exception {
+//        int index = 0;
+//        for (File element : files) {
+//            if (element == null)
+//                return index;
+//            index++;
+//        }
+//    }
 
     public File findFileById(long id) {
         if (id < 0)
@@ -171,14 +169,15 @@ public class Storage {
         return null;
     }
 
-    public void putFile(File file) {
+    public void putFile(File file) throws ArrayIndexOutOfBoundsException {
 
         if (file != null) {
-            try {
-                files[indexOfFirstFreeCell()] = file;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            int index = 0;
+            while (files[index] != null) {
+                index++;
             }
+            files[index] = file;
+
         }
     }
 
