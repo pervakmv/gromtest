@@ -11,11 +11,7 @@ public class Controller {
             File files[] = storage.getFiles();
             storage.checkFile(file);
             storage.putFile(file);
-            try {
-                storage.putFile(file);
-            }catch(ArrayIndexOutOfBoundsException e ){
-                System.out.println(e.getMessage() + "file id: " + file.getId() + " storage id: " + storage.getId());
-            }
+
     }//put
 
 
