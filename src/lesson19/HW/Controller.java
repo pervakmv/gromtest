@@ -61,7 +61,6 @@ public class Controller {
                 throw new Exception(" no free celses at the storage id: " + storageTo.getId());
             }
 
-
             for (File transferFile : storageFromFiles) {
                 if (transferFile == null)
                     continue;

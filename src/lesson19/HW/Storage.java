@@ -116,6 +116,8 @@ public class Storage {
                     throw new Exception("format files not supported files " + "file id: " + element.getId() + " storage id: " + id);
                 if (!verifyFileNonExistence(element))
                     throw new Exception("file already exist. File" + " file id: " + element.getId() + " storage id: " + id);
+                if (findFileById(element.getId()) != null)
+                    throw new Exception("file with same ID is already exist " + "file id: " + element.getId() + " storage id: " + id);
                 size += element.getSize();
             }
         }
