@@ -8,9 +8,17 @@ public class Controller {
         //зчитуємо масив файлів з репозиторію +
         //перевіряємо файл +
         //записуємо файл +
-            File files[] = storage.getFiles();
+        File files[] = storage.getFiles();
+        try {
             storage.checkFile(file);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        try {
             storage.putFile(file);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        }
 
     }//put
 
@@ -69,7 +77,7 @@ public class Controller {
                     if (transferFile == null)
                         continue;
                     try {
-                        put(storageTo,transferFile);
+                        put(storageTo, transferFile);
                         delete(storageFrom, transferFile);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -105,12 +113,14 @@ public class Controller {
         } else {
             File file = storageFrom.findFileById(id);
             if (file != null) {
+
+                storageTo.putFile(file);
                 try {
-                    put(storageTo, file);
                     delete(storageFrom, file);
                 } catch (Exception e) {
-                    System.out.println("transferFile:" + e.getMessage());
+                    System.out.println(e.getMessage());
                 }
+
             }
 
         }

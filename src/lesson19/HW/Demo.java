@@ -7,12 +7,12 @@ public class Demo {
         //роблю вивів в консоль те що вийшло +
         //виводимо результати роботи методу put +
 
-        String[] fileNameStorage1 = {"msconfig", "autoexec", "config", "main", "agregat", "menu"};
+        String[] fileNameStorage1 = {"msconfig", "autoexec", "config" };
         String formatFileStorage1 = "dat";
         long idOffsetStorage1 = 100;
         String[] formatSupportedStorage1 = {"dat", "sys", "doc", "bat"};
 
-        String[] fileNameStorage2 = {"kyiv", "paris", "london", "boston", "warsaw", "riga"};
+        String[] fileNameStorage2 = {"kyiv", "paris" };
         String formatFileStorage2 = "dat";
         long idOffsetStorage2 = 100;
         String[] formatSupportedStorage2 = {"dat", "exe", "doc", "bat"};
@@ -29,7 +29,7 @@ public class Demo {
         System.out.println(storage2.toString());
         System.out.println(storage3.toString());
 
-        try {
+        try{
             controller.put(storage1, new File(110, "elas", "dat", 10));
             System.out.println("Result");
             System.out.println(storage1.toString());
@@ -42,7 +42,7 @@ public class Demo {
             controller.put(storage2, new File(299, "elas", "dat", 10));
             controller.put(storage2, new File(300, "vailand", "doc", 10));
             controller.put(storage2, new File(301, "visman", "doc", 10));
-            controller.put(storage2, new File(302, "gogog", "doc", 10));
+//            controller.put(storage2, new File(302, "gogog", "doc", 10));
             System.out.println("Result");
             System.out.println(storage2.toString());
         }catch (Exception e){
@@ -65,11 +65,11 @@ public class Demo {
         //виводимо репозиторій +
 
 
-        int filesNumber = 8;
+        int filesNumber = 4;
         File[] files = new File[filesNumber];
 
 
-        long sizeOfFiles = 10;
+        long sizeOfFiles = 16;
 
 
         for (int fileId = 0; fileId < fileName.length; fileId++) {

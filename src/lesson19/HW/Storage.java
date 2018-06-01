@@ -170,7 +170,7 @@ public class Storage {
     }
 
     public void putFile(File file) throws ArrayIndexOutOfBoundsException {
-        
+
         int index = 0;
         while (files[index] != null) {
             index++;
