@@ -9,16 +9,9 @@ public class Controller {
         //перевіряємо файл +
         //записуємо файл +
         File files[] = storage.getFiles();
-        try {
-            storage.checkFile(file);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            storage.putFile(file);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        }
+        storage.checkFile(file);
+        storage.putFile(file);
+
 
     }//put
 
