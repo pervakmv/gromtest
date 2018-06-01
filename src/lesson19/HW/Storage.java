@@ -97,11 +97,11 @@ public class Storage {
         //перевіряємо розмір +
         //перевірка наявності файлу +
         if ((file != null) && !checkFormatFile(file.getFormat()))
-            throw new Exception("format files not supported files id: " + file.getId() + " storage id: " + id);
-        if (file!=null &&((storageSizeCur() + file.getSize()) > storageSize))
-            throw new Exception("file's size is to big. Files id: " + file.getId() + " storage id: " + id);
+            throw new Exception("format files not supported files " + "id " + file.getId() + " storage id: " + id);
+        if (file != null && ((storageSizeCur() + file.getSize()) > storageSize))
+            throw new Exception("file's size is to big " + "id: " + file.getId() + " storage id: " + id);
         if (!verifyFileNonExistence(file))
-            throw new Exception("file already exist. File id:" + file.getId() + " storage id: " + id);
+            throw new Exception("file already exist " + "id: " + file.getId() + " storage id: " + id);
     }
 
     public void checkFiles(File[] f) throws Exception {
@@ -111,9 +111,9 @@ public class Storage {
 
             if (element != null) {
                 if (!checkFormatFile(element.getFormat()))
-                    throw new Exception("format files not supported files id: " + element.getId() + " storage id: " + id);
+                    throw new Exception("format files not supported files " + "file id " + element.getId() + " storage id: " + id);
                 if (!verifyFileNonExistence(element))
-                    throw new Exception("file already exist. File id: " + element.getId() + " storage id: " + id);
+                    throw new Exception("file already exist. File" + " file id " + element.getId() + " storage id: " + id);
                 size += element.getSize();
             }
         }
@@ -133,7 +133,7 @@ public class Storage {
                 return index;
             index++;
         }
-        throw new Exception("file is not exist in this storage");
+        throw new Exception("file is not exist in this storage" + "file id: " + file.getId() + "storage id:" + id);
     }
 
     public boolean verifyFileNonExistence(File file) {

@@ -13,7 +13,7 @@ public class Controller {
             storage.checkFile(file);
             storage.putFile(file);
         } catch (Exception e) {
-            System.out.println("put" + e.getMessage());
+            System.out.println("put: " + e.getMessage());
         }
 
 
