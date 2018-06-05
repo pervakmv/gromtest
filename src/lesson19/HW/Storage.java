@@ -84,13 +84,13 @@ public class Storage {
     }
 
 
-    public void checkFormatFile(File file) throws Exception{
+    public void checkFormatFile(File file) throws Exception {
         boolean Ok = false;
         for (String element : formatsSupported) {
             if (element != null && element.equalsIgnoreCase(file.getFormat()))
                 Ok = true;
         }
-        if(!Ok)
+        if (!Ok)
             throw new Exception("format file is not supported " + "file id: " + file.getId() + " storage id: " + id);
     }
 
@@ -98,15 +98,12 @@ public class Storage {
         //перевіряємо формат +
         //перевіряємо розмір +
         //перевірка наявності файлу +
-            checkFormatFile(file);
-
-        if (file != null && ((storageSizeCur() + file.getSize()) > storageSize))
-            throw new Exception("size of file is to big " + "file id: " + file.getId() + " storage id: " + id);
+        checkFormatFile(file);
+        checkSize(file);
         verifyFileNoExistence(file);
-
-        if ((file != null) && (findFileById(file.getId()) != null))
-            throw new Exception("file with same ID is already exist " + " file id: " + file.getId() + " storage id: " + id);
+        checkNoFileWithSameId(file);
     }
+
 
     public void checkFiles(File[] f) throws Exception {
         long size = 0;
@@ -115,12 +112,8 @@ public class Storage {
 
             if (element != null) {
                 checkFormatFile(element);
-
                 verifyFileNoExistence(element);
-
-                if (findFileById(element.getId()) != null)
-                    throw new Exception("file with same ID is already exist " + "file id: " + element.getId() + " storage id: " + id);
-
+                checkNoFileWithSameId(element);
                 size += element.getSize();
             }
         }
@@ -131,6 +124,12 @@ public class Storage {
         }
         if ((size + storageSizeCur) > storageSize)
             throw new Exception("siz of files is to big" + " storage id " + id);
+    }
+
+
+    public void checkSize(File file) throws Exception {
+        if (file != null && (storageSizeCur() + file.getSize()) > storageSize)
+            throw new Exception("size of file is to big " + "file id: " + file.getId() + " storage id: " + id);
     }
 
     public int indexOfFile(File file) throws Exception {
@@ -166,13 +165,19 @@ public class Storage {
 
     }
 
+    public void checkNoFileWithSameId(File file) throws Exception {
 
+        for (File element : files) {
+            if (element != null && element.getId() == file.getId()) {
+                throw new Exception("file with same ID is already exist " + " file id: " + file.getId() + " storage id: " + id);
+            }
+        }
+    }
 
 
     public File findFileById(long id) {
         if (id < 0)
             return null;
-
 
         for (File element : files) {
             if (element != null && element.getId() == id)
