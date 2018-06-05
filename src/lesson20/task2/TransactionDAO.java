@@ -148,15 +148,14 @@ public class TransactionDAO {
     }
 
 
-    public Transaction[] transactionList(String city) throws BadRequestException {
+    public Transaction[] transactionList(String city){
         int index = 0;
         for (Transaction tr : transactions) {
             if (tr != null && (tr.getCity() == city)) {
                 index++;
             }
         }
-        if (index == 0)
-            throw new BadRequestException("can't find transactions with this city ");
+
 
         Transaction[] trs = new Transaction[index];
         index = 0;

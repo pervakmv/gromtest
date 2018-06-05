@@ -62,11 +62,9 @@ public class Demo {
 
 
         System.out.println(" ---- TransactionList by city --------");
-        try {
+
             System.out.println(Arrays.deepToString(controller.transactionList("Borispol")));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
 
