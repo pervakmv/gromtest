@@ -27,14 +27,13 @@ public class Controller {
 
             File[] files = storage.getFiles();
 
-            if (storage.verifyFileNonExistence(file)) {
-                throw new Exception("delete: no file exist " + "file id: " + file.getId() + " storage id: " + storage.getId());
-            }
-            try {
-                files[storage.indexOfFile(file)] = null;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            storage.verifyFileNonExistence(file);
+
+//            try {
+            files[storage.indexOfFile(file)] = null;
+            //          } catch (Exception e) {
+            //             System.out.println(e.getMessage());
+            //         }
 
         }
     }
@@ -47,7 +46,7 @@ public class Controller {
         if (storageFrom == null
                 || storageTo == null
                 || storageFrom.getFiles() == null
-                ||storageTo.getFiles() == null) {
+                || storageTo.getFiles() == null) {
             System.out.println("transferAll: null object");
         } else {
 
@@ -64,7 +63,7 @@ public class Controller {
             for (File transferFile : storageFromFiles) {
                 if (transferFile == null)
                     continue;
-                storageTo.putFile( transferFile);
+                storageTo.putFile(transferFile);
                 delete(storageFrom, transferFile);
             }
         }

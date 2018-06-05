@@ -100,10 +100,10 @@ public class Storage {
             throw new Exception("format file is not supported " + "file id: " + file.getId() + " storage id: " + id);
         if (file != null && ((storageSizeCur() + file.getSize()) > storageSize))
             throw new Exception("size of file is to big " + "file id: " + file.getId() + " storage id: " + id);
-        if ((file != null) && !verifyFileNonExistence(file))
-            throw new Exception("file already exist " + "file id: " + file.getId() + " storage id: " + id);
+            verifyFileNonExistence(file);
+
         if ((file != null) && (findFileById(file.getId()) != null))
-            throw new Exception("file with same ID is already exist " + "file id: " + file.getId() + " storage id: " + id);
+            throw new Exception("file with same ID is already exist " + " file id: " + file.getId() + " storage id: " + id);
     }
 
     public void checkFiles(File[] f) throws Exception {
@@ -114,8 +114,8 @@ public class Storage {
             if (element != null) {
                 if (!checkFormatFile(element.getFormat()))
                     throw new Exception("format files not supported files " + "file id: " + element.getId() + " storage id: " + id);
-                if (!verifyFileNonExistence(element))
-                    throw new Exception("file already exist. File" + " file id: " + element.getId() + " storage id: " + id);
+                verifyFileNonExistence(element);
+
                 if (findFileById(element.getId()) != null)
                     throw new Exception("file with same ID is already exist " + "file id: " + element.getId() + " storage id: " + id);
 
@@ -128,7 +128,7 @@ public class Storage {
                 storageSizeCur += file.getSize();
         }
         if ((size + storageSizeCur) > storageSize)
-            throw new Exception("siz of files is to big" + "storage id " + id);
+            throw new Exception("siz of files is to big" + " storage id " + id);
     }
 
     public int indexOfFile(File file) throws Exception {
@@ -141,14 +141,13 @@ public class Storage {
         throw new Exception("file is not exist in this storage" + "file id: " + file.getId() + "storage id: " + id);
     }
 
-    public boolean verifyFileNonExistence(File file) {
+    public void verifyFileNonExistence(File file) throws Exception {
 
         for (File element : files) {
             if (element != null && element.equals(file))
-                return false;
+                throw new Exception("file already exist " + "file id: " + file.getId() + "storage id: " + id);
 
         }
-        return true;
     }
 
 //    public int indexOfFirstFreeCell() throws Exception {
@@ -177,7 +176,7 @@ public class Storage {
         int index = 0;
         while (files[index] != null) {
             index++;
-            if(index== files.length){
+            if (index == files.length) {
                 throw new Exception("ArryIndexOutBound" + "storage id" + id);
             }
         }
