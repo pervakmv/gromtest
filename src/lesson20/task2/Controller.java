@@ -11,7 +11,7 @@ public class Controller {
         return transactionDAO.save(transaction);
     }
 
-    Transaction[] transactionList() throws Exception{
+    Transaction[] transactionList(){
         return transactionDAO.transactionList();
     }
 

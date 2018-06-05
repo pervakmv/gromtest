@@ -131,10 +131,8 @@ public class TransactionDAO {
         return false;
     }
 
-    public Transaction[] transactionList() throws BadRequestException {
+    public Transaction[] transactionList() {
         int number = numberSavedTransactions();
-        if (number == 0)
-            throw new BadRequestException("no not null transactions");
 
         Transaction[] trs = new Transaction[number];
         int index = 0;

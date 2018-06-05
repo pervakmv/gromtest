@@ -35,7 +35,7 @@ public class Demo {
         //Записуємо масив
         for (Transaction element : transactions) {
             try {
-                controller.save(element);
+                System.out.println("--" + controller.save(element).toString());
             } catch (Exception e) {
 
                 System.out.println(e.getMessage());
@@ -61,6 +61,12 @@ public class Demo {
         }
 
 
+        System.out.println(" ---- TransactionList by city --------");
+        try {
+            System.out.println(Arrays.deepToString(controller.transactionList("Borispol")));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
