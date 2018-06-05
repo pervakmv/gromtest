@@ -29,12 +29,7 @@ public class Controller {
 
             storage.verifyFileToExistence(file);
 
-//            try {
             files[storage.indexOfFile(file)] = null;
-            //          } catch (Exception e) {
-            //             System.out.println(e.getMessage());
-            //         }
-
         }
     }
 
