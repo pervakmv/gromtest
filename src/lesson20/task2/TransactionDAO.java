@@ -81,12 +81,12 @@ public class TransactionDAO {
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can't be saved");
 
-       // int sum = transaction.getAmount();
-        int sum = 0;
-        int count = 0;
+        int sum = transaction.getAmount();
+
+        int count = 1;
         Transaction[] trPerCurDay = getTransactionsPerDay(new Date());
 
-        for (Transaction tr : trPerCurDay) {//getTransactionsPerDay(transaction.getDateCreated())) {
+        for (Transaction tr : trPerCurDay) {
             sum += tr.getAmount();
             count++;
 
@@ -100,7 +100,6 @@ public class TransactionDAO {
         if (count > utils.getLimitTransactionsPerDayCount()) {
             throw new LimitExceeded("Transaction limit per day count exceed " + transaction.getId() + ". Can't be saved");
         }
-
 
         if (!utils.availableCity(transaction.getCity())) {
             throw new BadRequestException("City is not available " + transaction.getId() + ". Can't be saved");
