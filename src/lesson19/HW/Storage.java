@@ -100,7 +100,7 @@ public class Storage {
             throw new Exception("format file is not supported " + "file id: " + file.getId() + " storage id: " + id);
         if (file != null && ((storageSizeCur() + file.getSize()) > storageSize))
             throw new Exception("size of file is to big " + "file id: " + file.getId() + " storage id: " + id);
-            verifyFileNonExistence(file);
+        verifyFileToExistence(file);
 
         if ((file != null) && (findFileById(file.getId()) != null))
             throw new Exception("file with same ID is already exist " + " file id: " + file.getId() + " storage id: " + id);
@@ -114,7 +114,7 @@ public class Storage {
             if (element != null) {
                 if (!checkFormatFile(element.getFormat()))
                     throw new Exception("format files not supported files " + "file id: " + element.getId() + " storage id: " + id);
-                verifyFileNonExistence(element);
+                verifyFileNoExistence(element);
 
                 if (findFileById(element.getId()) != null)
                     throw new Exception("file with same ID is already exist " + "file id: " + element.getId() + " storage id: " + id);
@@ -141,14 +141,29 @@ public class Storage {
         throw new Exception("file is not exist in this storage" + "file id: " + file.getId() + "storage id: " + id);
     }
 
-    public void verifyFileNonExistence(File file) throws Exception {
-
+    public void verifyFileToExistence(File file) throws Exception {
+        boolean fileYes = false;
         for (File element : files) {
-            if (element != null && element.equals(file))
-                throw new Exception("file already exist " + "file id: " + file.getId() + "storage id: " + id);
+            if (element != null && element.equals(file)) {
+                fileYes = true;
+            }
 
         }
+        if (!fileYes)
+            throw new Exception("no file in the storage " + "file id: " + file.getId() + " storage id: " + id);
     }
+
+    public void verifyFileNoExistence(File file) throws Exception {
+
+        for (File element : files) {
+            if (element != null && element.equals(file)) {
+                throw new Exception("file already existence in the storage " + "file id: " + file.getId() + " storage id: " + id);
+            }
+
+        }
+
+    }
+
 
 //    public int indexOfFirstFreeCell() throws Exception {
 //        int index = 0;

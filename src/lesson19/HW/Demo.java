@@ -73,9 +73,26 @@ public class Demo {
             System.out.println(storage2.toString());
             System.out.println(storage3.toString());
         }catch(Exception e){
+            System.out.println("Transfer all : " + e.getMessage());
+        }
+
+        System.out.println(" delete metod ");
+
+        try{
+            //controller.delete(storage1, new File(100, "msconfig", "dat", 16));
+            controller.delete(storage1, null);
+            System.out.println(storage1.toString());
+        }catch(Exception e){
             System.out.println(e.getMessage());
         }
 
+        try{
+            controller.transferAll(storage1, storage3);
+            System.out.println(storage1.toString());
+            System.out.println(storage3.toString());
+        }catch(Exception e){
+            System.out.println("transfer all " + e.getMessage());
+        }
     }
 
 

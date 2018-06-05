@@ -27,7 +27,7 @@ public class Controller {
 
             File[] files = storage.getFiles();
 
-            storage.verifyFileNonExistence(file);
+            storage.verifyFileToExistence(file);
 
 //            try {
             files[storage.indexOfFile(file)] = null;
@@ -43,12 +43,12 @@ public class Controller {
 
 
         //переносимо файли за допомогою функцій delete and put+
-        if (storageFrom == null
-                || storageTo == null
-                || storageFrom.getFiles() == null
-                || storageTo.getFiles() == null) {
-            System.out.println("transferAll: null object");
-        } else {
+//        if (storageFrom == null
+//                || storageTo == null
+//                || storageFrom.getFiles() == null
+//                || storageTo.getFiles() == null) {
+//            System.out.println("transferAll: null object");
+//        } else {
 
             File[] storageFromFiles = storageFrom.getFiles();
 
@@ -66,7 +66,7 @@ public class Controller {
                 storageTo.putFile(transferFile);
                 delete(storageFrom, transferFile);
             }
-        }
+       // }
 
     }
 
