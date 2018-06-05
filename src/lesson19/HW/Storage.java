@@ -165,14 +165,7 @@ public class Storage {
     }
 
 
-//    public int indexOfFirstFreeCell() throws Exception {
-//        int index = 0;
-//        for (File element : files) {
-//            if (element == null)
-//                return index;
-//            index++;
-//        }
-//    }
+
 
     public File findFileById(long id) {
         if (id < 0)
@@ -198,4 +191,26 @@ public class Storage {
         files[index] = file;
 
     }
+
+
+    public int numberNullElementFileArray() {
+        int res = 0;
+        for (File element : files) {
+            if (element == null)
+                res++;
+        }
+        return res;
+    }
+
+    public int numberNotNullElementFileArray() {
+        int res = 0;
+        for (File element : files) {
+            if (element != null)
+                res++;
+
+        }
+        return res;
+    }
+
+
 }

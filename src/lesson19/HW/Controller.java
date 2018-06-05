@@ -39,55 +39,28 @@ public class Controller {
     }
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-        boolean flagAllOk = true;
 
+        File[] storageFromFiles = storageFrom.getFiles();
 
-        //переносимо файли за допомогою функцій delete and put+
-//        if (storageFrom == null
-//                || storageTo == null
-//                || storageFrom.getFiles() == null
-//                || storageTo.getFiles() == null) {
-//            System.out.println("transferAll: null object");
-//        } else {
+        storageTo.checkFiles(storageFromFiles);
 
-            File[] storageFromFiles = storageFrom.getFiles();
+        //перевірка наявних вільних місць в масиві сховища
 
-            storageTo.checkFiles(storageFromFiles);
-
-            //перевірка наявних вільних місць в масиві сховища
-
-            if (numberNotNullElementFileArray(storageFromFiles) > numberNullElementFileArray(storageTo.getFiles())) {
-                throw new Exception(" no free celses at the storage id: " + storageTo.getId());
-            }
-
-            for (File transferFile : storageFromFiles) {
-                if (transferFile == null)
-                    continue;
-                storageTo.putFile(transferFile);
-                delete(storageFrom, transferFile);
-            }
-       // }
-
-    }
-
-    private int numberNullElementFileArray(File[] files) {
-        int res = 0;
-        for (File element : files) {
-            if (element == null)
-                res++;
+        if (storageFrom.numberNotNullElementFileArray() > storageTo.numberNullElementFileArray()){
+            throw new Exception(" no free celses at the storage id: " + storageTo.getId());
         }
-        return res;
-    }
 
-    private int numberNotNullElementFileArray(File[] files) {
-        int res = 0;
-        for (File element : files) {
-            if (element != null)
-                res++;
-
+        for (File transferFile : storageFromFiles) {
+            if (transferFile == null)
+                continue;
+            storageTo.putFile(transferFile);
+            delete(storageFrom, transferFile);
         }
-        return res;
+
+
     }
+
+
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
         if (storageFrom == null ||
