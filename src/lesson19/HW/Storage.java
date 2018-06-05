@@ -1,5 +1,6 @@
 package lesson19.HW;
 
+import java.nio.file.Files;
 import java.util.Arrays;
 
 public class Storage {
@@ -83,21 +84,22 @@ public class Storage {
     }
 
 
-    public boolean checkFormatFile(String format) {
-
+    public void checkFormatFile(File file) throws Exception{
+        boolean Ok = false;
         for (String element : formatsSupported) {
-            if (element != null && element.equalsIgnoreCase(format))
-                return true;
+            if (element != null && element.equalsIgnoreCase(file.getFormat()))
+                Ok = true;
         }
-        return false;
+        if(!Ok)
+            throw new Exception("format file is not supported " + "file id: " + file.getId() + " storage id: " + id);
     }
 
     public void checkFile(File file) throws Exception {
         //перевіряємо формат +
         //перевіряємо розмір +
         //перевірка наявності файлу +
-        if ((file != null) && !checkFormatFile(file.getFormat()))
-            throw new Exception("format file is not supported " + "file id: " + file.getId() + " storage id: " + id);
+            checkFormatFile(file);
+
         if (file != null && ((storageSizeCur() + file.getSize()) > storageSize))
             throw new Exception("size of file is to big " + "file id: " + file.getId() + " storage id: " + id);
         verifyFileNoExistence(file);
@@ -112,8 +114,8 @@ public class Storage {
         for (File element : f) {
 
             if (element != null) {
-                if (!checkFormatFile(element.getFormat()))
-                    throw new Exception("format files not supported files " + "file id: " + element.getId() + " storage id: " + id);
+                checkFormatFile(element);
+
                 verifyFileNoExistence(element);
 
                 if (findFileById(element.getId()) != null)
