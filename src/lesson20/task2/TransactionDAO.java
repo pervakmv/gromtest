@@ -107,8 +107,21 @@ public class TransactionDAO {
         if (!thereIsFreeSpace())
             throw new InternalServerException("no free memory available " + transaction.getId() + ". Can't be saved");
 
+        //перевіряємо чи є в масиві така уже транзакція
+        if(findSameTransaction(transaction)){
+           throw new BadRequestException("This transaction is already exist " + transaction.getId() + ". Can't be saved");
+        }
+
     }//validate
 
+    public boolean findSameTransaction(Transaction transaction){
+        for(Transaction tr : transactions){
+            if(tr!=null && tr.equals(transaction)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean thereIsFreeSpace() {
         for (Transaction tr : transactions) {
