@@ -93,6 +93,16 @@ public class Demo {
         }catch(Exception e){
             System.out.println("transfer all " + e.getMessage());
         }
+
+
+        try{
+            controller.transferFile(storage3, storage1, 100);
+            System.out.println(storage1.toString());
+            System.out.println(storage3.toString());
+        }catch(Exception e){
+            System.out.println("transfer " + e.getMessage());
+        }
+
     }
 
 

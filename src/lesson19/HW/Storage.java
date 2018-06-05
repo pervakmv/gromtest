@@ -100,7 +100,7 @@ public class Storage {
             throw new Exception("format file is not supported " + "file id: " + file.getId() + " storage id: " + id);
         if (file != null && ((storageSizeCur() + file.getSize()) > storageSize))
             throw new Exception("size of file is to big " + "file id: " + file.getId() + " storage id: " + id);
-        verifyFileToExistence(file);
+        verifyFileNoExistence(file);
 
         if ((file != null) && (findFileById(file.getId()) != null))
             throw new Exception("file with same ID is already exist " + " file id: " + file.getId() + " storage id: " + id);
