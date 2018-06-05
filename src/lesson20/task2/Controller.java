@@ -19,7 +19,7 @@ public class Controller {
         return transactionDAO.transactionList(city);
     }
 
-    Transaction[] transactionList(int amount)throws Exception{
+    Transaction[] transactionList(int amount){
         return transactionDAO.transactionList(amount);
     }
 

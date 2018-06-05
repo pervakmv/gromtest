@@ -63,7 +63,11 @@ public class Demo {
 
         System.out.println(" ---- TransactionList by city --------");
 
-            System.out.println(Arrays.deepToString(controller.transactionList("Borispol")));
+            System.out.println(Arrays.deepToString(controller.transactionList("Kiev")));
+
+        System.out.println(" ---- TransactionList by id --------");
+
+        System.out.println(Arrays.deepToString(controller.transactionList(3)));
 
     }
 
