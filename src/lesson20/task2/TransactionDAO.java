@@ -4,6 +4,7 @@ import lesson20.task2.exception.BadRequestException;
 import lesson20.task2.exception.InternalServerException;
 import lesson20.task2.exception.LimitExceeded;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Calendar;
 
@@ -12,7 +13,18 @@ public class TransactionDAO {
     private Transaction[] transactions = new Transaction[10];
     private Utils utils = new Utils();
 
-    public Transaction save(Transaction transaction) throws LimitExceeded  {
+
+    public TransactionDAO() {
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionDAO{" +
+                "transactions=" + (transactions == null ? null : Arrays.asList(transactions)) +
+                '}';
+    }
+
+    public Transaction save(Transaction transaction) throws Exception {
 
         // сумма транзакции больше указанного лимита
         // сумма транзакций за день больше дневного лимита
@@ -20,23 +32,65 @@ public class TransactionDAO {
         // если город платы (совершения транзации) не разрешен
         // не хватило места
 
+        validate(transaction);
 
-//TODO
+        int index = indexFirstAvailablePlace();
 
-        return transactions[4];
+        transactions[index] = transaction;
+        return transactions[index];
     }
 
+    private int numberSavedTransactions() {
+        int res = 0;
+        for (Transaction tr : transactions) {
+            if (tr != null)
+                res++;
+        }
+        return res;
+    }
 
-    private void validate(Transaction transaction) throws LimitExceeded{
+    private int indexFirstAvailablePlace() throws InternalServerException {
+        int index = 0;
+        for (Transaction tr : transactions) {
+            if (tr == null)
+                return index;
+
+            index++;
+        }
+        throw new InternalServerException("there is no availabe place ");
+    }
+
+    private void put(Transaction transaction) {
+        for (Transaction tr : transactions) {
+            if (tr == null) {
+                tr = transaction;
+                break;
+            }
+        }
+    }//put
+
+    private void validate(Transaction transaction) throws Exception {
+        if (transaction == null) {
+
+
+            throw new BadRequestException("Transaction is null ");
+
+        }
+
+
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can't be saved");
 
-        int sum = 0;
+        int sum = transaction.getAmount();
         int count = 0;
-        for (Transaction tr : getTransactionsPerDay(transaction.getDateCreated())) {
+        Transaction[] trPerCurDay = getTransactionsPerDay(new Date());
+
+        for (Transaction tr : trPerCurDay) {//getTransactionsPerDay(transaction.getDateCreated())) {
             sum += tr.getAmount();
             count++;
+
         }
+
 
         if (sum > utils.getLimitTransactionsPerDayAmount()) {
             throw new LimitExceeded("Transaction limit per day amount exceed " + transaction.getId() + ". Can't be saved");
@@ -47,11 +101,12 @@ public class TransactionDAO {
         }
 
 
-//        if (!utils.availableCity(transaction.getCity())) {
-//            throw new BadRequestException("City is not available " + transaction.getId() + ". Can't be saved");
-//        }
-//        if (!thereIsFreeSpace())
-//            throw new InternalServerException("no free memory available " + transaction.getId() + ". Can't be saved");
+        if (!utils.availableCity(transaction.getCity())) {
+            throw new BadRequestException("City is not available " + transaction.getId() + ". Can't be saved");
+        }
+        if (!thereIsFreeSpace())
+            throw new InternalServerException("no free memory available " + transaction.getId() + ". Can't be saved");
+
     }//validate
 
 
@@ -63,17 +118,65 @@ public class TransactionDAO {
         return false;
     }
 
-    public Transaction[] transactionList() {
-        return null;
+    public Transaction[] transactionList() throws BadRequestException {
+        int number = numberSavedTransactions();
+        if (number == 0)
+            throw new BadRequestException("no not null transactions");
+
+        Transaction[] trs = new Transaction[number];
+        int index = 0;
+        for (Transaction tr : transactions) {
+            if (tr != null) {
+                trs[index] = tr;
+                index++;
+            }
+
+        }//for
+
+        return trs;
     }
 
 
-    public Transaction[] transactionList(String city) {
-        return null;
+    public Transaction[] transactionList(String city) throws BadRequestException {
+        int index = 0;
+        for (Transaction tr : transactions) {
+            if (tr != null && (tr.getCity() == city)) {
+                index++;
+            }
+        }
+        if (index == 0)
+            throw new BadRequestException("can't find transactions with this city ");
+
+        Transaction[] trs = new Transaction[index];
+        index = 0;
+        for (Transaction tr : transactions) {
+            if ((tr != null) && (tr.getCity() == city)) {
+                trs[index] = tr;
+                index++;
+            }
+        }
+        return trs;
     }
 
-    public Transaction[] transactionList(int amount) {
-        return null;
+    public Transaction[] transactionList(int amount) throws BadRequestException {
+        int index = 0;
+        for (Transaction tr : transactions) {
+            if (tr != null && (tr.getAmount() == amount)) {
+                index++;
+            }
+        }
+        if (index == 0)
+            throw new BadRequestException("can't find transactions with this amount ");
+
+        Transaction[] trs = new Transaction[index];
+        index = 0;
+        for (Transaction tr : transactions) {
+            if ((tr != null) && (tr.getAmount() == amount)) {
+                trs[index] = tr;
+                index++;
+            }
+        }
+        return trs;
     }
 
     private Transaction[] getTransactionsPerDay(Date dateOfCurTransaction) {
