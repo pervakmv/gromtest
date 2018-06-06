@@ -42,7 +42,7 @@ public class File {
                 ", size=" + size +
                 '}';
     }
-    
+
 
     @Override
     public boolean equals(Object o) {
