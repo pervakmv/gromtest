@@ -1,4 +1,4 @@
-package lesson25;
+package lesson25.CW;
 
 public class Demo {
     public static void main(String[] args) throws Exception {
