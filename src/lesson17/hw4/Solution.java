@@ -218,7 +218,7 @@ public class Solution {
                 index++;
             }
         }
-       // System.out.println(Arrays.toString(validStringsArray));
+       // Sys.out.println(Arrays.toString(validStringsArray));
 
         index = 0;
         int maxDuplicateElementIndex = -1;
@@ -239,7 +239,7 @@ public class Solution {
                 counterPreviousValue = counter;
             }
 
-//            System.out.println(validStringsArray[index] + " " + counter + " раз");
+//            Sys.out.println(validStringsArray[index] + " " + counter + " раз");
         }
         return maxDuplicateElementIndex > -1 ? validStringsArray[maxDuplicateElementIndex] : null;
     }

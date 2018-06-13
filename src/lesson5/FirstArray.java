@@ -22,9 +22,9 @@ public class FirstArray {
         for (int i = 0; i < firstArray.length; i++) {
             System.out.println(firstArray[i]);
         }
-//        System.out.println(firstArray[0]);
-//        System.out.println(firstArray[1]);
-//        System.out.println(firstArray[2]);
+//        Sys.out.println(firstArray[0]);
+//        Sys.out.println(firstArray[1]);
+//        Sys.out.println(firstArray[2]);
 
         System.out.println(Arrays.toString(firstArray));
 

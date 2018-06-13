@@ -6,7 +6,7 @@ import java.util.logging.SocketHandler;
 
 public class FinancialCompany extends Company {
     public static void main(String[] args) {
-        //System.out.println(this.code); code не доступний тому що не статичний
+        //Sys.out.println(this.code); code не доступний тому що не статичний
     }
 
     void demostrateProtectedModifier(){
