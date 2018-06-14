@@ -69,54 +69,74 @@ public class TransactionDAO {
         }
     }//put
 
-    private void validate(Transaction transaction) throws Exception {
-        if (transaction == null) {
-
-
-            throw new BadRequestException("Transaction is null ");
-
-        }
-
-
+    private void amountIsValid(Transaction transaction) throws Exception {
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can't be saved");
+    }
 
+    private void limitTransactionsPerDayAmount(Transaction transaction) throws Exception {
         int sum = transaction.getAmount();
 
-        int count = 1;
         Transaction[] trPerCurDay = getTransactionsPerDay(new Date());
 
         for (Transaction tr : trPerCurDay) {
             sum += tr.getAmount();
-            count++;
-
         }
 
 
         if (sum > utils.getLimitTransactionsPerDayAmount()) {
             throw new LimitExceeded("Transaction limit per day amount exceed " + transaction.getId() + ". Can't be saved");
         }
+    }
 
+    private void limitTransactionsPerDayCount(Transaction transaction) throws Exception {
+        int count = 1;
+        Transaction[] trPerCurDay = getTransactionsPerDay(new Date());
+
+        for (Transaction tr : trPerCurDay) {
+            count++;
+        }
         if (count > utils.getLimitTransactionsPerDayCount()) {
             throw new LimitExceeded("Transaction limit per day count exceed " + transaction.getId() + ". Can't be saved");
         }
+    }
 
+    private void cityAvailable(Transaction transaction) throws Exception {
         if (!utils.availableCity(transaction.getCity())) {
             throw new BadRequestException("City is not available " + transaction.getId() + ". Can't be saved");
         }
+    }
+
+    private void freeSpace(Transaction transaction) throws Exception {
         if (!thereIsFreeSpace())
             throw new InternalServerException("no free memory available " + transaction.getId() + ". Can't be saved");
+    }
 
+
+    private void checkDuplicateTransaction(Transaction transaction) throws Exception {
         //перевіряємо чи є в масиві така уже транзакція
-        if(findSameTransaction(transaction)){
-           throw new BadRequestException("This transaction is already exist " + transaction.getId() + ". Can't be saved");
+        if (findSameTransaction(transaction)) {
+            throw new BadRequestException("This transaction is already exist " + transaction.getId() + ". Can't be saved");
         }
+    }
 
+
+    private void validate(Transaction transaction) throws Exception {
+        if (transaction == null) {
+            throw new BadRequestException("Transaction is null ");
+        }
+        amountIsValid(transaction);
+        limitTransactionsPerDayAmount(transaction);
+        limitTransactionsPerDayCount(transaction);
+        cityAvailable(transaction);
+        freeSpace(transaction);
+        checkDuplicateTransaction(transaction);
     }//validate
 
-    public boolean findSameTransaction(Transaction transaction){
-        for(Transaction tr : transactions){
-            if(tr!=null && tr.equals(transaction)){
+
+    public boolean findSameTransaction(Transaction transaction) {
+        for (Transaction tr : transactions) {
+            if (tr != null && tr.equals(transaction)) {
                 return true;
             }
         }
@@ -148,7 +168,7 @@ public class TransactionDAO {
     }
 
 
-    public Transaction[] transactionList(String city){
+    public Transaction[] transactionList(String city) {
         int index = 0;
         for (Transaction tr : transactions) {
             if (tr != null && (tr.getCity() == city)) {
@@ -168,7 +188,7 @@ public class TransactionDAO {
         return trs;
     }
 
-    public Transaction[] transactionList(int amount)  {
+    public Transaction[] transactionList(int amount) {
         int index = 0;
         for (Transaction tr : transactions) {
             if (tr != null && (tr.getAmount() == amount)) {
