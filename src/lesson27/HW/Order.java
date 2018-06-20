@@ -1,4 +1,4 @@
-package lesson26.HW;
+package lesson27.HW;
 
 public class Order {
     private long id;
@@ -6,6 +6,7 @@ public class Order {
     private String currency;
     private String itemName;
     private String shopIdentificator;
+
 
     public Order(long id, int price, String currency, String itemName, String shopIdentificator) {
         this.id = id;
