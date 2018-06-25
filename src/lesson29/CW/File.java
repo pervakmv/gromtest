@@ -1,12 +1,27 @@
 package lesson29.CW;
 
-public class File {
+public class File implements Comparable<File> {
     private String fileName;
     private long sizeInBytes;
 
     public File(String fileName, long sizeInBytes) {
         this.fileName = fileName;
         this.sizeInBytes = sizeInBytes;
+    }
+
+
+    public long getSizeInBytes() {
+        return sizeInBytes;
+    }
+
+    @Override
+    public int compareTo(File file) {
+        int res = 0;
+        if (file.getSizeInBytes() < this.sizeInBytes)
+            res = -1;
+        else if (file.getSizeInBytes() > this.sizeInBytes)
+            res = 1;
+        return res;
     }
 
     @Override
