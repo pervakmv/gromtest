@@ -99,15 +99,15 @@ public class Demo {
         Set<Department> departments2 = new TreeSet<>();
         Set<Department> departments3 = new TreeSet<>();
 
-         Department department1 = new Department(ASU, employees);
-         Department department2 = new Department(SQL_BASE, employees2);
-         Department department3 = new Department(CPP, employees3);
-         Department department4 = new Department(JAVACORE, employees4);
+         Department department1 = new Department(DepartmentType.ASU, employees);
+         Department department2 = new Department(DepartmentType.SQL_BASE, employees2);
+         Department department3 = new Department(DepartmentType.CPP, employees3);
+         Department department4 = new Department(DepartmentType.JAVACORE, employees4);
 
-        Department department24 = new Department(ASU, employees4);
-        Department department23 = new Department(SQL_BASE, employees3);
-        Department department22 = new Department(CPP, employees2);
-        Department department21 = new Department(JAVACORE, employees);
+        Department department24 = new Department(DepartmentType.ASU, employees4);
+        Department department23 = new Department(DepartmentType.SQL_BASE, employees3);
+        Department department22 = new Department(DepartmentType.CPP, employees2);
+        Department department21 = new Department(DepartmentType.JAVACORE, employees);
 
         departments.add(department1);
         departments.add(department2);

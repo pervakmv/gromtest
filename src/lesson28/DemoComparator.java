@@ -1,7 +1,6 @@
 package lesson28;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 
 public class DemoComparator {
@@ -36,7 +35,7 @@ public class DemoComparator {
 
         System.out.println(capabilities);
 
-        capabilities.sort(new FullCoparator());
+        capabilities.sort(new FullComparator());
 
         System.out.println("FullComparator " + capabilities);
 

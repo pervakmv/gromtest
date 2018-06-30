@@ -2,7 +2,7 @@ package lesson28;
 
 import java.util.Comparator;
 
-public class FullCoparator implements Comparator<Capability> {
+public class FullComparator implements Comparator<Capability> {
     @Override
     public int compare(Capability o1, Capability o2) {
 
