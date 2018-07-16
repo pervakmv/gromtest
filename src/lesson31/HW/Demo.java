@@ -22,21 +22,22 @@ public class Demo {
         System.out.println(" Testing words method");
 
 
-        mapSymbolsCounters = Solution.words("computercor_MMM");
-        System.out.println(mapSymbolsCounters);
+        System.out.println("computercor_MMM " + Solution.words("computercor_MMM"));
+
 
         System.out.println("empty text " + Solution.words(""));
 
+
         System.out.println("Java core cours" + Solution.words("Java core cours"));
 
+
         System.out.println("Федорене горе" + Solution.words("Федорене горе"));
+
+
         System.out.println("The Second Jungle Book" + Solution.words("The Second Jungle Book I like this Book"));
 
 
-
     }
-
-
 
 
 }
