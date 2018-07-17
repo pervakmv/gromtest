@@ -1,25 +1,24 @@
-package lesson30.HWRev2;
+package lesson31.HW;
 
 import lesson31.HW.exception.BadRequestException;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Solution {
 
-    public static Map<String, Integer> countSymbols(String text) throws Exception{
+    public static Map<String, Integer> countSymbols(String text) throws Exception {
         if (text.isEmpty())
             throw new BadRequestException("Text is empty ");
-
-        char[] chText = text.toCharArray();
-        Map<String, Integer> resMap = new LinkedHashMap<>(); //При LinkedHashMap у меня сохраняеться очередность букв
-        for (char ch : chText) {
-            resMap.put(Character.toString(ch), charCount(ch, text));
+        Map<String, Integer> resMap = new HashMap<>();
+        for (Character ch : text.toCharArray()) {
+            Integer value = resMap.putIfAbsent(ch.toString(), 1);
+            if (value != null)
+                resMap.put(ch.toString(), ++value);
         }
         return resMap;
     }
 
-    public static Map<String, Integer> words(String text) throws Exception{
+    public static Map<String, Integer> words(String text) throws Exception {
         if (text.isEmpty())
             throw new BadRequestException("String is empty ");
 
@@ -63,17 +62,16 @@ public class Solution {
     }
 
 
-
-
-    private static int charCount(char ch, String text) {
-        char[] charArray = text.toCharArray();
-        int count = 0;
-        for (char element : charArray) {
-            if (ch == element)
-                count++;
-        }
-        return count;
-    }
+//    private static int charCount(char ch, String text) {
+//        char[] charArray = text.toCharArray();
+//        int count = 0;
+//        for (char element : charArray) {
+//            if (ch == element)
+//                count++;
+//        }
+//        return count;
+//
+//    }
 
 
 }
