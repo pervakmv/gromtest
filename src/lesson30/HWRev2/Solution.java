@@ -1,25 +1,27 @@
-package lesson31.HW;
+package lesson30.HWRev2;
+
+import lesson31.HW.exception.BadRequestException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Solution {
 
-    public static Map<String, Integer> countSymbols(String text) {
+    public static Map<String, Integer> countSymbols(String text) throws Exception{
         if (text.isEmpty())
-            return null;
+            throw new BadRequestException("Text is empty ");
+
         char[] chText = text.toCharArray();
-        Map<String, Integer> resMap = new LinkedHashMap<>();
+        Map<String, Integer> resMap = new LinkedHashMap<>(); //При LinkedHashMap у меня сохраняеться очередность букв
         for (char ch : chText) {
             resMap.put(Character.toString(ch), charCount(ch, text));
         }
         return resMap;
     }
 
-    public static Map<String, Integer> words(String text){
+    public static Map<String, Integer> words(String text) throws Exception{
         if (text.isEmpty())
-            return null;
-
+            throw new BadRequestException("String is empty ");
 
         Map<String, Integer> resMap = new LinkedHashMap<>();
 
@@ -60,21 +62,8 @@ public class Solution {
         return true;
     }
 
-    private static boolean stringConsistsOfLettersAndDigits(String str) {
-        if (str == null
-                || str.isEmpty())
-            return false;
-        char[] chrAr = str.toCharArray();
 
-        Character character = chrAr[0];
 
-        for (char element : chrAr) {
-
-            if (!character.isLetter(element) && !character.isDigit(element))
-                return false;
-        }
-        return true;
-    }
 
     private static int charCount(char ch, String text) {
         char[] charArray = text.toCharArray();
