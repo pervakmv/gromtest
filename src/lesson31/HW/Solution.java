@@ -62,16 +62,6 @@ public class Solution {
     }
 
 
-//    private static int charCount(char ch, String text) {
-//        char[] charArray = text.toCharArray();
-//        int count = 0;
-//        for (char element : charArray) {
-//            if (ch == element)
-//                count++;
-//        }
-//        return count;
-//
-//    }
 
 
 }
