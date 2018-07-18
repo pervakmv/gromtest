@@ -8,70 +8,30 @@ public class Demo {
 
         Map<String, Integer> mapSymbolsCounters = new LinkedHashMap<>();
 
-        try {
-            mapSymbolsCounters = Solution.countSymbols("computercor MMM");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+
+        mapSymbolsCounters = Solution.countSymbols("computercor MMM");
+
         System.out.println(mapSymbolsCounters);
 
-        try {
-            System.out.println("empty text " + Solution.countSymbols(""));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("empty text " + Solution.countSymbols(""));
 
-        try {
-            System.out.println("Java core cours" + Solution.countSymbols("Java core cours"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("Java core cours" + Solution.countSymbols("Java core cours"));
 
-        try {
-            System.out.println("Федорене горе" + Solution.countSymbols("Федорене горе"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("Федорене горе" + Solution.countSymbols("Федорене горе"));
 
-        try {
-            System.out.println("The Second Jungle Book" + Solution.countSymbols("The Second Jungle Book"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("The Second Jungle Book" + Solution.countSymbols("The Second Jungle Book"));
 
         System.out.println(" Testing words method");
 
+        System.out.println("computercor_MMM " + Solution.words("computercor_MMM"));
 
-        try {
-            System.out.println("computercor_MMM " + Solution.words("computercor_MMM"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("empty text " + Solution.words(""));
 
+        System.out.println("Java core cours" + Solution.words("Java core cours"));
 
-        try {
-            System.out.println("empty text " + Solution.words(""));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("Федорене горе" + Solution.words("Федорене горе"));
 
-        try {
-            System.out.println("Java core cours" + Solution.words("Java core cours"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            System.out.println("Федорене горе" + Solution.words("Федорене горе"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            System.out.println("The Second Jungle Book" + Solution.words("The Second Jungle Book I like this Book"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("The Second Jungle Book" + Solution.words("The Second Jungle Book I like this Book"));
 
     }
 

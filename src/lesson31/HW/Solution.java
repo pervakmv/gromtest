@@ -1,26 +1,21 @@
 package lesson31.HW;
 
-import lesson31.HW.exception.BadRequestException;
+
 
 import java.util.*;
 
 public class Solution {
 
-    public static Map<String, Integer> countSymbols(String text) throws Exception {
-        if (text.isEmpty())
-            throw new BadRequestException("Text is empty ");
-        Map<String, Integer> resMap = new HashMap<>();
+    public static Map<String, Integer> countSymbols(String text){
+
+        Map<String, Integer> resMap = new LinkedHashMap<>();
         for (Character ch : text.toCharArray()) {
-            Integer value = resMap.putIfAbsent(ch.toString(), 1);
-            if (value != null)
-                resMap.put(ch.toString(), ++value);
+            Integer value = (resMap.get(ch.toString())!= null) ? resMap.put(ch.toString(), resMap.get(ch.toString())+1) : resMap.put(ch.toString(),1);
         }
         return resMap;
     }
 
-    public static Map<String, Integer> words(String text) throws Exception {
-        if (text.isEmpty())
-            throw new BadRequestException("String is empty ");
+    public static Map<String, Integer> words(String text) {
 
         Map<String, Integer> resMap = new LinkedHashMap<>();
 
@@ -31,31 +26,14 @@ public class Solution {
                     (!stringConsistsOfLetters(str)))
                 continue;
 
-            Integer temp = resMap.get(str);
-            if (temp == null) {
-                resMap.put(str, 1);
-            } else {
-                temp++;
-                resMap.replace(str, temp);
-            }
+            Integer temp = resMap.get(str)==null ? resMap.put(str,1) : resMap.replace(str,resMap.get(str)+1);
         }
-
 
         return resMap;
     }
-
-
-    private static boolean stringConsistsOfLetters(String str) {
-        if (str == null
-                || str.isEmpty())
-            return false;
-        char[] chrAr = str.toCharArray();
-
-        Character character = chrAr[0];
-
-        for (char element : chrAr) {
-
-            if (!character.isLetter(element))
+        private static boolean stringConsistsOfLetters(String str) {
+        for (Character element : str.toCharArray()) {
+            if (!element.isLetter(element))
                 return false;
         }
         return true;
