@@ -17,12 +17,11 @@ public class Project implements Comparable<Project> {
         return customer;
     }
 
+
     @Override
     public int compareTo(Project o) {
-        if(!this.getCustomer().equals(o.getCustomer())){
-            return this.getCustomer().compareTo(o.getCustomer());
-        }
-        return 0;
+
+        return o.getName().compareTo(name);
     }
 
     @Override
@@ -32,15 +31,12 @@ public class Project implements Comparable<Project> {
 
         Project project = (Project) o;
 
-        if (!name.equals(project.name)) return false;
-        return customer.equals(project.customer);
+        return name != null ? name.equals(project.name) : project.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + customer.hashCode();
-        return result;
+        return name != null ? name.hashCode() : 0;
     }
 
     @Override

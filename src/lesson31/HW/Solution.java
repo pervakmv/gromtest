@@ -10,7 +10,8 @@ public class Solution {
 
         Map<String, Integer> resMap = new LinkedHashMap<>();
         for (Character ch : text.toCharArray()) {
-            Integer value = (resMap.get(ch.toString())!= null) ? resMap.put(ch.toString(), resMap.get(ch.toString())+1) : resMap.put(ch.toString(),1);
+
+            resMap.put(ch.toString(), resMap.get(ch.toString())==null ? 1 : resMap.get(ch.toString())+1);
         }
         return resMap;
     }
@@ -26,7 +27,7 @@ public class Solution {
                     (!stringConsistsOfLetters(str)))
                 continue;
 
-            Integer temp = resMap.get(str)==null ? resMap.put(str,1) : resMap.replace(str,resMap.get(str)+1);
+           resMap.put(str, resMap.get(str) == null ? 1 : resMap.get(str)+1);
         }
 
         return resMap;

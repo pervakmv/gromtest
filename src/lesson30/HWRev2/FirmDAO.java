@@ -4,20 +4,20 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class FirmDAO  {
-    private Set<Firm> base = new TreeSet<>();
+    private Set<Firm> firmsList = new TreeSet<>();
 
     public FirmDAO() {
     }
 
-    public FirmDAO(Set<Firm> base) {
-        this.base = base;
+    public FirmDAO(Set<Firm> firmsList) {
+        this.firmsList = firmsList;
     }
 
-    public Set<Firm> getBase() {
-        return base;
+    public Set<Firm> getFirmsList() {
+        return firmsList;
     }
 
     public void save(Firm element){
-        base.add(element);
+        firmsList.add(element);
     }
 }

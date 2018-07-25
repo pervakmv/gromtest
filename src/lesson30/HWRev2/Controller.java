@@ -1,6 +1,5 @@
 package lesson30.HWRev2;
 
-import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -22,157 +21,59 @@ public class Controller {
 
 
     public Set<Employee> employeesByProject(String projectName) {//список сотрудников, работающих над заданным проектом
-        Set<Employee> resList = new TreeSet<>();
 
-        Set<Employee> employeeList = employeeDAO.getBase();
-
-        for (Employee element : employeeList) {
-
-            Collection<Project> projectsList = element.getProjects();
-            if (projectsList == null)
-                break;
-            for (Project project : projectsList) {
-                if (project.getName().equals(projectName)) {
-                    resList.add(element);
-                    break;
-                }
-            }
-
-        }
-
-        return resList;
+        return employeeDAO.employeesByProject(projectName);
     }
 
 
     public Set<Project> projectsByEmployee(Employee employee) {// список проектов, в которых участвует заданный сотрудник
-        Set<Project> projectsList = new TreeSet<>();
 
-        for (Employee empl : employeeDAO.getBase()) {
-            if (empl.equals(employee)) {
-                projectsList = empl.getProjects();
-            }
-        }
-
-        return projectsList;
+        return employeeDAO.projectsByEmployee(employee);
     }
 
     public Set<Employee> employeesByDepartmentWithoutProject(Department department) {
-        Set<Department> employeesList = new TreeSet<>();
-        Set<Employee> resEmployeeList = new TreeSet<>();
 
-        for (Department dep : departmentDAO.getBase()) {
-            if (dep.equals(department)) {
-                Set<Employee> employeeList = new TreeSet<>();
-                employeeList = dep.getEmployees();
-                for (Employee emp : employeeList) {
-                    if (emp.getProjects() == null) {
-                        resEmployeeList.add(emp);
-                    }
-                }
-            }
-        }
-        return resEmployeeList;
+        return departmentDAO.employeesByDepartmentWithoutProject(department);
     }
 
     public Set<Employee> employeesWithoutProject() {//список сотрудников, не участвующих ни в одном проекте
-        Set<Employee> employeeList = new TreeSet<>();
 
-        Set<Firm> firmsList = new TreeSet<>();
-
-        firmsList = firmDAO.getBase();
-        for (Firm f : firmsList) {
-            Set<Department> departments = new TreeSet<>();
-            departments = f.getDepartments();
-            Set<Employee> employees = new TreeSet<>();
-            for (Department d : departments) {
-                employees = employeesByDepartmentWithoutProject(d);
-                employeeList.addAll(employees);
-            }
-
-        }
-        return employeeList;
+        return employeeDAO.employeesWithoutProject();
     }
 
 
     public Set<Employee> employeesByTeamLead(Employee lead) {//список подчиненных для заданного руководителя (по всем проектам которыми он руководит)
-        if (lead.getPosition() != Position.TEAM_LEAD)
-            return null;
-        Set<Project> teamLeadProjects = new TreeSet<>();
-        teamLeadProjects = lead.getProjects();
-        Set<Employee> employeeList = new TreeSet<>();
-        for (Project pr : teamLeadProjects) {
-            employeeList = employeesByProject(pr.getName());
-            employeeList.addAll(employeeList);
-        }
-        employeeList.remove(lead);
-        return employeeList;
+
+        return employeeDAO.employeesByTeamLead(lead);
     }
 
-    public Set<Employee> teamByEmployee(Employee employee) {
-        Set<Employee> resList = new TreeSet<>();
-
-        Set<Project> projects = projectsByEmployee(employee);
-        for (Project pr : projects) {
-            String projectName = pr.getName();
-            resList.addAll(employeesByProject(projectName));
-        }
-        return (Set) resList;
-    }
 
     public Set<Employee> teamLeadsByEmployee(Employee employee) {//Список руководителей для заданного сотрудника (по всем проектам, в которых он участвует)
-        Set<Employee> resList = new TreeSet<>();
-        Set<Employee> tempList = new TreeSet<>();
 
-        tempList = teamByEmployee(employee);
-        for (Employee emp : tempList) {
-            if (emp.getPosition() == Position.TEAM_LEAD) {
-                resList.add(emp);
-            }
-        }
-
-        return resList;
+        return employeeDAO.teamLeadsByEmployee(employee);
     }
 
 
     public Set<Employee> employeesByProjectEmployee(Employee employee) {//Список сотруднгиков, участвующих в тех же проектах что и заданный сотрудник
-        Set<Employee> resList = new TreeSet<>();
-        Set<Employee> tempList = new TreeSet<>();
 
-        tempList = teamByEmployee(employee);
-        for (Employee emp : tempList) {
-            if (emp.getPosition() != Position.TEAM_LEAD) {
-                resList.add(emp);
-            }
-        }
-
-        return resList;
+        return employeeDAO.employeesByProjectEmployee(employee);
     }
 
 
     public Set<Project> projectsByCustomer(Customer customer) {//Список проектов выполняемых для данного заказчика
-        Set<Project> resList = new TreeSet<>();
 
-        for (Project prg : projectDAO.getBase()) {
-            if (prg.getCustomer().equals(customer)) {
-                resList.add(prg);
-            }
-        }
-        return resList;
+        return projectDAO.projectsByCustomer(customer);
 
     }
 
 
     public Set<Employee> employeesByCustomerProjects(Customer customer) {//список сотрудников, участвующих в проектах, выполняемых для заданного заказчика
-        Set<Employee> resList = new TreeSet<>();
-        Set<Project> projects = new TreeSet<>();
-
-        projects = projectsByCustomer(customer);
-        for (Project prg : projects) {
-            resList.addAll(employeesByProject(prg.getName()));
+        Set<Employee> resSet = new TreeSet<>();
+        for (Project prg : projectsByCustomer(customer)) {
+            resSet.addAll(employeeDAO.employeesByProject(prg.getName()));
         }
-        return resList;
+        return resSet;
     }
-
 
 }
 

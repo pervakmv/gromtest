@@ -1,9 +1,6 @@
 package lesson30.HWRev2;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Demo {
     public static void main(String[] args) {
@@ -59,7 +56,7 @@ public class Demo {
 
         CustomerDAO customerDAO = new CustomerDAO(customers);
 
-        System.out.println(customerDAO.getBase());
+        System.out.println(customerDAO.getCustomersList());
 
         //Project
         Project project1 = new Project("TernopolPumps",         customer1);
@@ -82,8 +79,12 @@ public class Demo {
         projects.add(project7);
         projects.add(project8);
 
+        System.out.println(" ~~~ ");
+        System.out.println("projects " + projects.toString());
+        System.out.println(" ~~~ ");
+
         ProjectDAO projectDAO = new ProjectDAO(projects);
-        System.out.println("Project get all: " + projectDAO.getBase());
+        System.out.println("Project get all: " + projectDAO.getProjectsList());
 
 
         Set<Employee> employees = new TreeSet<>();
@@ -210,25 +211,42 @@ public class Demo {
         }
 
         Controller controller = new Controller(firmDAO, employeeDAO, departmentDAO, projectDAO, customerDAO);
-
+        System.out.println(" --------------------------------------------------------------------------------");
         System.out.println("Project tenopol pumps: " + controller.employeesByProject("TernopolPumps"));
         System.out.println("Boiler Water " + controller.employeesByProject("BoilerWater"));
 
+        System.out.println(" projecsByEmployee --------------------------------------------------------------");
+
         System.out.println("ProjectsByEmployee " + controller.projectsByEmployee(new Employee("Ivan", "Susanin", new Date(), Position.DEVELOPER, null, null)));
+        System.out.println(" ---------------------------------------------------------------------------------");
 
         System.out.println("EmployeesByDepartmentWithoutProject " + controller.employeesByDepartmentWithoutProject(new Department(DepartmentType.ASU, employees)));
 
+        System.out.println(" ~~~~~~~ ");
+
         System.out.println("EmployeesWithoutProject " + controller.employeesWithoutProject());
+
+        System.out.println(" ~~~~~~~~~~~~~~~~~~ ");
 
         System.out.println("employeesByTeamLead " + controller.employeesByTeamLead(employee3));
 
+        System.out.println(" ~~~~~~~~~~~~~~~~~~ ");
+
         System.out.println("teamLeadsByEmployee " + controller.teamLeadsByEmployee(employee34));
+
+        System.out.println(" ~~~~~~~~~~~~~~~~~~ ");
 
         System.out.println("employeeByProjectEmployee " + controller.employeesByProjectEmployee(employee35));
 
+        System.out.println( "~~~~~~~~~~~~~~~~~~~~" );
+
         System.out.println("projects by customer " + controller.projectsByCustomer(customer1));
 
+        System.out.println(" ~~~~~~~~~~~~~~~~~~~~ ");
+
         System.out.println("employees by customer projects " + controller.employeesByCustomerProjects(customer1));
+
+        System.out.println(" ~~~~~~~~~~~~~~~~~~~~ ");
 
     }
 

@@ -5,21 +5,21 @@ import java.util.TreeSet;
 
 public class CustomerDAO {
 
-    Set<Customer> base = new TreeSet<>();
+    Set<Customer> customersList = new TreeSet<>();
 
     public CustomerDAO() {
     }
 
 
-    public CustomerDAO(Set<Customer> base) {
-        this.base = base;
+    public CustomerDAO(Set<Customer> customersList) {
+        this.customersList = customersList;
     }
 
-    public Set<Customer> getBase() {
-        return base;
+    public Set<Customer> getCustomersList() {
+        return customersList;
     }
 
     public void save(Customer element){
-        base.add(element);
+        customersList.add(element);
     }
 }

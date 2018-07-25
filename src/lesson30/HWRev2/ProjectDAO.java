@@ -4,35 +4,35 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class ProjectDAO{
-    Set<Project> base = new TreeSet<>();
+    Set<Project> projectsList = new TreeSet<>();
 
     public ProjectDAO() {
     }
 
-    public ProjectDAO(Set<Project> base) {
-        this.base = base;
+    public ProjectDAO(Set<Project> projectsList) {
+        this.projectsList = projectsList;
     }
 
-    public Set<Project> getBase() {
-        return base;
+    public Set<Project> getProjectsList() {
+        return projectsList;
     }
 
     public void save(Project element){
-        base.add(element);
+        projectsList.add(element);
     }
 
 
 
 
     public Set<Project> getSection(int fromIndex, int endIndex) {
-        if (base.size() == 0
-                || fromIndex > base.size()
-                || endIndex > base.size())
+        if (projectsList.size() == 0
+                || fromIndex > projectsList.size()
+                || endIndex > projectsList.size())
             return null;
 
         Set<Project> res = new TreeSet<>();
         int index = 0;
-        for (Project element : base) {
+        for (Project element : projectsList) {
             if (index >= fromIndex && index <= endIndex) {
                 res.add(element);
             }
@@ -40,5 +40,20 @@ public class ProjectDAO{
         }
         return res;
     }
+
+
+    public Set<Project> projectsByCustomer(Customer customer) {//Список проектов выполняемых для данного заказчика
+        Set<Project> resList = new TreeSet<>();
+
+        for (Project prg : projectsList) {
+            if (prg.getCustomer().equals(customer)) {
+                resList.add(prg);
+            }
+        }
+        return resList;
+
+    }
+
+
 
 }
