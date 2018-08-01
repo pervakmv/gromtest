@@ -3,7 +3,7 @@ package lesson30.HWRev2;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class ProjectDAO{
+public class ProjectDAO {
     Set<Project> projectsList = new TreeSet<>();
 
     public ProjectDAO() {
@@ -17,28 +17,8 @@ public class ProjectDAO{
         return projectsList;
     }
 
-    public void save(Project element){
+    public void save(Project element) {
         projectsList.add(element);
-    }
-
-
-
-
-    public Set<Project> getSection(int fromIndex, int endIndex) {
-        if (projectsList.size() == 0
-                || fromIndex > projectsList.size()
-                || endIndex > projectsList.size())
-            return null;
-
-        Set<Project> res = new TreeSet<>();
-        int index = 0;
-        for (Project element : projectsList) {
-            if (index >= fromIndex && index <= endIndex) {
-                res.add(element);
-            }
-            index++;
-        }
-        return res;
     }
 
 
@@ -53,7 +33,6 @@ public class ProjectDAO{
         return resList;
 
     }
-
 
 
 }

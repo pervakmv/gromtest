@@ -124,29 +124,31 @@ public class Demo {
 
 
         //Employee
+        Test<Project> test = new Test<>(projects);
+
         Employee employee1 = new Employee("Nikolay", "Pervak", new Date(), Position.DEVELOPER, department1, null);
-        Employee employee2 = new Employee("Katiya", "Dainega", new Date(), Position.DESIGNER, department1, projectDAO.getSection(1, 4));
-        Employee employee3 = new Employee("Sviatoslav", "Kononenko", new Date(), Position.TEAM_LEAD, department1, projectDAO.getSection(0, 1));
-        Employee employee4 = new Employee("Oleksiy", "Saiko", new Date(), Position.ANALYST, department1, projectDAO.getSection(3, 6));
-        Employee employee5 = new Employee("Ivan", "Kolokolzev", new Date(), Position.DEVELOPER, department1, projectDAO.getSection(1, 2));
+        Employee employee2 = new Employee("Katiya", "Dainega", new Date(), Position.DESIGNER, department1, test.getSection(1, 4));
+        Employee employee3 = new Employee("Sviatoslav", "Kononenko", new Date(), Position.TEAM_LEAD, department1, test.getSection(0, 1));
+        Employee employee4 = new Employee("Oleksiy", "Saiko", new Date(), Position.ANALYST, department1, test.getSection(3, 6));
+        Employee employee5 = new Employee("Ivan", "Kolokolzev", new Date(), Position.DEVELOPER, department1, test.getSection(1, 2));
 
-        Employee employee21 = new Employee("Nikolay", "Petrenko", new Date(), Position.DEVELOPER, department2, projectDAO.getSection(0, 3));
-        Employee employee22 = new Employee("Katiya", "Pervak", new Date(), Position.DESIGNER, department2, projectDAO.getSection(1, 4));
-        Employee employee23 = new Employee("Sviatoslav", "Chernenko", new Date(), Position.TEAM_LEAD, department2, projectDAO.getSection(2, 5));
-        Employee employee24 = new Employee("Oleksiy", "Balaban", new Date(), Position.ANALYST, department2, projectDAO.getSection(3, 6));
-        Employee employee25 = new Employee("Ivan", "Susanin", new Date(), Position.DEVELOPER, department2, projectDAO.getSection(1, 2));
+        Employee employee21 = new Employee("Nikolay", "Petrenko", new Date(), Position.DEVELOPER, department2, test.getSection(0, 3));
+        Employee employee22 = new Employee("Katiya", "Pervak", new Date(), Position.DESIGNER, department2, test.getSection(1, 4));
+        Employee employee23 = new Employee("Sviatoslav", "Chernenko", new Date(), Position.TEAM_LEAD, department2, test.getSection(2, 5));
+        Employee employee24 = new Employee("Oleksiy", "Balaban", new Date(), Position.ANALYST, department2, test.getSection(3, 6));
+        Employee employee25 = new Employee("Ivan", "Susanin", new Date(), Position.DEVELOPER, department2, test.getSection(1, 2));
 
-        Employee employee31 = new Employee("Marina", "Petrenko", new Date(), Position.DEVELOPER, department3, projectDAO.getSection(0, 3));
-        Employee employee32 = new Employee("Arina", "Pervak", new Date(), Position.DESIGNER, department3, projectDAO.getSection(1, 4));
-        Employee employee33 = new Employee("Vika", "Chernenko", new Date(), Position.TEAM_LEAD, department3, projectDAO.getSection(2, 5));
-        Employee employee34 = new Employee("Luba", "Balaban", new Date(), Position.ANALYST, department3, projectDAO.getSection(3, 6));
-        Employee employee35 = new Employee("Sasha", "Susanin", new Date(), Position.DEVELOPER, department3, projectDAO.getSection(1, 2));
+        Employee employee31 = new Employee("Marina", "Petrenko", new Date(), Position.DEVELOPER, department3, test.getSection(0, 3));
+        Employee employee32 = new Employee("Arina", "Pervak", new Date(), Position.DESIGNER, department3, test.getSection(1, 4));
+        Employee employee33 = new Employee("Vika", "Chernenko", new Date(), Position.TEAM_LEAD, department3, test.getSection(2, 5));
+        Employee employee34 = new Employee("Luba", "Balaban", new Date(), Position.ANALYST, department3, test.getSection(3, 6));
+        Employee employee35 = new Employee("Sasha", "Susanin", new Date(), Position.DEVELOPER, department3, test.getSection(1, 2));
 
-        Employee employee41 = new Employee("Makar", "Petrenko", new Date(), Position.DEVELOPER, department3, projectDAO.getSection(0, 3));
-        Employee employee42 = new Employee("Anton", "Pervak", new Date(), Position.DESIGNER, department3, projectDAO.getSection(1, 4));
-        Employee employee43 = new Employee("Igor", "Chernenko", new Date(), Position.TEAM_LEAD, department3, projectDAO.getSection(2, 5));
-        Employee employee44 = new Employee("Dima", "Balaban", new Date(), Position.ANALYST, department3, projectDAO.getSection(3, 6));
-        Employee employee45 = new Employee("Serj", "Susanin", new Date(), Position.DEVELOPER, department3, projectDAO.getSection(1, 2));
+        Employee employee41 = new Employee("Makar", "Petrenko", new Date(), Position.DEVELOPER, department3, test.getSection(0, 3));
+        Employee employee42 = new Employee("Anton", "Pervak", new Date(), Position.DESIGNER, department3, test.getSection(1, 4));
+        Employee employee43 = new Employee("Igor", "Chernenko", new Date(), Position.TEAM_LEAD, department3, test.getSection(2, 5));
+        Employee employee44 = new Employee("Dima", "Balaban", new Date(), Position.ANALYST, department3, test.getSection(3, 6));
+        Employee employee45 = new Employee("Serj", "Susanin", new Date(), Position.DEVELOPER, department3, test.getSection(1, 2));
 
         employees.add(employee1);
         employees.add(employee2);

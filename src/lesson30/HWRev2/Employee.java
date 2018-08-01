@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
-public class Employee implements Comparable<Employee>{
+public class Employee implements Comparable<Employee> {
     private String firstName;
     private String lastName;
     private Date dateHired;
@@ -24,10 +24,10 @@ public class Employee implements Comparable<Employee>{
 
     @Override
     public int compareTo(Employee e) {
-        if(!this.getLastName().equals(e.getLastName())){
+        if (!this.getLastName().equals(e.getLastName())) {
             return this.getLastName().compareTo(e.getLastName());
         }
-        if(!this.getFirstName().equals(e.getFirstName())){
+        if (!this.getFirstName().equals(e.getFirstName())) {
             return this.getFirstName().compareTo(e.getFirstName());
         }
         return 0;
@@ -85,5 +85,16 @@ public class Employee implements Comparable<Employee>{
         int result = firstName != null ? firstName.hashCode() : 0;
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
+    }
+
+    public boolean worksByProject(String projectName) {
+        if (projectName == null
+                || projects == null)
+            return false;
+        for (Project pr : projects) {
+            pr.getName().equals(projectName);
+            return true;
+        }
+        return false;
     }
 }

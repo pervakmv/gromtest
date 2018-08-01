@@ -14,16 +14,9 @@ public class Customer implements Comparable<Customer> {
     @Override
     public int compareTo(Customer customer) {
 
-//        if(!customer.getName().equals(this.getName())){
-//            return customer.getName().compareTo(this.getName());
-//        }
         if(!this.getName().equals(customer.getName())){
             return this.getName().compareTo(customer.getName());
         }
-
-//        if(!customer.getCountry().equals(this.getCountry())){
-//            return customer.getCountry().compareTo(this.getCountry());
-//        }
 
         if(!this.getCountry().equals(customer.getCountry())){
             return this.getCountry().compareTo(customer.getCountry());

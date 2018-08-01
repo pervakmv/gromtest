@@ -26,28 +26,18 @@ public class EmployeeDAO {
 
     public Set<Employee> employeesByProject(String projectName) {//список сотрудников, работающих над заданным проектом
         Set<Employee> resList = new TreeSet<>();
-        Project project = new Project(projectName, null);
         for (Employee employee : employeesList) {
-            Collection<Project> employeesProjects = employee.getProjects();
-            if (employeesProjects == null)
-                continue;
-            if (employeesProjects.contains(project)) {
+            if (employee.worksByProject(projectName)) {
                 resList.add(employee);
             }
         }
         return resList;
     }
 
+
     public Set<Project> projectsByEmployee(Employee employee) {// список проектов, в которых участвует заданный сотрудник
 
-
-        for (Employee empl : employeesList) {
-            if (empl.equals(employee)) {
-                return empl.getProjects();
-            }
-        }
-
-        return null;
+        return employee.getProjects();
     }
 
 
@@ -76,8 +66,6 @@ public class EmployeeDAO {
     }
 
 
-
-
     public Set<Employee> teamByEmployee(Employee employee) {
         Set<Employee> resList = new TreeSet<>();
 
@@ -86,14 +74,14 @@ public class EmployeeDAO {
             String projectName = pr.getName();
             resList.addAll(employeesByProject(projectName));
         }
-        return (Set) resList;
+        return resList;
     }
 
 
     public Set<Employee> teamLeadsByEmployee(Employee employee) {//Список руководителей для заданного сотрудника (по всем проектам, в которых он участвует)
         Set<Employee> resList = new TreeSet<>();
 
-        for (Employee emp :  teamByEmployee(employee)) {
+        for (Employee emp : teamByEmployee(employee)) {
             if (emp.getPosition() == Position.TEAM_LEAD) {
                 resList.add(emp);
             }
@@ -116,8 +104,17 @@ public class EmployeeDAO {
     }
 
 
+    public Set<Employee> employeesByDepartmentWithoutProject(Department department) { //список сотрудников заданного департамента без проектов
 
+        Set<Employee> resEmployeeList = new TreeSet<>();
 
+        for (Employee emp : employeesWithoutProject()) {
+            if (department.equals(emp.getDepartment())) {
+                resEmployeeList.add(emp);
+            }
+        }
+        return resEmployeeList;
+    }
 
 
 }

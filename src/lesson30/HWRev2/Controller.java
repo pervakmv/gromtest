@@ -33,7 +33,7 @@ public class Controller {
 
     public Set<Employee> employeesByDepartmentWithoutProject(Department department) {
 
-        return departmentDAO.employeesByDepartmentWithoutProject(department);
+        return employeeDAO.employeesByDepartmentWithoutProject(department);
     }
 
     public Set<Employee> employeesWithoutProject() {//список сотрудников, не участвующих ни в одном проекте
