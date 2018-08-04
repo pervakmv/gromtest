@@ -31,6 +31,9 @@ public class Solution {
                 sum += Integer.parseInt(str);
             }
         }
+
+        br.close();
+        reader.close();
         return sum;
 
     }
