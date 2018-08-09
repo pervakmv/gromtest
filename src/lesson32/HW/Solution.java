@@ -25,7 +25,7 @@ public class Solution {
 
         int sum = 0;
         if (!stringValidator(inString))
-            System.out.println("Your numbers are wrong. Number f attempts exceeded");
+            System.out.println("Your numbers are wrong. Number of attempts exceeded");
         else {
             for (String str : inString) {
                 sum += Integer.parseInt(str);

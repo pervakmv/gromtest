@@ -23,7 +23,7 @@ public class ReadFromKeyboard {
         try {
             System.out.println("Hello, " + br.readLine() + "!");
         } catch (IOException e) {
-            System.err.println("Readin grom keyboard failed");
+            System.err.println("Readin from keyboard failed");
         } finally {
             try {
                 reader.close();
