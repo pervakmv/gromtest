@@ -45,10 +45,11 @@ public class ReadWriteFile {
         FileWriter writer = null;
         BufferedWriter bufferedWriter = null;
         try {
-            //TODO use other constructor
+
 
             //Thread.sleep(5000);
             writer = new FileWriter(path, true);
+           // writer = new FileWriter(new File(path), true);
             bufferedWriter = new BufferedWriter(writer);
 
             bufferedWriter.append("\n");
