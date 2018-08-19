@@ -1,35 +1,34 @@
-package lesson34;
+package lesson34.HW;
 
 import java.io.*;
 
-public class Practice {
+public class Solution {
 
 
-    public static void main(String[] args) throws Exception{
-        copyFileContent("C:/Temp/Test1.txt", "C:/Temp/Test.txt");
+    public void transferFileContent(String fileFromPath, String fileToPath) throws Exception {
+        try {
+            validate(fileFromPath, fileToPath);
+            writeToFile(fileToPath, readFromFile(fileFromPath), true);
+            writeToFile(fileFromPath, new StringBuffer(), false);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
-    public static void copyFileContent(String fileFromPath, String fileToPath) throws Exception {
-        //проверить, что есть файл
-        //проверить права
-        //считать контент файла from
-        //записать контент в файл to
-
-        validate(fileFromPath, fileToPath);
-        writeToFile(fileToPath, readFromFile(fileFromPath));
-    }
-
-    private static StringBuffer readFromFile(String path) {
+    private StringBuffer readFromFile(String path) {
         StringBuffer res = new StringBuffer();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
 
             while ((line = br.readLine()) != null) {
-                line += "\n";
+                // line += "\n";
+                res.append("\n");
                 res.append(line);
-                //res.append("\n");
+
             }
-            res.replace(res.length()-1, res.length(), "");
+            res.replace(res.length() - 1, res.length(), "");
         } catch (FileNotFoundException e) {
             System.err.println("File does not exist");
         } catch (IOException e) {
@@ -38,19 +37,17 @@ public class Practice {
         return res;
     }
 
-    private static  void writeToFile(String path, StringBuffer contentToWrite) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, false))) {
+    private void writeToFile(String path, StringBuffer contentToWrite, boolean append) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, append))) {
             bufferedWriter.append(contentToWrite);
         } catch (IOException e) {
             System.out.println("Can't write to file");
         }
     }
 
-    private static void validate(String fileFromPath, String fileToPath) throws Exception {
+    private void validate(String fileFromPath, String fileToPath) throws Exception {
         File fileFrom = new File(fileFromPath);
-
         File fileTo = new File(fileToPath);
-
         if (!fileFrom.exists()) {
             throw new FileNotFoundException("File " + fileFrom + " does not exist");
         }
@@ -62,8 +59,14 @@ public class Practice {
             throw new Exception("File " + fileFrom + " does not have permissions to read");
         }
 
+        if (!fileFrom.canWrite()) {
+            throw new Exception("File " + fileFrom + " file can not be changed");
+        }
+
         if (!fileTo.canWrite()) {
             throw new Exception("File " + fileTo + " does not have prmissions to write");
         }
     }
 }
+
+

@@ -1,7 +1,5 @@
 package lesson34;
 
-import org.apache.commons.io.IOUtils;
-
 import java.io.*;
 
 public class ReadWriteFile {
