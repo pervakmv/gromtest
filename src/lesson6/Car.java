@@ -1,5 +1,7 @@
 package lesson6;
 
+import javafx.css.Size;
+
 public class Car {
 
     //1 field
@@ -41,4 +43,6 @@ public class Car {
     private class Test {
 
     }
+
+
 }

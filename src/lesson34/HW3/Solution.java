@@ -1,6 +1,6 @@
 package lesson34.HW3;
 
-import javafx.scene.shape.Path;
+
 import org.apache.commons.io.CopyUtils;
 
 import java.io.*;
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 public class Solution {
 
-    public void copyFileContent(String fileFromPath, String fileToPath){
+    public static void copyFileContent(String fileFromPath, String fileToPath){
 
         try {
             Files.copy(Paths.get(fileFromPath), new FileOutputStream(fileToPath));
@@ -24,7 +24,7 @@ public class Solution {
 
     }
 
-    public void copyFileContentApacheIO(String fileFromPath, String fileToPath){
+    public static void copyFileContentApacheIO(String fileFromPath, String fileToPath){
 
         try {
             CopyUtils.copy(new FileInputStream(fileFromPath), new FileOutputStream(fileToPath));
@@ -36,7 +36,7 @@ public class Solution {
 
 
 
-    private void validate(String fileFromPath, String fileToPath) throws Exception {
+    private static void validate(String fileFromPath, String fileToPath) throws Exception {
         File fileFrom = new File(fileFromPath);
         File fileTo = new File(fileToPath);
         if (!fileFrom.exists()) {

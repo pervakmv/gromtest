@@ -5,7 +5,7 @@ import java.io.*;
 public class Solution {
 
 
-    public void transferFileContent(String fileFromPath, String fileToPath) throws Exception {
+    public static void transferFileContent(String fileFromPath, String fileToPath) throws Exception {
         try {
             validate(fileFromPath, fileToPath);
             writeToFile(fileToPath, readFromFile(fileFromPath), true);
@@ -17,7 +17,7 @@ public class Solution {
 
     }
 
-    public void transferSentences(String fileFromPath, String fileToPath, String word) {
+    public static void transferSentences(String fileFromPath, String fileToPath, String word) {
 
         StringBuffer stringBufferFromSourceFile = readFromFile(fileFromPath);
         StringBuffer writeBufferToFile = new StringBuffer();
@@ -46,7 +46,7 @@ public class Solution {
 
     }
 
-    private boolean sentenceContainsWord(String sentence, String word) {
+    private static boolean sentenceContainsWord(String sentence, String word) {
         String[] array = sentence.split(" ");
         for (String str : array) {
             if (str.equals(word))
@@ -55,7 +55,7 @@ public class Solution {
         return false;
     }
 
-    private StringBuffer readFromFile(String path) {
+    private static StringBuffer readFromFile(String path) {
         StringBuffer res = new StringBuffer();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -75,7 +75,7 @@ public class Solution {
         return res;
     }
 
-    private void writeToFile(String path, StringBuffer contentToWrite, boolean append) {
+    private static void writeToFile(String path, StringBuffer contentToWrite, boolean append) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, append))) {
             bufferedWriter.append(contentToWrite);
         } catch (IOException e) {
@@ -83,7 +83,7 @@ public class Solution {
         }
     }
 
-    private void validate(String fileFromPath, String fileToPath) throws Exception {
+    private static void validate(String fileFromPath, String fileToPath) throws Exception {
         File fileFrom = new File(fileFromPath);
         File fileTo = new File(fileToPath);
         if (!fileFrom.exists()) {
