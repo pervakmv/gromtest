@@ -56,6 +56,7 @@ public class Solution {
         } finally {
             IOUtils.closeQuietly(bufferedWriter);
             IOUtils.closeQuietly(writer);
+
         }
     }
 

@@ -20,7 +20,7 @@ public class Demo {
 
         //Company.validate();
 
-        //demo utils
+        //demo Utils
 
         int min = ArrayUtils.minElement(new int[]{1, 10, 40});
 
