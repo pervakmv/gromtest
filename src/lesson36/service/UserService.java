@@ -8,6 +8,8 @@ public class UserService {
     private UserRepository userRepository = new UserRepository();
 
     public User registerUser(User user) throws Exception {
+
+
         //check business logic (не должны быть пустые поля, Юзеру должно быть больше 18 лет
 
         if(!user.canBeRegistred())
@@ -16,5 +18,13 @@ public class UserService {
         return userRepository.registerUser(user);
 
 
+    }
+
+    public void login(String userName, String password) throws Exception{
+        userRepository.login(userName, password);
+    }
+
+    public void logout() throws Exception{
+        userRepository.logout();
     }
 }

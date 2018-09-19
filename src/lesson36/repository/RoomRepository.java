@@ -1,11 +1,13 @@
 package lesson36.repository;
 
 import lesson36.model.Hotel;
+import lesson36.model.Order;
+import lesson36.model.Room;
+import lesson36.model.User;
 
 import java.io.*;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+
 
 public class RoomRepository {
 
@@ -13,46 +15,48 @@ public class RoomRepository {
     private final int IdKoef = 100;
     private final int numberOfField = 7;
 
+
+    //  public RoomRepository() {
+    // }
+
+
     //считывание данных обработка данных - считывание файла
     //обработка данных - маппинг данных
 
-    public Hotel addHotel(Hotel hotel) throws Exception {
+    public Room addRoom(Room room) throws Exception {
         //save user to db (files)
-        Set<Hotel> hotels = mapping();
-        if (hotels.contains(hotel))
-            throw new Exception("Hotel already exist");
+        ArrayList<Room> rooms = mapping();
+        // if (rooms.contains(room))
+        //     throw new Exception("Room already exist");
 
         //Генерирем ID
         long id = 0;
         do
             id = Math.round((Math.random()) * IdKoef);
-        while (findHotelById(id, hotels) != null);
-        hotel.setId(id);
-
-        hotels.add(hotel);
-
-        writeToFile(hotels);
-
-        return hotel;
+        while (findRoomById(id, rooms) != null);
+        room.setId(id);
+        rooms.add(room);
+        writeToFile(rooms);
+        return room;
 
     }
 
-    public Hotel deleteHotel(long hotelId) throws Exception {
-        Set<Hotel> hotels = mapping();
-        Hotel hotel = findHotelById(hotelId, hotels);
-        if (hotel == null)
-            throw new Exception("Hotel id:" + hotelId + " is not exist");
-        hotels.remove(hotel);
-        writeToFile(hotels);
+    public Room deleteRoom(long roomId) throws Exception {
+        ArrayList<Room> rooms = mapping();
+        Room room = findRoomById(roomId, rooms);
+        if (room == null)
+            throw new Exception("Hotel id:" + roomId + " is not exist");
+        rooms.remove(room);
+        writeToFile(rooms);
 
-        return hotel;
+        return room;
     }
 
-    private Hotel findHotelById(long id, Collection<Hotel> data) {
+    public Room findRoomById(long id, Collection<Room> data) {
         if (data == null)
             return null;
 
-        for (Hotel object : data) {
+        for (Room object : data) {
             if (id == object.getId()) {
                 return object;
             }
@@ -60,10 +64,14 @@ public class RoomRepository {
         return null;
     }
 
+    public Room findRoomById(long id) throws Exception {
+        return findRoomById(id, mapping());
+    }
 
-    private void writeToFile(Set<Hotel> list) {
+
+    public void writeToFile(ArrayList<Room> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
-            for (Hotel element : list) {
+            for (Room element : list) {
                 bufferedWriter.append(element.toFileFormat() + '\n');
             }
 
@@ -73,14 +81,61 @@ public class RoomRepository {
     }
 
 
-    public Set<Hotel> mapping() throws Exception {
-        Set<Hotel> res = new TreeSet<>();
+    public void bookRoom(long roomId, long userId, long hotelId) throws Exception {
+        //проверяем наличие такого отеля
+        HotelRepository hotelRepository = new HotelRepository();
+        Hotel hotel = hotelRepository.findHotelById(hotelId);
+
+        //проверяем наличие зарегистрированного пользователя
+        UserRepository userRepository = new UserRepository();
+        User user = userRepository.findUserById(roomId);
+
+        //проверяем наличие комнаты с таким ID
+        Room room = findRoomById(roomId);
+
+        //Выдаем исключение в случае отсутствия комнаты с таким ID в отеле с заданным ID
+        if (room.getHotel().getId() != hotelId) {
+            throw new Exception("bookRoom: Hotel " + hotel.getName() + " doesn't have room with id:" + roomId);
+        }
+
+        int amountOfDays = 2;
+        Date dateFrom = new Date();
+        Date dateTo = new Date();
+        dateTo.setDate(dateFrom.getDate() + amountOfDays);
+        double moneyPaid = (double) amountOfDays * room.getPrice();
+        Order order = new Order(user, room, dateFrom, dateTo, moneyPaid);
+        OrderRepository orderRepository = new OrderRepository();
+        orderRepository.addOrder(order);
+
+    }
+
+    public void cancelReservation(long roomId, long userId) throws Exception {
+        OrderRepository orderRepository = new OrderRepository();
+        Set<Order> orders = orderRepository.mapping();
+        boolean thereIsSuchAnElement = false;
+
+        for (Order element : orders) {
+            if (element.getRoom().getId() == roomId &&
+                    element.getUser().getId() == userId) {
+                orders.remove(element);
+                thereIsSuchAnElement = true;
+                break;
+            }
+        }
+        if (thereIsSuchAnElement == false) {
+            throw new Exception("This order is missing");
+        }
+    }
+
+
+    public ArrayList<Room> mapping() throws Exception {
+        ArrayList<Room> res = new ArrayList<>();
         StringBuffer stringBuffer = new StringBuffer();
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
             long lineNumber = 0;
-
+            HotelRepository hotelRepository = new HotelRepository();
             while ((line = br.readLine()) != null) {
 
                 line = line.replaceAll("\t", ""); //Убираем табуляции
@@ -91,8 +146,27 @@ public class RoomRepository {
                     throw new Exception("Error in data file: " + pathToFile + " line number: " + lineNumber);
 
 
-                Hotel hotel = new Hotel(Long.parseLong(array[0]), array[1], array[2], array[3]);
-                res.add(hotel);
+                int numberOfGuests = Integer.parseInt(array[1]);
+                Double price = Double.parseDouble(array[2]);
+                boolean breakfastIncluded = false;
+                if (array[3].equals("true"))
+                    breakfastIncluded = true;
+                boolean petsAllowed = false;
+                if (array[4].equals("true"))
+                    petsAllowed = true;
+
+                String[] dateString = array[5].split("-");
+
+                Date date = new Date();
+                date.setDate(Integer.parseInt(dateString[0]));
+                date.setMonth(Integer.parseInt(dateString[1]) - 1);
+                date.setYear(Integer.parseInt(dateString[2]) - 1900);
+
+
+                Hotel hotel = hotelRepository.findHotelById(Long.parseLong(array[6]));
+
+                Room room = new Room(Long.parseLong(array[0]), numberOfGuests, price, breakfastIncluded, petsAllowed, date, hotel);
+                res.add(room);
                 lineNumber++;
             }
         } catch (FileNotFoundException e) {
@@ -100,9 +174,10 @@ public class RoomRepository {
 
         } catch (IOException e) {
             System.out.println("Readin form file " + pathToFile + "failed");
-        } catch (IllegalArgumentException e) {
-            System.out.println("User type is incorrect");
         }
+//        } catch (IllegalArgumentException e) {
+//            System.out.println("RoomRepository: IllegalArgumentException");
+//        }
 
         return res;
     }

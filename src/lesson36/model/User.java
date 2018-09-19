@@ -81,6 +81,8 @@ public class User  implements Comparable<User> {
         return  id + "," +'\t' + userName + ","+ '\t' + '\t' + password + ","+ '\t' + country + ","+ '\t' + userType ;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,6 +91,7 @@ public class User  implements Comparable<User> {
         User user = (User) o;
 
         if (!userName.equals(user.userName)) return false;
+       // if (!password.equals(user.password)) return false;
         if (!country.equals(user.country)) return false;
         return userType == user.userType;
     }
@@ -96,6 +99,7 @@ public class User  implements Comparable<User> {
     @Override
     public int hashCode() {
         int result = userName.hashCode();
+       // result = 31 * result + password.hashCode();
         result = 31 * result + country.hashCode();
         result = 31 * result + userType.hashCode();
         return result;

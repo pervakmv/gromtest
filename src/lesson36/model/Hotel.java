@@ -8,12 +8,14 @@ import java.io.InputStreamReader;
 
 public class Hotel implements Comparable<Hotel> {
     private long id;
+    private String name;
     private String country;
     private String city;
     private String street;
 
-    public Hotel(long id, String country, String city, String street) {
+    public Hotel(long id, String name, String country, String city, String street) {
         this.id = id;
+        this.name = name;
         this.country = country;
         this.city = city;
         this.street = street;
@@ -24,6 +26,13 @@ public class Hotel implements Comparable<Hotel> {
 
     @Override
     public int compareTo(Hotel o) {
+        if (!this.getName().equals(o.getName())) {
+            return this.getName().compareTo(o.getName());
+        }
+
+        if (!this.getCountry().equals(o.getCountry())) {
+            return this.getCountry().compareTo(o.getCountry());
+        }
         if (!this.getCountry().equals(o.getCountry())) {
             return this.getCountry().compareTo(o.getCountry());
         }
@@ -36,7 +45,8 @@ public class Hotel implements Comparable<Hotel> {
     @Override
     public String toString() {
         return "Hotel{" +
-                "id=" + id +
+                "id=" + id + '\'' +
+                ", name=" + name + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
@@ -50,6 +60,7 @@ public class Hotel implements Comparable<Hotel> {
 
         Hotel hotel = (Hotel) o;
 
+        if (!name.equals(hotel.name)) return false;
         if (!country.equals(hotel.country)) return false;
         if (!city.equals(hotel.city)) return false;
         return street.equals(hotel.street);
@@ -57,7 +68,8 @@ public class Hotel implements Comparable<Hotel> {
 
     @Override
     public int hashCode() {
-        int result = country.hashCode();
+        int result = name.hashCode();
+        result = 31 * result + country.hashCode();
         result = 31 * result + city.hashCode();
         result = 31 * result + street.hashCode();
         return result;
@@ -65,6 +77,10 @@ public class Hotel implements Comparable<Hotel> {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setCountry(String country) {
@@ -83,6 +99,10 @@ public class Hotel implements Comparable<Hotel> {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -97,6 +117,7 @@ public class Hotel implements Comparable<Hotel> {
 
     public boolean canBeAdd() {
         if (country != null &&
+                name != null &&
                 city != null &&
                 street != null) {
             return true;
@@ -105,7 +126,7 @@ public class Hotel implements Comparable<Hotel> {
     }
 
     public String toFileFormat() {
-        return id + "," + '\t' + country + "," + '\t' + city + "," + '\t' + street;
+        return id + "," + '\t'  + name  + "," + '\t' + country + "," + '\t' + city + "," + '\t' + street;
     }
 
 
@@ -116,6 +137,9 @@ public class Hotel implements Comparable<Hotel> {
         BufferedReader br = new BufferedReader(reader);
 
         try {
+            System.out.print("Name: ");
+            this.name = br.readLine();
+
             System.out.print("Country: ");
             this.country = br.readLine();
 

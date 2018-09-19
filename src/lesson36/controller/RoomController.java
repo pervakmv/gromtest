@@ -1,0 +1,28 @@
+package lesson36.controller;
+
+import lesson36.model.Room;
+import lesson36.repository.UserRepository;
+import lesson36.service.RoomService;
+
+public class RoomController {
+
+    private RoomService roomService = new RoomService();
+
+
+    public Room addRoom(Room room) throws Exception {
+        return roomService.addRoom(room);
+    }
+
+    public Room deleteRoom(long roomId) throws Exception {
+        return roomService.deleteRoom(roomId);
+    }
+
+    public void bookRoom(long roomId, long userId, long hotelId) throws Exception {
+        roomService.bookRoom(roomId, userId, hotelId);
+    }
+
+    public void cancelReservation(long roomId, long userId) throws Exception {
+        roomService.cancelReservation(roomId, userId);
+    }
+
+}

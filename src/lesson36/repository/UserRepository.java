@@ -11,11 +11,36 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class UserRepository {
+
+    public static User logenedUser = new User();
+
     private final String pathToFile = "c:/temp/User.txt";
     private final int usersIdKoef = 1000;
 
     //считывание данных обработка данных - считывание файла
     //обработка данных - маппинг данных
+
+
+
+
+    public User getLogenedUser() {
+        return logenedUser;
+    }
+
+
+    public static boolean logonWasSuccesful() {
+        if (logenedUser.getUserName() != null)
+            return true;
+        return false;
+    }
+
+    public static boolean logenedUserHasAdminPermit() {
+        if (logenedUser == null) return false;
+        if (logenedUser.getUserType() == UserType.ADMIN)
+            return true;
+        return false;
+    }
+
 
     public User registerUser(User user) throws Exception {
         //save user to db (files)
@@ -26,7 +51,7 @@ public class UserRepository {
         //Генерирем ID
         long id = 0;
         do
-            id =  Math.round((Math.random())* usersIdKoef);
+            id = Math.round((Math.random()) * usersIdKoef);
         while (findUserById(id, users) != null);
         user.setId(id);
 
@@ -36,6 +61,8 @@ public class UserRepository {
 
         return user;
     }
+
+
 
     public User findUserById(long id, Collection<User> users) {
         if (users == null)
@@ -49,6 +76,15 @@ public class UserRepository {
         return null;
     }
 
+    public User findUserById(long id) throws Exception{
+
+        return findUserById(id, userMapping());
+    }
+
+
+    public void setLogenedUser(User logenedUser) {
+        this.logenedUser = logenedUser;
+    }
 
     private void userWrite(Set<User> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
@@ -94,6 +130,28 @@ public class UserRepository {
         }
 
         return res;
+    }
+
+    public void login(String userName, String password) throws Exception {
+        Set<User> users = userMapping();
+
+        for (User element : users) {
+
+            if (element.getUserName().equals(userName) &&
+                    element.getPassword().equals(password)) {
+                logenedUser = element;
+                break;
+            }
+        }
+        if (logenedUser.getUserName() != null) {
+            System.out.println("Login user " + logenedUser.getUserName() + " are sccuss");
+        } else {
+            throw new Exception("Login: User is not exist");
+        }
+    }
+
+    public void logout() throws Exception {
+        logenedUser = null;
     }
 
 }

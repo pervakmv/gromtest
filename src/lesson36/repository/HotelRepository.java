@@ -1,19 +1,26 @@
 package lesson36.repository;
 
 import lesson36.model.Hotel;
+import lesson36.model.Room;
+import lesson36.model.User;
 
 import java.io.*;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 
 public class HotelRepository {
 
     private final String pathToFile = "c:/temp/Hotel.txt";
     private final int IdKoef = 10000;
-    private final int numberOfField = 4;
+    private final int numberOfField = 5;
+    private User logenedUser;
 
+    public HotelRepository(User logenedUser) {
+        this.logenedUser = logenedUser;
+    }
+
+    public HotelRepository() {
+    }
     //считывание данных обработка данных - считывание файла
     //обработка данных - маппинг данных
 
@@ -21,7 +28,7 @@ public class HotelRepository {
         //save user to db (files)
         Set<Hotel> hotels = mapping();
         if (hotels.contains(hotel))
-            throw new Exception("Hotel already exist");
+            throw new Exception("addHotel: Hotel already exist");
 
         //Генерирем ID
         long id = 0;
@@ -40,9 +47,21 @@ public class HotelRepository {
 
     public Hotel deleteHotel(long hotelId) throws Exception {
         Set<Hotel> hotels = mapping();
+        RoomRepository roomRepository = new RoomRepository();
+        ArrayList<Room> rooms = roomRepository.mapping(); //При удалении отеля нужно удалять и комнаты этого отеля
+        System.out.println(rooms.toString());
         Hotel hotel = findHotelById(hotelId, hotels);
         if (hotel == null)
-           throw new Exception("Hotel id:" + hotelId + " is not exist");
+            throw new Exception("Hotel id:" + hotelId + " is not exist");
+
+        Iterator<Room> iterator = rooms.iterator();
+        while (iterator.hasNext()) {
+            Room element = iterator.next();
+            if (element.getHotel().getId() == hotelId) {
+                iterator.remove();
+            }
+        }
+        roomRepository.writeToFile(rooms);
         hotels.remove(hotel);
         writeToFile(hotels);
 
@@ -61,6 +80,16 @@ public class HotelRepository {
         return null;
     }
 
+    public Hotel findHotelById(long id) throws Exception {
+
+        for (Hotel object : mapping()) {
+            if (id == object.getId()) {
+                return object;
+            }
+        }
+        return null;
+    }
+
 
     private void writeToFile(Set<Hotel> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
@@ -69,7 +98,7 @@ public class HotelRepository {
             }
 
         } catch (IOException e) {
-            System.out.println("Can't write to file by path: " + pathToFile);
+            System.out.println("writeToFile: Can't write to file by path: " + pathToFile);
         }
     }
 
@@ -92,7 +121,7 @@ public class HotelRepository {
                     throw new Exception("Error in data file: " + pathToFile + " line number: " + lineNumber);
 
 
-                Hotel hotel = new Hotel(Long.parseLong(array[0]), array[1], array[2], array[3]);
+                Hotel hotel = new Hotel(Long.parseLong(array[0]), array[1], array[2], array[3], array[4]);
                 res.add(hotel);
                 lineNumber++;
             }
@@ -108,5 +137,30 @@ public class HotelRepository {
         return res;
     }
 
+    public Set<Hotel> findHotelByName(String name) throws Exception {
+        Set<Hotel> hotels = mapping();
+        Set<Hotel> resHotels = new TreeSet<>();
+
+        for (Hotel element : hotels) {
+            if (element.getName().equals(name))
+                resHotels.add(element);
+        }
+        return resHotels;
+    }
+
+    public Set<Hotel> findHotelByCity(String city) throws Exception {
+        Set<Hotel> hotels = mapping();
+
+        Set<Hotel> resHotels = new TreeSet<>();
+        for (Hotel element : hotels) {
+
+            if (element.getCity().equals(city)) {
+                resHotels.add(element);
+
+            }
+
+        }
+        return resHotels;
+    }
 
 }

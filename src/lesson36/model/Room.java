@@ -111,21 +111,21 @@ public class Room {
     }
 
     public String toFileFormat() {
-        return id + "," + '\t' + numberOfGuests + '\t' + "," + price + '\t' + "," + breakfastIncluded + '\t' + ","
-                + petsAllowed + '\t' + dateAvailableFrom.getDay() + "/" + dateAvailableFrom.getMonth() + "/" + dateAvailableFrom.getYear() + "," + '\t' +
+        return id + "," + '\t' + numberOfGuests + "," +'\t'  + price + "," +  '\t'  + breakfastIncluded +"," + '\t' +
+                petsAllowed + "," + '\t' + dateAvailableFrom.getDate() + "-" + (dateAvailableFrom.getMonth()+1) + "-" + (dateAvailableFrom.getYear()+1900) + "," + '\t' +
                 hotel.getId();
     }
 
 
-    public Room enterDateByKeyboard() {
+    public Room enterDataByKeyboard() {
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(reader);
 
         try {
             System.out.println("Number of guests : ");
-            this.numberOfGuests = Integer.valueOf(br.readLine());
+            this.numberOfGuests = Integer.parseInt(br.readLine());
             System.out.println("Price :");
-            this.price = Double.valueOf(br.readLine());
+            this.price = Double.parseDouble(br.readLine());
             System.out.println("Breakfast inclueded 1-Yes/2-No");
             if (Integer.valueOf(br.readLine()) == 1)
                 this.breakfastIncluded = true;
@@ -133,30 +133,37 @@ public class Room {
                 this.breakfastIncluded = false;
 
             System.out.println("Pets allowed 1-Yes/2-No");
-            if (Integer.valueOf(br.readLine()) == 1)
+            if (Integer.parseInt(br.readLine()) == 1)
                 this.petsAllowed = true;
             else
                 this.petsAllowed = false;
 
             System.out.println("Date available from ");
 
-            int value = 0;
+            int date = 0;
+            int month = 0;
+            int year = 0;
             do {
                 System.out.println("Day");
-                value = Integer.valueOf(br.readLine());
-            } while (value > 0 && value < 32);
-            this.dateAvailableFrom.setDate(value);
+                date = Integer.parseInt(br.readLine());
+
+            } while (!(date > 0 && date < 32));
+
+
+
             do {
                 System.out.println("Month");
-                value = Integer.valueOf(br.readLine());
-            } while (value > 0 && value < 13);
-            this.dateAvailableFrom.setMonth(value);
+                month = Integer.parseInt(br.readLine());
+            } while (!(month >= 1 && month < 12));
+
 
             do {
                 System.out.println("Year");
-                value = Integer.valueOf(br.readLine());
-            } while (value > 2018 && value < 2030);
-            this.dateAvailableFrom.setYear(value);
+                year = Integer.parseInt(br.readLine());
+            } while (!(year > 2017 && year < 2030));
+
+            dateAvailableFrom = new Date(year-1900, month-1, date);
+
 
             HotelRepository hotelRepository = new HotelRepository();
             System.out.println("HotelId ");
