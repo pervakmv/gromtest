@@ -134,7 +134,7 @@ public class Room {
     }
 
 
-    public Room enterDataByKeyboard() {
+    public Room enterDataByKeyboard() throws Exception{
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(reader);
 
@@ -188,8 +188,10 @@ public class Room {
         } catch (Exception e) {
             System.err.println("Reading from keyboard faile");
         } finally {
-            IOUtils.closeQuietly(reader);
-            IOUtils.closeQuietly(br);
+            //IOUtils.closeQuietly(reader);
+            //IOUtils.closeQuietly(br);
+            reader.close();
+            br.close();
         }
         return this;
     }

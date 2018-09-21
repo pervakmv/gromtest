@@ -130,7 +130,7 @@ public class Hotel implements Comparable<Hotel> {
     }
 
 
-    public Hotel enterDataByKeyboard() {
+    public Hotel enterDataByKeyboard() throws Exception{
 
 
         InputStreamReader reader = new InputStreamReader(System.in);
@@ -155,8 +155,10 @@ public class Hotel implements Comparable<Hotel> {
         } catch (IOException e) {
             System.err.println("Reading from keyboard failed");
         } finally {
-            IOUtils.closeQuietly(reader);
-            IOUtils.closeQuietly(br);
+//            IOUtils.closeQuietly(reader);
+//            IOUtils.closeQuietly(br);
+            reader.close();
+            br.close();
         }
         return this;
     }

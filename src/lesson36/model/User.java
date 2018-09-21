@@ -126,7 +126,7 @@ public class User  implements Comparable<User> {
         this.userType = userType;
     }
 
-    public User enterDataByKeyboard(){
+    public User enterDataByKeyboard() throws Exception{
 
 
         InputStreamReader reader = new InputStreamReader(System.in);
@@ -155,8 +155,10 @@ public class User  implements Comparable<User> {
         }catch(IOException e){
             System.err.println("Reading from keyboard failed");
         }finally{
-            IOUtils.closeQuietly(reader);
-            IOUtils.closeQuietly(br);
+            reader.close();
+            br.close();
+//            IOUtils.closeQuietly(reader);
+//            IOUtils.closeQuietly(br);
         }
         return this;
     }
