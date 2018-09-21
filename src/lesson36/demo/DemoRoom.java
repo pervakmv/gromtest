@@ -2,14 +2,11 @@ package lesson36.demo;
 
 import lesson36.Utils.Utils;
 import lesson36.controller.RoomController;
-import lesson36.model.Filter;
+
 import lesson36.model.Room;
-import lesson36.model.User;
-import lesson36.repository.RoomRepository;
+
 import lesson36.repository.UserRepository;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.sql.Date;
 
 public class DemoRoom {
     public static void main(String[] args) throws Exception{

@@ -1,7 +1,6 @@
 package lesson36.Utils;
 
-import lesson36.model.Hotel;
-import org.apache.commons.io.IOUtils;
+
 
 import java.io.*;
 import java.sql.Date;

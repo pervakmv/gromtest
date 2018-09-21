@@ -1,10 +1,10 @@
 package lesson36.demo;
 
-import lesson36.Utils.Utils;
+
 import lesson36.controller.UserController;
 import lesson36.model.User;
 import lesson36.repository.UserRepository;
-import lesson36.service.UserService;
+
 
 public class DemoUser {
     public static void main(String[] args) throws Exception{

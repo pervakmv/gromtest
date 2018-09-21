@@ -2,15 +2,12 @@ package lesson36.demo;
 
 import lesson36.Utils.Utils;
 import lesson36.controller.HotelController;
-import lesson36.controller.UserController;
+
 import lesson36.model.Hotel;
-import lesson36.model.User;
-import lesson36.repository.HotelRepository;
+
 import lesson36.repository.UserRepository;
 
-import java.util.Scanner;
 
-import static lesson36.Utils.Utils.readKeyboardWithScannerLong;
 
 public class DemoHotel {
     public static void main(String[] args) throws Exception {

@@ -1,10 +1,9 @@
 package lesson36.repository;
 
-import lesson36.model.Filter;
-import lesson36.model.Room;
+
 import lesson36.model.User;
 import lesson36.model.UserType;
-import org.apache.commons.io.IOUtils;
+
 
 import java.io.*;
 import java.util.*;
