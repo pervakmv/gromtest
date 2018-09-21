@@ -5,6 +5,7 @@ import lesson36.model.Hotel;
 import lesson36.model.Order;
 
 import java.io.*;
+import java.util.Date;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
@@ -33,6 +34,17 @@ public class OrderRepository {
 
     public Order findOrderById(long id) throws Exception {
         return findOrderById(id, mapping());
+    }
+
+    public Order findOrderByRoomId(long id) throws Exception {
+        for (Order object : mapping()) {
+            if(object.getRoom()!=null) {
+                if (id == object.getRoom().getId()) {
+                    return object;
+                }
+            }
+        }
+        return null;
     }
 
 
@@ -86,6 +98,19 @@ public class OrderRepository {
         return res;
     }
 
+    private boolean dateOfOrdersIsSame(Order orderA, Order orderB) {
+        boolean res = false;
+
+
+        if (orderA.getDateFrom().equals(orderB.getDateFrom()))
+            res = true;
+        if (orderA.getDateFrom().after(orderB.getDateFrom()) &&
+                (orderA.getDateFrom().before(orderB.getDateTo()))
+                || orderA.getDateFrom().equals(orderB.getDateTo()))
+            res = true;
+
+        return res;
+    }
 
     public Order addOrder(Order order) throws Exception {
 
@@ -94,11 +119,22 @@ public class OrderRepository {
         if (orders.contains(order))
             throw new Exception("addOrder: Order already exist");
 
+        //Проверяю заказ на предмет накладок в заказах комнат
+
+        Order orderByRoomId = findOrderByRoomId(order.getRoom().getId());
+        if (orderByRoomId != null) {
+
+            if(dateOfOrdersIsSame(order, orderByRoomId))
+                throw new Exception("The room can't be booking");
+        }
+
+
         //Генерирем ID
         long id = 0;
         do
             id = Math.round((Math.random()) * IdKoef);
         while (findOrderById(id, orders) != null);
+
         order.setId(id);
         orders.add(order);
         writeToFile(orders);

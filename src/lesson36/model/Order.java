@@ -102,9 +102,9 @@ public class Order implements Comparable<Order> {
         if (!this.dateFrom.equals(o.getDateFrom())) {
             return this.dateFrom.compareTo(o.getDateFrom());
         }
-   //     if (!this.getUser().equals(o.getUser())) {
-    //        return this.getUser().compareTo(o.getUser());
-    //    }
+        if (!this.getUser().equals(o.getUser())) {
+            return this.getUser().compareTo(o.getUser());
+        }
         return 0;
     }
 

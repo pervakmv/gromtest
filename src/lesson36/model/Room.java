@@ -58,6 +58,23 @@ public class Room {
         return hotel.equals(room.hotel);
     }
 
+    public boolean equalsByFilter(Filter filter) {
+        if (numberOfGuests != filter.getNumberOfGuests()) return false;
+        if (Double.compare(price, filter.getPrice()) == 1) return false;
+        if (breakfastIncluded != filter.isBreakfastIncluded()) return false;
+        if (petsAllowed != filter.isPetsAllowed()) return false;
+
+
+        if (dateAvailableFrom.getYear() != filter.getDateAvailableFrom().getYear()) return false;
+        if (dateAvailableFrom.getMonth() != filter.getDateAvailableFrom().getMonth()) return false;
+        if (dateAvailableFrom.getDate() != filter.getDateAvailableFrom().getDate()) return false;
+
+        if (!hotel.getCountry().equals(filter.getCountry())) return false;
+        if (!hotel.getCity().equals(filter.getCity())) return false;
+
+        return true;
+    }
+
     @Override
     public int hashCode() {
         int result;
@@ -75,7 +92,7 @@ public class Room {
         return id;
     }
 
-    public int getNumberOfCuests() {
+    public int getNumberOfGuests() {
         return numberOfGuests;
     }
 
@@ -111,8 +128,8 @@ public class Room {
     }
 
     public String toFileFormat() {
-        return id + "," + '\t' + numberOfGuests + "," +'\t'  + price + "," +  '\t'  + breakfastIncluded +"," + '\t' +
-                petsAllowed + "," + '\t' + dateAvailableFrom.getDate() + "-" + (dateAvailableFrom.getMonth()+1) + "-" + (dateAvailableFrom.getYear()+1900) + "," + '\t' +
+        return id + "," + '\t' + numberOfGuests + "," + '\t' + price + "," + '\t' + breakfastIncluded + "," + '\t' +
+                petsAllowed + "," + '\t' + dateAvailableFrom.getDate() + "-" + (dateAvailableFrom.getMonth() + 1) + "-" + (dateAvailableFrom.getYear() + 1900) + "," + '\t' +
                 hotel.getId();
     }
 
@@ -150,7 +167,6 @@ public class Room {
             } while (!(date > 0 && date < 32));
 
 
-
             do {
                 System.out.println("Month");
                 month = Integer.parseInt(br.readLine());
@@ -162,7 +178,7 @@ public class Room {
                 year = Integer.parseInt(br.readLine());
             } while (!(year > 2017 && year < 2030));
 
-            dateAvailableFrom = new Date(year-1900, month-1, date);
+            dateAvailableFrom = new Date(year - 1900, month - 1, date);
 
 
             HotelRepository hotelRepository = new HotelRepository();

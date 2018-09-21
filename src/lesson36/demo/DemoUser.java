@@ -1,5 +1,6 @@
 package lesson36.demo;
 
+import lesson36.Utils.Utils;
 import lesson36.controller.UserController;
 import lesson36.model.User;
 import lesson36.repository.UserRepository;
@@ -12,7 +13,10 @@ public class DemoUser {
         UserRepository userRepository = new UserRepository();
         //System.out.println(user.enterDataByKeyboard().toString());
 
-            System.out.println(userController.registerUser(new User().enterDataByKeyboard()).toString());
+            //System.out.println(userController.registerUser(new User().enterDataByKeyboard()).toString());
+       // System.out.println(userController.);
+
+        //System.out.println(userRepository.findUserById(Utils.readKeyboardWithScannerLong("Id = ")));
 
     }
 

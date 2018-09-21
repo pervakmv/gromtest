@@ -1,9 +1,12 @@
 package lesson36.service;
 
+import lesson36.model.Filter;
 import lesson36.model.Room;
 import lesson36.model.User;
 import lesson36.repository.RoomRepository;
 import lesson36.repository.UserRepository;
+
+import java.util.ArrayList;
 
 public class RoomService {
 
@@ -55,5 +58,9 @@ public class RoomService {
         roomRepository.cancelReservation(roomId, userId);
     }
 
-
+    public ArrayList<Room> findRooms(Filter filter) throws Exception {
+        if (!UserRepository.logonWasSuccesful())
+            throw new Exception("addRoom: You need login");
+        return roomRepository.findRooms(filter);
+    }
 }

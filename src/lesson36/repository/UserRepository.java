@@ -1,14 +1,13 @@
 package lesson36.repository;
 
+import lesson36.model.Filter;
+import lesson36.model.Room;
 import lesson36.model.User;
 import lesson36.model.UserType;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class UserRepository {
 
@@ -153,5 +152,7 @@ public class UserRepository {
     public void logout() throws Exception {
         logenedUser = null;
     }
+
+
 
 }

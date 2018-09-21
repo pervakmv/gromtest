@@ -1,9 +1,6 @@
 package lesson36.repository;
 
-import lesson36.model.Hotel;
-import lesson36.model.Order;
-import lesson36.model.Room;
-import lesson36.model.User;
+import lesson36.model.*;
 
 import java.io.*;
 import java.util.*;
@@ -46,13 +43,18 @@ public class RoomRepository {
         Room room = findRoomById(roomId, rooms);
         if (room == null)
             throw new Exception("Hotel id:" + roomId + " is not exist");
+
+        //Нужно сначала удалить все заказы этой комнаты
+
+        OrderRepository orderRepository = new OrderRepository();
+        orderRepository.deleteOrder(orderRepository.findOrderByRoomId(roomId).getId());
         rooms.remove(room);
         writeToFile(rooms);
 
         return room;
     }
 
-    public Room findRoomById(long id, Collection<Room> data) {
+    public Room findRoomById(long id, Collection<Room> data) throws Exception {
         if (data == null)
             return null;
 
@@ -61,7 +63,7 @@ public class RoomRepository {
                 return object;
             }
         }
-        return null;
+        throw new Exception("findRoomById: room with Id " + id + " is not exist");
     }
 
     public Room findRoomById(long id) throws Exception {
@@ -85,10 +87,14 @@ public class RoomRepository {
         //проверяем наличие такого отеля
         HotelRepository hotelRepository = new HotelRepository();
         Hotel hotel = hotelRepository.findHotelById(hotelId);
-
+        if (hotel == null)
+            throw new Exception("bookRoom: There is hotel with id:" + hotelId + " is not exist");
         //проверяем наличие зарегистрированного пользователя
         UserRepository userRepository = new UserRepository();
-        User user = userRepository.findUserById(roomId);
+        User user = userRepository.findUserById(userId);
+
+        if (user == null)
+            throw new Exception("bookRoom: There is user with id:" + userId + " is not exist");
 
         //проверяем наличие комнаты с таким ID
         Room room = findRoomById(roomId);
@@ -117,7 +123,8 @@ public class RoomRepository {
         for (Order element : orders) {
             if (element.getRoom().getId() == roomId &&
                     element.getUser().getId() == userId) {
-                orders.remove(element);
+
+                orderRepository.deleteOrder(element.getId());
                 thereIsSuchAnElement = true;
                 break;
             }
@@ -125,6 +132,7 @@ public class RoomRepository {
         if (thereIsSuchAnElement == false) {
             throw new Exception("This order is missing");
         }
+
     }
 
 
@@ -182,5 +190,20 @@ public class RoomRepository {
         return res;
     }
 
+
+    public ArrayList<Room> findRooms(Filter filter) throws Exception {
+        ArrayList<Room> res = new ArrayList<>();
+
+        ArrayList<Room> rooms = mapping();
+
+        for (Room rm : rooms) {
+
+            if (rm.equalsByFilter(filter)) {
+                res.add(rm);
+            }
+        }
+
+        return res;
+    }
 
 }

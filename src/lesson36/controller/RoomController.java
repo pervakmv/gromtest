@@ -1,8 +1,11 @@
 package lesson36.controller;
 
+import lesson36.model.Filter;
 import lesson36.model.Room;
 import lesson36.repository.UserRepository;
 import lesson36.service.RoomService;
+
+import java.util.ArrayList;
 
 public class RoomController {
 
@@ -25,4 +28,7 @@ public class RoomController {
         roomService.cancelReservation(roomId, userId);
     }
 
+    public ArrayList<Room> findRooms(Filter filter) throws Exception{
+        return roomService.findRooms(filter);
+    }
 }
