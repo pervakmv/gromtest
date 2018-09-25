@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class User  implements Comparable<User> {
+public class User implements Comparable<User> {
     private long id;
     private String userName;
     private String password;
@@ -19,10 +19,10 @@ public class User  implements Comparable<User> {
 
     @Override
     public int compareTo(User o) {
-        if(!this.getUserName().equals(o.getUserName())){
+        if (!this.getUserName().equals(o.getUserName())) {
             return this.getUserName().compareTo(o.getUserName());
         }
-        if(!this.getCountry().equals(o.getCountry())){
+        if (!this.getCountry().equals(o.getCountry())) {
             return this.getCountry().compareTo(o.getCountry());
         }
         return 0;
@@ -77,10 +77,9 @@ public class User  implements Comparable<User> {
                 '}';
     }
 
-    public String toFileFormat(){
-        return  id + "," +'\t' + userName + ","+ '\t' + '\t' + password + ","+ '\t' + country + ","+ '\t' + userType ;
+    public String toFileFormat() {
+        return id + "," + '\t' + userName + "," + '\t' + '\t' + password + "," + '\t' + country + "," + '\t' + userType;
     }
-
 
 
     @Override
@@ -91,7 +90,7 @@ public class User  implements Comparable<User> {
         User user = (User) o;
 
         if (!userName.equals(user.userName)) return false;
-       // if (!password.equals(user.password)) return false;
+        // if (!password.equals(user.password)) return false;
         if (!country.equals(user.country)) return false;
         return userType == user.userType;
     }
@@ -99,7 +98,7 @@ public class User  implements Comparable<User> {
     @Override
     public int hashCode() {
         int result = userName.hashCode();
-       // result = 31 * result + password.hashCode();
+        // result = 31 * result + password.hashCode();
         result = 31 * result + country.hashCode();
         result = 31 * result + userType.hashCode();
         return result;
@@ -126,13 +125,13 @@ public class User  implements Comparable<User> {
         this.userType = userType;
     }
 
-    public User enterDataByKeyboard() throws Exception{
+    public User enterDataByKeyboard() throws Exception {
 
 
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(reader);
 
-        try{
+        try {
             System.out.print("UserName: ");
             this.userName = br.readLine();
 
@@ -146,23 +145,24 @@ public class User  implements Comparable<User> {
 
 
             System.out.print("UserType: 1- USER, 2-ADMIN. The default value is USER. ");
-            if(Integer.valueOf(br.readLine())==2){
+            if (Integer.valueOf(br.readLine()) == 2) {
                 this.userType = UserType.ADMIN;
-            }else{
+            } else {
                 this.userType = userType.USER;
             }
 
-        }catch(IOException e){
+        } catch (IOException e) {
             System.err.println("Reading from keyboard failed");
-        }finally{
+        } finally {
+
             reader.close();
             br.close();
+
 //            IOUtils.closeQuietly(reader);
 //            IOUtils.closeQuietly(br);
         }
         return this;
     }
-
 
 
 }

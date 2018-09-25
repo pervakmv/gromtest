@@ -11,9 +11,9 @@ public class DemoUser {
         User user = new User();
         UserController userController = new UserController();
         UserRepository userRepository = new UserRepository();
-        //System.out.println(user.enterDataByKeyboard().toString());
+       // System.out.println(user.enterDataByKeyboard().toString());
 
-            //System.out.println(userController.registerUser(new User().enterDataByKeyboard()).toString());
+            System.out.println(userController.registerUser(new User().enterDataByKeyboard()).toString());
        // System.out.println(userController.);
 
         //System.out.println(userRepository.findUserById(Utils.readKeyboardWithScannerLong("Id = ")));

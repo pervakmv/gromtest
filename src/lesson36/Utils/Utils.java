@@ -3,7 +3,7 @@ package lesson36.Utils;
 
 
 import java.io.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Utils {
@@ -69,6 +69,9 @@ public class Utils {
             throw new Exception("dateMapping: input data is faild");
         return new Date(Integer.parseInt(array[2])-1900, Integer.parseInt(array[1])-1, Integer.parseInt(array[0]));
     }
+
+
+
 
 
 }

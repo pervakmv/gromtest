@@ -13,7 +13,7 @@ public class UserRepository {
     public static User logenedUser = new User();
 
     private final String pathToFile = "c:/temp/User.txt";
-    private final int usersIdKoef = 1000;
+   // private final int usersIdKoef = 1000;
 
     //считывание данных обработка данных - считывание файла
     //обработка данных - маппинг данных
@@ -42,25 +42,32 @@ public class UserRepository {
 
     public User registerUser(User user) throws Exception {
         //save user to db (files)
-        Set<User> users = userMapping();
-        if (users.contains(user))
-            throw new Exception("User already exist");
-
+        //Set<User> users = userMapping();
         //Генерирем ID
         long id = 0;
         do
-            id = Math.round((Math.random()) * usersIdKoef);
-        while (findUserById(id, users) != null);
+            id = Math.round(Math.random());
+        while (findUserById(id) != null);
         user.setId(id);
 
-        users.add(user);
+        //users.add(user);
 
-        userWrite(users);
+        addUserToFile(user);
 
         return user;
     }
 
 
+    public User findUserByName(User user) throws Exception{
+        if(user==null) return null;
+        Set<User> users = userMapping();
+        for(User object: users){
+            if(object.getUserName().equals(user.getUserName())){
+                return user;
+            }
+        }
+        return null;
+    }
 
     public User findUserById(long id, Collection<User> users) {
         if (users == null)
@@ -84,6 +91,14 @@ public class UserRepository {
         this.logenedUser = logenedUser;
     }
 
+    private void addUserToFile(User user) {
+        try (BufferedWriter  bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, true))){
+            bufferedWriter.append(user.toFileFormat() + '\n');
+        }catch(IOException e){
+            System.out.println("addUserToFile + Can't write to file by path : " + pathToFile);
+        }
+    }
+
     private void userWrite(Set<User> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
             for (User element : list) {
@@ -94,6 +109,8 @@ public class UserRepository {
             System.out.println("Can't write to file by path: " + pathToFile);
         }
     }
+
+    //private void addToFile(User)
 
 
     public Set<User> userMapping() throws Exception {

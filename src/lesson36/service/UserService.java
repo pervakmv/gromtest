@@ -14,6 +14,10 @@ public class UserService {
 
         if(!user.canBeRegistred())
             throw new Exception("The entered data can't be written");
+
+        //if user is exist in base
+        if(userRepository.findUserByName(user)!= null)
+            throw new Exception("User with name " + user.getUserName() + " is already exist");
         //if logic is ok
         return userRepository.registerUser(user);
 
