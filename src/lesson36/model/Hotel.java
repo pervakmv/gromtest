@@ -6,15 +6,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Hotel implements Comparable<Hotel> {
-    private long id;
+public class Hotel extends Entity implements Comparable<Hotel> {
+
     private String name;
     private String country;
     private String city;
     private String street;
 
     public Hotel(long id, String name, String country, String city, String street) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.country = country;
         this.city = city;
@@ -45,7 +45,7 @@ public class Hotel implements Comparable<Hotel> {
     @Override
     public String toString() {
         return "Hotel{" +
-                "id=" + id + '\'' +
+                "id=" + super.getId() + '\'' +
                 ", name=" + name + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
@@ -76,7 +76,7 @@ public class Hotel implements Comparable<Hotel> {
     }
 
     public void setId(long id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public void setName(String name) {
@@ -96,7 +96,7 @@ public class Hotel implements Comparable<Hotel> {
     }
 
     public long getId() {
-        return id;
+        return super.getId();
     }
 
     public String getName() {
@@ -126,17 +126,14 @@ public class Hotel implements Comparable<Hotel> {
     }
 
     public String toFileFormat() {
-        return id + "," + '\t'  + name  + "," + '\t' + country + "," + '\t' + city + "," + '\t' + street;
+        return super.getId() + "," + '\t'  + name  + "," + '\t' + country + "," + '\t' + city + "," + '\t' + street;
     }
 
 
     public Hotel enterDataByKeyboard() throws Exception{
 
 
-        InputStreamReader reader = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(reader);
-
-        try {
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.print("Name: ");
             this.name = br.readLine();
 
@@ -152,13 +149,6 @@ public class Hotel implements Comparable<Hotel> {
             this.street = br.readLine();
 
 
-        } catch (IOException e) {
-            System.err.println("Reading from keyboard failed");
-        } finally {
-//            IOUtils.closeQuietly(reader);
-//            IOUtils.closeQuietly(br);
-            reader.close();
-            br.close();
         }
         return this;
     }

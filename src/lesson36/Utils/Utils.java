@@ -1,7 +1,6 @@
 package lesson36.Utils;
 
 
-
 import java.io.*;
 import java.util.Date;
 import java.util.Scanner;
@@ -14,7 +13,7 @@ public class Utils {
         Scanner scanner = new Scanner(System.in);
 
         //usinscanner
-        System.out.println(prefStr);
+        System.out.print(prefStr);
 
         // String str = in.next();
         Long lng = in.nextLong();
@@ -67,11 +66,54 @@ public class Utils {
         String[] array = inputString.split("-");
         if (array.length != 3)
             throw new Exception("dateMapping: input data is faild");
-        return new Date(Integer.parseInt(array[2])-1900, Integer.parseInt(array[1])-1, Integer.parseInt(array[0]));
+        return new Date(Integer.parseInt(array[2]) - 1900, Integer.parseInt(array[1]) - 1, Integer.parseInt(array[0]));
     }
 
 
+    public static void validateFile(String filePath, ValidateType type) throws Exception {
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            throw new FileNotFoundException("File " + filePath + " does not exist");
+        }
 
 
+        if (type == ValidateType.ReadWrite) {
+            if (!file.canRead()) {
+                throw new Exception("File " + filePath + " does not have permissions to read");
+            }
+            if (!file.canWrite()) {
+                throw new Exception("File " + filePath + " does not have permissions to write");
+            }
+        } else {
+            if (type == ValidateType.Read) {
+                if (!file.canRead()) {
+                    throw new Exception("File " + filePath + " does not have permissions to read");
+                }
+            } else {
+                if (!file.canWrite())
+                    throw new Exception("File " + filePath + " does not have permissions to write");
+            }
+        }
 
+    }
+
+    public static void validateFormatFile(String pathToFile, int numberElementInLine) throws Exception{
+        try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
+            String line;
+            long lineNumber = 0;
+
+            while ((line = br.readLine()) != null) {
+                line = line.replaceAll("\t", "");
+                String[] array = line.split(",");
+                if (array.length != numberElementInLine) {
+                    throw new Exception("Error in data file: " + pathToFile + " line number: " + lineNumber);
+                }
+                lineNumber++;
+            }
+        }
+    }
 }
+
+
+

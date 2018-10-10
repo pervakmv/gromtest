@@ -1,5 +1,8 @@
 package lesson36.repository;
 
+import lesson36.Utils.Common;
+import lesson36.Utils.Utils;
+import lesson36.Utils.ValidateType;
 import lesson36.model.*;
 
 import java.io.*;
@@ -10,7 +13,7 @@ public class RoomRepository {
 
     private final String pathToFile = "c:/temp/Room.txt";
     private final int IdKoef = 100;
-    private final int numberOfField = 7;
+    private final int numberElementInLine = 7;
 
 
     //  public RoomRepository() {
@@ -22,7 +25,7 @@ public class RoomRepository {
 
     public Room addRoom(Room room) throws Exception {
         //save user to db (files)
-        ArrayList<Room> rooms = mapping();
+        //ArrayList<Room> rooms = mapping();
         // if (rooms.contains(room))
         //     throw new Exception("Room already exist");
 
@@ -30,15 +33,17 @@ public class RoomRepository {
         long id = 0;
         do
             id = Math.round((Math.random()) * IdKoef);
-        while (findRoomById(id, rooms) != null);
+        while (findRoomById(id) != null);
         room.setId(id);
-        rooms.add(room);
-        writeToFile(rooms);
+        Utils.validateFile(pathToFile, ValidateType.Write);
+        Common.addObjectToFile(room, pathToFile);
+
         return room;
 
     }
 
     public Room deleteRoom(long roomId) throws Exception {
+        Utils.validateFile(pathToFile, ValidateType.ReadWrite);
         ArrayList<Room> rooms = mapping();
         Room room = findRoomById(roomId, rooms);
         if (room == null)
@@ -63,7 +68,7 @@ public class RoomRepository {
                 return object;
             }
         }
-        throw new Exception("findRoomById: room with Id " + id + " is not exist");
+        return null;
     }
 
     public Room findRoomById(long id) throws Exception {
@@ -135,58 +140,56 @@ public class RoomRepository {
 
     }
 
+    public void validateFile() throws Exception {
+        Utils.validateFile(pathToFile, ValidateType.Read);
+    }
+
+    public void validateFormatFile() throws Exception {
+        Utils.validateFormatFile(pathToFile, numberElementInLine);
+    }
+
+    public Room lineToRoom(String line) throws Exception {
+        line = line.replaceAll("\t", "");
+        String[] array = line.split(",");
+
+
+        int numberOfGuests = Integer.parseInt(array[1]);
+        Double price = Double.parseDouble(array[2]);
+        boolean breakfastIncluded = false;
+        if (array[3].equals("true"))
+            breakfastIncluded = true;
+        boolean petsAllowed = false;
+        if (array[4].equals("true"))
+            petsAllowed = true;
+
+        Date date = Utils.dateMapping(array[5]);
+        HotelRepository hotelRepository = new HotelRepository();
+        Hotel hotel = hotelRepository.findHotelById(Long.parseLong(array[6]));
+        if (hotel == null)
+            throw new Exception("Hotel with id: " + array[6] + " was not find in repository");
+
+        return new Room(Long.parseLong(array[0]), numberOfGuests, price, breakfastIncluded, petsAllowed, date, hotel);
+
+
+    }
+
 
     public ArrayList<Room> mapping() throws Exception {
         ArrayList<Room> res = new ArrayList<>();
         StringBuffer stringBuffer = new StringBuffer();
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
+            validateFile();
+            validateFormatFile();
             String line;
-            long lineNumber = 0;
-            HotelRepository hotelRepository = new HotelRepository();
+
             while ((line = br.readLine()) != null) {
-
-                line = line.replaceAll("\t", ""); //Убираем табуляции
-
-
-                String[] array = line.split(",");
-                if (array.length != numberOfField)
-                    throw new Exception("Error in data file: " + pathToFile + " line number: " + lineNumber);
-
-
-                int numberOfGuests = Integer.parseInt(array[1]);
-                Double price = Double.parseDouble(array[2]);
-                boolean breakfastIncluded = false;
-                if (array[3].equals("true"))
-                    breakfastIncluded = true;
-                boolean petsAllowed = false;
-                if (array[4].equals("true"))
-                    petsAllowed = true;
-
-                String[] dateString = array[5].split("-");
-
-                Date date = new Date();
-                date.setDate(Integer.parseInt(dateString[0]));
-                date.setMonth(Integer.parseInt(dateString[1]) - 1);
-                date.setYear(Integer.parseInt(dateString[2]) - 1900);
-
-
-                Hotel hotel = hotelRepository.findHotelById(Long.parseLong(array[6]));
-
-                Room room = new Room(Long.parseLong(array[0]), numberOfGuests, price, breakfastIncluded, petsAllowed, date, hotel);
-                res.add(room);
-                lineNumber++;
+                res.add(lineToRoom(line));
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File " + pathToFile + "does not exist");
+        } catch (Exception e) {
+            System.out.println("File " + pathToFile + "was not read");
 
-        } catch (IOException e) {
-            System.out.println("Readin form file " + pathToFile + "failed");
         }
-//        } catch (IllegalArgumentException e) {
-//            System.out.println("RoomRepository: IllegalArgumentException");
-//        }
-
         return res;
     }
 

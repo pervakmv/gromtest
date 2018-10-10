@@ -19,6 +19,10 @@ public class HotelService {
         if (!UserRepository.logenedUserHasAdminPermit())
             throw new Exception("addRoom: User has not enough permits");
 
+        //if hotel is exist in repo
+        if(!hotelRepository.findHotelByName(hotel.getName()).isEmpty() &&
+                !hotelRepository.findHotelByCity(hotel.getCity()).isEmpty())
+            throw new Exception("Hotel with name " + hotel.getName() + " is already exist" + " in the City : " + hotel.getCity());
 
         //check business logic
         if (!hotel.canBeAdd())

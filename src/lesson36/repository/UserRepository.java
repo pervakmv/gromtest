@@ -1,6 +1,9 @@
 package lesson36.repository;
 
 
+import lesson36.Utils.Common;
+import lesson36.Utils.Utils;
+import lesson36.Utils.ValidateType;
 import lesson36.model.User;
 import lesson36.model.UserType;
 
@@ -13,12 +16,11 @@ public class UserRepository {
     public static User logenedUser = new User();
 
     private final String pathToFile = "c:/temp/User.txt";
-   // private final int usersIdKoef = 1000;
+    private final int usersIdKoef = 1000;
+    private final int numberElementInLine = 5;
 
     //считывание данных обработка данных - считывание файла
     //обработка данных - маппинг данных
-
-
 
 
     public User getLogenedUser() {
@@ -45,24 +47,26 @@ public class UserRepository {
         //Set<User> users = userMapping();
         //Генерирем ID
         long id = 0;
-        do
-            id = Math.round(Math.random());
-        while (findUserById(id) != null);
+        do {
+            id = Math.round(Math.random() * usersIdKoef);
+        }
+        while (findUserById(id) != null || id == 0);
         user.setId(id);
 
         //users.add(user);
 
-        addUserToFile(user);
+        Common.addObjectToFile(user, pathToFile);
+        //addUserToFile(user);
 
         return user;
     }
 
 
-    public User findUserByName(User user) throws Exception{
-        if(user==null) return null;
+    public User findUserByName(User user) throws Exception {
+        if (user == null) return null;
         Set<User> users = userMapping();
-        for(User object: users){
-            if(object.getUserName().equals(user.getUserName())){
+        for (User object : users) {
+            if (object.getUserName().equals(user.getUserName())) {
                 return user;
             }
         }
@@ -81,7 +85,7 @@ public class UserRepository {
         return null;
     }
 
-    public User findUserById(long id) throws Exception{
+    public User findUserById(long id) throws Exception {
 
         return findUserById(id, userMapping());
     }
@@ -91,13 +95,13 @@ public class UserRepository {
         this.logenedUser = logenedUser;
     }
 
-    private void addUserToFile(User user) {
-        try (BufferedWriter  bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, true))){
-            bufferedWriter.append(user.toFileFormat() + '\n');
-        }catch(IOException e){
-            System.out.println("addUserToFile + Can't write to file by path : " + pathToFile);
-        }
-    }
+//    private void addUserToFile(User user) {
+//        try (BufferedWriter  bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, true))){
+//            bufferedWriter.append(user.toFileFormat() + '\n');
+//        }catch(IOException e){
+//            System.out.println("addUserToFile + Can't write to file by path : " + pathToFile);
+//        }
+//    }
 
     private void userWrite(Set<User> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
@@ -112,38 +116,38 @@ public class UserRepository {
 
     //private void addToFile(User)
 
+    public void validateFile() throws Exception {
+        Utils.validateFile(pathToFile, ValidateType.Read);
+    }
+
+    public void validateFormatFile() throws Exception {
+        Utils.validateFormatFile(pathToFile, numberElementInLine);
+    }
+
+    public User lineToUser(String line) {
+        line = line.replaceAll("\t", "");
+
+        String[] array = line.split(",");
+        return new User(Long.parseLong(array[0]), array[1], array[2], array[3], UserType.valueOf(array[4]));
+    }
+
 
     public Set<User> userMapping() throws Exception {
         Set<User> res = new TreeSet<>();
         StringBuffer stringBuffer = new StringBuffer();
 
+        validateFile();
+        validateFormatFile();
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
-            long lineNumber = 0;
-
             while ((line = br.readLine()) != null) {
-
                 line = line.replaceAll("\t", ""); //Убираем табуляции
-
-
-                String[] array = line.split(",");
-                if (array.length != 5)
-                    throw new Exception("Error in data file: " + pathToFile + " line number: " + lineNumber);
-
-
-                User user = new User(Long.parseLong(array[0]), array[1], array[2], array[3], UserType.valueOf(array[4]));
-                res.add(user);
-                lineNumber++;
+                res.add(lineToUser(line));
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File " + pathToFile + "does not exist");
+        } catch (Exception e) {
+            System.out.println("File " + pathToFile + "was not read");
 
-        } catch (IOException e) {
-            System.out.println("Readin form file " + pathToFile + "failed");
-        } catch (IllegalArgumentException e) {
-            System.out.println("User type is incorrect");
         }
-
         return res;
     }
 
@@ -159,7 +163,7 @@ public class UserRepository {
             }
         }
         if (logenedUser.getUserName() != null) {
-            System.out.println("Login user " + logenedUser.getUserName() + " are sccuss");
+            System.out.println("Login user " + logenedUser.getUserName() + " are succses");
         } else {
             throw new Exception("Login: User is not exist");
         }
@@ -168,7 +172,6 @@ public class UserRepository {
     public void logout() throws Exception {
         logenedUser = null;
     }
-
 
 
 }

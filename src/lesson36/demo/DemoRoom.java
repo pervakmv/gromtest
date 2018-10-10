@@ -3,9 +3,12 @@ package lesson36.demo;
 import lesson36.Utils.Utils;
 import lesson36.controller.RoomController;
 
+import lesson36.model.Filter;
 import lesson36.model.Room;
 
 import lesson36.repository.UserRepository;
+
+import java.sql.Date;
 
 
 public class DemoRoom {
@@ -22,7 +25,7 @@ public class DemoRoom {
          userRepository.login(name,password);
 
 //        Date dateAvailable = new Date((2018-1900), (10-1), 23);
-//        System.out.println( roomController.findRooms(new Filter(2, 110, true, true, dateAvailable, "Ukraine", "Fastiv")));
+//       System.out.println( roomController.findRooms(new Filter(2, 110, true, true, dateAvailable, "Ukraine", "Fastiv")));
 
 
 
@@ -34,23 +37,22 @@ public class DemoRoom {
        // roomController.cancelReservation(Utils.readKeyboardWithScannerLong(" roomId: "),
         //                                 Utils.readKeyboardWithScannerLong("userId :"));
 
-        //System.out.println(roomCo);
 
 
-//        System.out.println(userRepository.getLogenedUser().toString());
-//
 
-//        Room rm = new Room().enterDataByKeyboard();
-//        room = roomController.addRoom(rm);
+
+
+
+        Room rm = new Room().enterDataByKeyboard();
+        room = roomController.addRoom(rm);
 //
 //        System.out.println(room);
 //
-//        userRepository.logout();
-//        Utils.GetScores();
 
 
-         Long idRoomWhoseDelete = Utils.readKeyboardWithScannerLong("Input Ident") ;
-        roomController.deleteRoom(idRoomWhoseDelete);
+
+//         Long idRoomWhoseDelete = Utils.readKeyboardWithScannerLong("Input Ident") ;
+//        roomController.deleteRoom(idRoomWhoseDelete);
 
         userRepository.logout();
 

@@ -21,12 +21,12 @@ public class DemoHotel {
 
         userRepository.login(name, password);
 
-         //System.out.println(hotelController.addHotel(new Hotel().enterDataByKeyboard()).toString());
+         System.out.println(hotelController.addHotel(new Hotel().enterDataByKeyboard()).toString());
 
       //System.out.println(hotelController.deleteHotel(readKeyboardWithScannerLong("Id:= ")));
 
 
-        //System.out.println(hotelController.findHotelByName(Utils.readKeyboardWithScannerString("Name :")).toString());
+       // System.out.println(hotelController.findHotelByName(Utils.readKeyboardWithScannerString("Name :")).toString());
 
          //System.out.println(hotelController.findHotelByCity(Utils.readKeyboardWithScannerString("City :")).toString());
     }

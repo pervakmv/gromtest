@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 
-public class Room {
-    private long id;
+public class Room extends Entity{
+
     private int numberOfGuests;
     double price;
     boolean breakfastIncluded;
@@ -18,7 +18,7 @@ public class Room {
     private Hotel hotel;
 
     public Room(long id, int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, Hotel hotel) {
-        this.id = id;
+        super(id);
         this.numberOfGuests = numberOfGuests;
         this.price = price;
         this.breakfastIncluded = breakfastIncluded;
@@ -34,7 +34,7 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", numberOfGuests=" + numberOfGuests +
                 ", price=" + price +
                 ", breakfastIncluded=" + breakfastIncluded +
@@ -89,7 +89,7 @@ public class Room {
     }
 
     public long getId() {
-        return id;
+        return super.getId();
     }
 
     public int getNumberOfGuests() {
@@ -117,7 +117,7 @@ public class Room {
     }
 
     public void setId(long id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public boolean canBeAdd() {
@@ -128,17 +128,16 @@ public class Room {
     }
 
     public String toFileFormat() {
-        return id + "," + '\t' + numberOfGuests + "," + '\t' + price + "," + '\t' + breakfastIncluded + "," + '\t' +
+        return super.getId() + "," + '\t' + numberOfGuests + "," + '\t' + price + "," + '\t' + breakfastIncluded + "," + '\t' +
                 petsAllowed + "," + '\t' + dateAvailableFrom.getDate() + "-" + (dateAvailableFrom.getMonth() + 1) + "-" + (dateAvailableFrom.getYear() + 1900) + "," + '\t' +
                 hotel.getId();
     }
 
 
     public Room enterDataByKeyboard() throws Exception{
-        InputStreamReader reader = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(reader);
 
-        try {
+
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("Number of guests : ");
             this.numberOfGuests = Integer.parseInt(br.readLine());
             System.out.println("Price :");
@@ -185,14 +184,8 @@ public class Room {
             System.out.println("HotelId ");
             long hotelId = Long.valueOf(br.readLine());
             this.hotel = hotelRepository.findHotelById(hotelId, hotelRepository.mapping());
-        } catch (Exception e) {
-            System.err.println("Reading from keyboard faile");
-        } finally {
-            //IOUtils.closeQuietly(reader);
-            //IOUtils.closeQuietly(br);
-            reader.close();
-            br.close();
         }
+
         return this;
     }
 }

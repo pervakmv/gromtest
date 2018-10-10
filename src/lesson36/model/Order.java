@@ -2,8 +2,8 @@ package lesson36.model;
 
 import java.util.Date;
 
-public class Order implements Comparable<Order> {
-    private long id;
+public class Order extends Entity implements Comparable<Order> {
+
     private User user;
     private Room room;
     private Date dateFrom;
@@ -11,7 +11,7 @@ public class Order implements Comparable<Order> {
     private double moneyPaid;
 
     public Order(long id, User user, Room room, Date dateFrom, Date dateTo, double moneyPaid) {
-        this.id = id;
+        super(id);
         this.user = user;
         this.room = room;
         this.dateFrom = dateFrom;
@@ -31,11 +31,11 @@ public class Order implements Comparable<Order> {
     }
 
     public void setId(long id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public long getId() {
-        return id;
+        return super.getId();
     }
 
     public User getUser() {
@@ -61,7 +61,7 @@ public class Order implements Comparable<Order> {
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", user=" + user +
                 ", room=" + room +
                 ", dateFrom=" + dateFrom +
@@ -119,7 +119,7 @@ public class Order implements Comparable<Order> {
     }
 
     public String toFileFormat() {
-        return id + "," + '\t' + user.getId() + "," + '\t' + room.getId() + "," + '\t'
+        return super.getId() + "," + '\t' + user.getId() + "," + '\t' + room.getId() + "," + '\t'
                 + dateFrom.getDate() + "-" + (dateFrom.getMonth() + 1) + "-" + (dateFrom.getYear() + 1900) + "," + '\t'
                 + dateTo.getDate() + "-" + (dateTo.getMonth() + 1) + "-" + (dateTo.getYear() + 1900) + "," + '\t'
                 + moneyPaid;

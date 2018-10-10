@@ -1,6 +1,10 @@
 package lesson36.repository;
 
+import lesson36.Utils.Common;
+import lesson36.Utils.Utils;
+import lesson36.Utils.ValidateType;
 import lesson36.model.Hotel;
+import lesson36.model.Order;
 import lesson36.model.Room;
 import lesson36.model.User;
 
@@ -12,7 +16,7 @@ public class HotelRepository {
 
     private final String pathToFile = "c:/temp/Hotel.txt";
     private final int IdKoef = 10000;
-    private final int numberOfField = 5;
+    private final int numberElementInLine = 5;
     private User logenedUser;
 
     public HotelRepository(User logenedUser) {
@@ -26,21 +30,14 @@ public class HotelRepository {
 
     public Hotel addHotel(Hotel hotel) throws Exception {
         //save user to db (files)
-        Set<Hotel> hotels = mapping();
-        if (hotels.contains(hotel))
-            throw new Exception("addHotel: Hotel already exist");
 
         //Генерирем ID
         long id = 0;
         do
             id = Math.round((Math.random()) * IdKoef);
-        while (findHotelById(id, hotels) != null);
+        while (findHotelById(id) != null);
         hotel.setId(id);
-
-        hotels.add(hotel);
-
-        writeToFile(hotels);
-
+        Common.addObjectToFile(hotel, pathToFile);
         return hotel;
 
     }
@@ -103,7 +100,25 @@ public class HotelRepository {
     }
 
 
+    public void validateFile() throws Exception {
+        Utils.validateFile(pathToFile, ValidateType.Read);
+    }
+
+    public void validateFormatFile() throws Exception {
+        Utils.validateFormatFile(pathToFile, numberElementInLine);
+    }
+
+
+    public Hotel lineToOrder(String line) throws Exception {
+        line = line.replaceAll("\t", "");
+        String[] array = line.split(",");
+        return new Hotel(Long.parseLong(array[0]), array[1], array[2], array[3], array[4]);
+    }
+
+
     public Set<Hotel> mapping() throws Exception {
+        validateFile();
+        validateFormatFile();
         Set<Hotel> res = new TreeSet<>();
         StringBuffer stringBuffer = new StringBuffer();
 
@@ -114,24 +129,11 @@ public class HotelRepository {
             while ((line = br.readLine()) != null) {
 
                 line = line.replaceAll("\t", ""); //Убираем табуляции
+                res.add(lineToOrder(line));
 
-
-                String[] array = line.split(",");
-                if (array.length != numberOfField)
-                    throw new Exception("Error in data file: " + pathToFile + " line number: " + lineNumber);
-
-
-                Hotel hotel = new Hotel(Long.parseLong(array[0]), array[1], array[2], array[3], array[4]);
-                res.add(hotel);
-                lineNumber++;
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File " + pathToFile + "does not exist");
-
-        } catch (IOException e) {
-            System.out.println("Readin form file " + pathToFile + "failed");
-        } catch (IllegalArgumentException e) {
-            System.out.println("User type is incorrect");
+        } catch (Exception e) {
+            System.out.println("File " + pathToFile + " was not read");
         }
 
         return res;
