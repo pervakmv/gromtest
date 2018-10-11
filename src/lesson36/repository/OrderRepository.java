@@ -56,7 +56,7 @@ public class OrderRepository {
     private void writeToFile(Set<Order> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
             for (Order element : list) {
-                bufferedWriter.append(element.toFileFormat() + '\n');
+                bufferedWriter.append(element.toString() + '\n');
             }
 
         } catch (IOException e) {

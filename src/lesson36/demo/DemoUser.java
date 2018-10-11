@@ -15,12 +15,13 @@ public class DemoUser {
        // System.out.println(user.enterDataByKeyboard().toString());
 
         //System.out.println(userRepository.findUserById(Utils.readKeyboardWithScannerLong("ID:= ")));
-           System.out.println(userController.registerUser(new User().enterDataByKeyboard()).toString());
+         //  System.out.println(userController.registerUser(new User().enterDataByKeyboard()).toString());
 
 
 
 
-        Utils.GetScores();
+        //Utils.GetScores();
+        
     }
 
 }

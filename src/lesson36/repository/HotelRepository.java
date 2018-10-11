@@ -4,7 +4,7 @@ import lesson36.Utils.Common;
 import lesson36.Utils.Utils;
 import lesson36.Utils.ValidateType;
 import lesson36.model.Hotel;
-import lesson36.model.Order;
+
 import lesson36.model.Room;
 import lesson36.model.User;
 
@@ -91,7 +91,7 @@ public class HotelRepository {
     private void writeToFile(Set<Hotel> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
             for (Hotel element : list) {
-                bufferedWriter.append(element.toFileFormat() + '\n');
+                bufferedWriter.append(element.toString() + '\n');
             }
 
         } catch (IOException e) {

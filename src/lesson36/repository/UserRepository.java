@@ -52,12 +52,7 @@ public class UserRepository {
         }
         while (findUserById(id) != null || id == 0);
         user.setId(id);
-
-        //users.add(user);
-
         Common.addObjectToFile(user, pathToFile);
-        //addUserToFile(user);
-
         return user;
     }
 
@@ -95,26 +90,16 @@ public class UserRepository {
         this.logenedUser = logenedUser;
     }
 
-//    private void addUserToFile(User user) {
-//        try (BufferedWriter  bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, true))){
-//            bufferedWriter.append(user.toFileFormat() + '\n');
-//        }catch(IOException e){
-//            System.out.println("addUserToFile + Can't write to file by path : " + pathToFile);
-//        }
-//    }
-
     private void userWrite(Set<User> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
             for (User element : list) {
-                bufferedWriter.append(element.toFileFormat() + '\n');
+                bufferedWriter.append(element.toString() + '\n');
             }
 
         } catch (IOException e) {
             System.out.println("Can't write to file by path: " + pathToFile);
         }
     }
-
-    //private void addToFile(User)
 
     public void validateFile() throws Exception {
         Utils.validateFile(pathToFile, ValidateType.Read);

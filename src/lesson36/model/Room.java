@@ -1,10 +1,10 @@
 package lesson36.model;
 
 import lesson36.repository.HotelRepository;
-import org.apache.commons.io.IOUtils;
+
 
 import java.io.BufferedReader;
-import java.io.IOException;
+
 import java.io.InputStreamReader;
 import java.util.Date;
 
@@ -33,15 +33,9 @@ public class Room extends Entity{
 
     @Override
     public String toString() {
-        return "Room{" +
-                "id=" + super.getId() +
-                ", numberOfGuests=" + numberOfGuests +
-                ", price=" + price +
-                ", breakfastIncluded=" + breakfastIncluded +
-                ", petsAllowed=" + petsAllowed +
-                ", dateAvailableFrom=" + dateAvailableFrom +
-                ", hotel=" + hotel +
-                '}';
+        return super.getId() + "," + '\t' + numberOfGuests + "," + '\t' + price + "," + '\t' + breakfastIncluded + "," + '\t' +
+                petsAllowed + "," + '\t' + dateAvailableFrom.getDate() + "-" + (dateAvailableFrom.getMonth() + 1) + "-" + (dateAvailableFrom.getYear() + 1900) + "," + '\t' +
+                hotel.getId();
     }
 
     @Override
@@ -126,13 +120,6 @@ public class Room extends Entity{
         return false;
 
     }
-
-    public String toFileFormat() {
-        return super.getId() + "," + '\t' + numberOfGuests + "," + '\t' + price + "," + '\t' + breakfastIncluded + "," + '\t' +
-                petsAllowed + "," + '\t' + dateAvailableFrom.getDate() + "-" + (dateAvailableFrom.getMonth() + 1) + "-" + (dateAvailableFrom.getYear() + 1900) + "," + '\t' +
-                hotel.getId();
-    }
-
 
     public Room enterDataByKeyboard() throws Exception{
 

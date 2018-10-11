@@ -1,13 +1,13 @@
 package lesson36.model;
 
-import org.apache.commons.io.IOUtils;
+
 
 import java.io.BufferedReader;
-import java.io.IOException;
+
 import java.io.InputStreamReader;
 
 public class User extends Entity  implements Comparable<User>{
-    //private long id;
+
     private String userName;
     private String password;
     private String country;
@@ -70,16 +70,6 @@ public class User extends Entity  implements Comparable<User>{
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + super.getId() +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", country='" + country + '\'' +
-                ", userType=" + userType +
-                '}';
-    }
-
-    public String toFileFormat() {
         return super.getId() + "," + '\t' + userName + "," + '\t' + '\t' + password + "," + '\t' + country + "," + '\t' + userType;
     }
 
@@ -150,9 +140,5 @@ public class User extends Entity  implements Comparable<User>{
         }
         return this;
     }
-
-
-
-
 }
 

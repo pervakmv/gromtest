@@ -1,9 +1,9 @@
 package lesson36.model;
 
-import org.apache.commons.io.IOUtils;
+
 
 import java.io.BufferedReader;
-import java.io.IOException;
+
 import java.io.InputStreamReader;
 
 public class Hotel extends Entity implements Comparable<Hotel> {
@@ -44,13 +44,7 @@ public class Hotel extends Entity implements Comparable<Hotel> {
 
     @Override
     public String toString() {
-        return "Hotel{" +
-                "id=" + super.getId() + '\'' +
-                ", name=" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                '}';
+        return super.getId() + "," + '\t'  + name  + "," + '\t' + country + "," + '\t' + city + "," + '\t' + street;
     }
 
     @Override
@@ -125,9 +119,6 @@ public class Hotel extends Entity implements Comparable<Hotel> {
         return false;
     }
 
-    public String toFileFormat() {
-        return super.getId() + "," + '\t'  + name  + "," + '\t' + country + "," + '\t' + city + "," + '\t' + street;
-    }
 
 
     public Hotel enterDataByKeyboard() throws Exception{

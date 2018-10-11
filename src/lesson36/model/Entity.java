@@ -19,15 +19,11 @@ public abstract class Entity {
         this.id = id;
     }
 
-    public String toFileFormat(){
-        return  String.valueOf(id);
-    }
+
 
     @Override
     public String toString() {
-        return "Entity{" +
-                "id=" + id +
-                '}';
+        return String.valueOf(id);
     }
 
 

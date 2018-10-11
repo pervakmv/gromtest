@@ -60,14 +60,10 @@ public class Order extends Entity implements Comparable<Order> {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + super.getId() +
-                ", user=" + user +
-                ", room=" + room +
-                ", dateFrom=" + dateFrom +
-                ", dateTo=" + dateTo +
-                ", moneyPaid=" + moneyPaid +
-                '}';
+        return super.getId() + "," + '\t' + user.getId() + "," + '\t' + room.getId() + "," + '\t'
+                + dateFrom.getDate() + "-" + (dateFrom.getMonth() + 1) + "-" + (dateFrom.getYear() + 1900) + "," + '\t'
+                + dateTo.getDate() + "-" + (dateTo.getMonth() + 1) + "-" + (dateTo.getYear() + 1900) + "," + '\t'
+                + moneyPaid;
     }
 
     @Override
@@ -117,15 +113,5 @@ public class Order extends Entity implements Comparable<Order> {
         }
         return false;
     }
-
-    public String toFileFormat() {
-        return super.getId() + "," + '\t' + user.getId() + "," + '\t' + room.getId() + "," + '\t'
-                + dateFrom.getDate() + "-" + (dateFrom.getMonth() + 1) + "-" + (dateFrom.getYear() + 1900) + "," + '\t'
-                + dateTo.getDate() + "-" + (dateTo.getMonth() + 1) + "-" + (dateTo.getYear() + 1900) + "," + '\t'
-                + moneyPaid;
-    }
-
-
-
 
 }

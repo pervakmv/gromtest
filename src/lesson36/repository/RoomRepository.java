@@ -16,19 +16,12 @@ public class RoomRepository {
     private final int numberElementInLine = 7;
 
 
-    //  public RoomRepository() {
-    // }
-
 
     //считывание данных обработка данных - считывание файла
     //обработка данных - маппинг данных
 
     public Room addRoom(Room room) throws Exception {
         //save user to db (files)
-        //ArrayList<Room> rooms = mapping();
-        // if (rooms.contains(room))
-        //     throw new Exception("Room already exist");
-
         //Генерирем ID
         long id = 0;
         do
@@ -79,7 +72,7 @@ public class RoomRepository {
     public void writeToFile(ArrayList<Room> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
             for (Room element : list) {
-                bufferedWriter.append(element.toFileFormat() + '\n');
+                bufferedWriter.append(element.toString() + '\n');
             }
 
         } catch (IOException e) {
