@@ -9,81 +9,43 @@ import java.io.*;
 import java.util.*;
 
 
-public class RoomRepository {
-
-    private final String pathToFile = "c:/temp/Room.txt";
-    private final int IdKoef = 100;
-    private final int numberElementInLine = 7;
-
-
+public class RoomRepository extends Repository<Room> {
 
     //считывание данных обработка данных - считывание файла
     //обработка данных - маппинг данных
 
+
+//    public RoomRepository() {
+//    }
+
+    public RoomRepository(String pathToFile, int idKoef, int numberElementInLine) {
+        super(pathToFile, idKoef, numberElementInLine);
+    }
+
     public Room addRoom(Room room) throws Exception {
-        //save user to db (files)
-        //Генерирем ID
-        long id = 0;
-        do
-            id = Math.round((Math.random()) * IdKoef);
-        while (findRoomById(id) != null);
-        room.setId(id);
-        Utils.validateFile(pathToFile, ValidateType.Write);
-        Common.addObjectToFile(room, pathToFile);
 
-        return room;
-
+        return super.addToRepository(room);
     }
 
     public Room deleteRoom(long roomId) throws Exception {
-        Utils.validateFile(pathToFile, ValidateType.ReadWrite);
-        ArrayList<Room> rooms = mapping();
-        Room room = findRoomById(roomId, rooms);
-        if (room == null)
-            throw new Exception("Hotel id:" + roomId + " is not exist");
-
         //Нужно сначала удалить все заказы этой комнаты
-
         OrderRepository orderRepository = new OrderRepository();
         orderRepository.deleteOrder(orderRepository.findOrderByRoomId(roomId).getId());
-        rooms.remove(room);
-        writeToFile(rooms);
-
-        return room;
+        return super.deleteEntity(roomId);
     }
 
-    public Room findRoomById(long id, Collection<Room> data) throws Exception {
-        if (data == null)
-            return null;
-
-        for (Room object : data) {
-            if (id == object.getId()) {
-                return object;
-            }
-        }
-        return null;
-    }
 
     public Room findRoomById(long id) throws Exception {
-        return findRoomById(id, mapping());
+        return super.findEntityById(id);
     }
 
 
-    public void writeToFile(ArrayList<Room> list) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(pathToFile, false))) {
-            for (Room element : list) {
-                bufferedWriter.append(element.toString() + '\n');
-            }
 
-        } catch (IOException e) {
-            System.out.println("Can't write to file by path: " + pathToFile);
-        }
-    }
 
 
     public void bookRoom(long roomId, long userId, long hotelId) throws Exception {
         //проверяем наличие такого отеля
-        HotelRepository hotelRepository = new HotelRepository();
+        HotelRepository hotelRepository = new HotelRepository("c:/Temp/Hotel.txt", 1000, 5, null);
         Hotel hotel = hotelRepository.findHotelById(hotelId);
         if (hotel == null)
             throw new Exception("bookRoom: There is hotel with id:" + hotelId + " is not exist");
@@ -133,15 +95,10 @@ public class RoomRepository {
 
     }
 
-    public void validateFile() throws Exception {
-        Utils.validateFile(pathToFile, ValidateType.Read);
-    }
 
-    public void validateFormatFile() throws Exception {
-        Utils.validateFormatFile(pathToFile, numberElementInLine);
-    }
 
-    public Room lineToRoom(String line) throws Exception {
+
+    public Room lineToMap(String line) throws Exception {
         line = line.replaceAll("\t", "");
         String[] array = line.split(",");
 
@@ -156,7 +113,7 @@ public class RoomRepository {
             petsAllowed = true;
 
         Date date = Utils.dateMapping(array[5]);
-        HotelRepository hotelRepository = new HotelRepository();
+        HotelRepository hotelRepository = new HotelRepository("c:/Temp/Hotel.txt", 1000, 5, null);
         Hotel hotel = hotelRepository.findHotelById(Long.parseLong(array[6]));
         if (hotel == null)
             throw new Exception("Hotel with id: " + array[6] + " was not find in repository");
@@ -167,24 +124,6 @@ public class RoomRepository {
     }
 
 
-    public ArrayList<Room> mapping() throws Exception {
-        ArrayList<Room> res = new ArrayList<>();
-        StringBuffer stringBuffer = new StringBuffer();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
-            validateFile();
-            validateFormatFile();
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                res.add(lineToRoom(line));
-            }
-        } catch (Exception e) {
-            System.out.println("File " + pathToFile + "was not read");
-
-        }
-        return res;
-    }
 
 
     public ArrayList<Room> findRooms(Filter filter) throws Exception {

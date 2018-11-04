@@ -20,8 +20,8 @@ public class DemoUser {
 
 
 
-        //Utils.GetScores();
-        
+        Utils.GetScores();
+
     }
 
 }

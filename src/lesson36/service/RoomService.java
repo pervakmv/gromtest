@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class RoomService {
 
 
-    private RoomRepository roomRepository = new RoomRepository();
+    private RoomRepository roomRepository = new RoomRepository("c:/Temp/room.txt", 100, 7);
 
 
     public Room addRoom(Room room) throws Exception {
@@ -28,6 +28,7 @@ public class RoomService {
         if (!room.canBeAdd())
             throw new Exception("addRoom: The entered room data can't be add");
         //if logic is ok
+
         return roomRepository.addRoom(room);
     }
 

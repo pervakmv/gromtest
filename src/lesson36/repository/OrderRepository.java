@@ -78,7 +78,7 @@ public class OrderRepository {
         line = line.replaceAll("\t", "");
         String[] array = line.split(",");
         UserRepository userRepository = new UserRepository();
-        RoomRepository roomRepository = new RoomRepository();
+        RoomRepository roomRepository = new RoomRepository("c:/Temp/room.txt", 100, 7);
 
         return new Order(Long.parseLong(array[0]), userRepository.findUserById(Long.parseLong(array[1])),
                 roomRepository.findRoomById(Long.parseLong(array[2])), Utils.dateMapping(array[3]), Utils.dateMapping(array[4]), Double.parseDouble(array[5]));

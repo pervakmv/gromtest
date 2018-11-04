@@ -3,6 +3,7 @@ package lesson36.controller;
 import lesson36.model.Hotel;
 import lesson36.service.HotelService;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -18,11 +19,11 @@ public class HotelController {
         return hotelService.deleteHotel(hotelId);
     }
 
-    public Set<Hotel> findHotelByName(String name) throws Exception{
+    public ArrayList<Hotel> findHotelByName(String name) throws Exception{
         return hotelService.findHotelByName(name);
     }
 
-    public Set<Hotel> findHotelByCity(String city) throws Exception{
+    public ArrayList<Hotel> findHotelByCity(String city) throws Exception{
         return hotelService.findHotelByCity(city);
     }
 }

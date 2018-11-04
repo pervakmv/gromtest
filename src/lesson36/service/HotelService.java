@@ -4,10 +4,12 @@ import lesson36.model.Hotel;
 import lesson36.repository.HotelRepository;
 import lesson36.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class HotelService {
-    private HotelRepository hotelRepository = new HotelRepository();
+    private HotelRepository hotelRepository = new HotelRepository("c:/Temp/hotel.txt", 1000, 5, null);
+
 
     public Hotel addHotel(Hotel hotel) throws Exception {
         //check login
@@ -45,7 +47,7 @@ public class HotelService {
         return hotelRepository.deleteHotel(hotelId);
     }
 
-    public Set<Hotel> findHotelByName(String name) throws Exception {
+    public ArrayList<Hotel> findHotelByName(String name) throws Exception {
 
         if (!UserRepository.logonWasSuccesful())
             throw new Exception("addRoom: You need login");
@@ -53,7 +55,7 @@ public class HotelService {
         return hotelRepository.findHotelByName(name);
     }
 
-    public Set<Hotel> findHotelByCity(String city) throws Exception {
+    public ArrayList<Hotel> findHotelByCity(String city) throws Exception {
 
         if (!UserRepository.logenedUserHasAdminPermit())
             throw new Exception("addRoom: User has not enough permits");

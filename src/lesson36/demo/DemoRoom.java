@@ -6,6 +6,7 @@ import lesson36.controller.RoomController;
 import lesson36.model.Filter;
 import lesson36.model.Room;
 
+import lesson36.repository.RoomRepository;
 import lesson36.repository.UserRepository;
 
 
@@ -39,20 +40,20 @@ public class DemoRoom {
 
 
 
+     //   Room rm = new Room().enterDataByKeyboard();
+      //  System.out.println(rm.toString());
+ //       room = roomController.addRoom(rm);
+//        RoomRepository roomRepository = new RoomRepository("c:/Temp/room.txt", 100, 7);
+//        roomRepository.validateFormatFile();
+
+
+       // System.out.println(room);
 
 
 
 
-        Room rm = new Room().enterDataByKeyboard();
-        room = roomController.addRoom(rm);
-//
-//        System.out.println(room);
-//
-
-
-
-//         Long idRoomWhoseDelete = Utils.readKeyboardWithScannerLong("Input Ident") ;
-//        roomController.deleteRoom(idRoomWhoseDelete);
+         Long idRoomWhoseDelete = Utils.readKeyboardWithScannerLong("Input Ident") ;
+        roomController.deleteRoom(idRoomWhoseDelete);
 
         userRepository.logout();
 

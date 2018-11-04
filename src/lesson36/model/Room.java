@@ -1,5 +1,7 @@
 package lesson36.model;
 
+
+import lesson36.Utils.Utils;
 import lesson36.repository.HotelRepository;
 
 
@@ -167,10 +169,10 @@ public class Room extends Entity{
             dateAvailableFrom = new Date(year - 1900, month - 1, date);
 
 
-            HotelRepository hotelRepository = new HotelRepository();
+            HotelRepository hotelRepository = new HotelRepository("c:/Temp/Hotel.txt", 1000, 5, null);
             System.out.println("HotelId ");
             long hotelId = Long.valueOf(br.readLine());
-            this.hotel = hotelRepository.findHotelById(hotelId, hotelRepository.mapping());
+            this.hotel = hotelRepository.findHotelById(hotelId);
         }
 
         return this;
