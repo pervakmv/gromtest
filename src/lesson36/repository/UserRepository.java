@@ -1,14 +1,10 @@
 package lesson36.repository;
 
 
-import lesson36.Utils.Common;
-import lesson36.Utils.Utils;
-import lesson36.Utils.ValidateType;
+
 import lesson36.model.User;
 import lesson36.model.UserType;
 
-
-import java.io.*;
 import java.util.*;
 
 public class UserRepository extends Repository<User> {

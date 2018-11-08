@@ -27,12 +27,7 @@ public class Utils {
 
         //usinscanner
         System.out.print(prefStr);
-
-        // String str = in.next();
         Long lng = in.nextLong();
-
-        // scanner.close();
-        //return Long.valueOf(str);
         return lng;
     }
 
@@ -67,8 +62,7 @@ public class Utils {
         } catch (IOException e) {
             System.err.println("readFromKeyboardString: Reading from keyboard failed " + prefStr);
         } finally {
-            //IOUtils.closeQuietly(reader);
-            //IOUtils.closeQuietly(br);
+
             System.out.println("Без осовобождения ресурсов");
         }
         return str;
@@ -83,49 +77,6 @@ public class Utils {
     }
 
 
-    public static void validateFile(String filePath, ValidateType type) throws Exception {
-        File file = new File(filePath);
-
-        if (!file.exists()) {
-            throw new FileNotFoundException("File " + filePath + " does not exist");
-        }
-
-
-        if (type == ValidateType.ReadWrite) {
-            if (!file.canRead()) {
-                throw new Exception("File " + filePath + " does not have permissions to read");
-            }
-            if (!file.canWrite()) {
-                throw new Exception("File " + filePath + " does not have permissions to write");
-            }
-        } else {
-            if (type == ValidateType.Read) {
-                if (!file.canRead()) {
-                    throw new Exception("File " + filePath + " does not have permissions to read");
-                }
-            } else {
-                if (!file.canWrite())
-                    throw new Exception("File " + filePath + " does not have permissions to write");
-            }
-        }
-
-    }
-
-    public static void validateFormatFile(String pathToFile, int numberElementInLine) throws Exception{
-        try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
-            String line;
-            long lineNumber = 0;
-
-            while ((line = br.readLine()) != null) {
-                line = line.replaceAll("\t", "");
-                String[] array = line.split(",");
-                if (array.length != numberElementInLine) {
-                    throw new Exception("Error in data file: " + pathToFile + " line number: " + lineNumber);
-                }
-                lineNumber++;
-            }
-        }
-    }
 }
 
 

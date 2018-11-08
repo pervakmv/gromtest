@@ -5,7 +5,7 @@ import lesson36.controller.HotelController;
 
 import lesson36.model.Hotel;
 
-import lesson36.repository.HotelRepository;
+
 import lesson36.repository.UserRepository;
 
 

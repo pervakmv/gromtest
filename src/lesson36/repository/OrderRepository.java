@@ -1,14 +1,8 @@
 package lesson36.repository;
 
-import lesson36.Utils.Common;
 import lesson36.Utils.Utils;
 
-import lesson36.Utils.ValidateType;
-import lesson36.model.Hotel;
 import lesson36.model.Order;
-import lesson36.model.Room;
-
-import java.io.*;
 
 import java.util.*;
 

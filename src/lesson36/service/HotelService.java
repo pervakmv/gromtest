@@ -6,7 +6,8 @@ import lesson36.repository.HotelRepository;
 import lesson36.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.Set;
+
+
 
 public class HotelService {
     private HotelRepository hotelRepository = new HotelRepository(Utils.pathByHotelFile, Utils.koefByHotelId, Utils.numberElementInLineHotel, null);

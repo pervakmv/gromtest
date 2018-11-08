@@ -67,7 +67,7 @@ public class HotelRepository extends Repository<Hotel> {
         ArrayList<Hotel> hotels = mapping();
         RoomRepository roomRepository = new RoomRepository(Utils.pathByRoomFile, Utils.koefByRoomId, Utils.numberElementInLineRoom);
         ArrayList<Room> rooms = roomRepository.mapping(); //При удалении отеля нужно удалять и комнаты этого отеля
-        System.out.println(rooms.toString());
+       
         Hotel hotel = findEntityById(hotelId);
         if (hotel == null)
             throw new Exception("Hotel id:" + hotelId + " is not exist");
