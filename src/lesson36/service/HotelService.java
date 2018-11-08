@@ -1,5 +1,6 @@
 package lesson36.service;
 
+import lesson36.Utils.Utils;
 import lesson36.model.Hotel;
 import lesson36.repository.HotelRepository;
 import lesson36.repository.UserRepository;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class HotelService {
-    private HotelRepository hotelRepository = new HotelRepository("c:/Temp/hotel.txt", 1000, 5, null);
+    private HotelRepository hotelRepository = new HotelRepository(Utils.pathByHotelFile, Utils.koefByHotelId, Utils.numberElementInLineHotel, null);
 
 
     public Hotel addHotel(Hotel hotel) throws Exception {

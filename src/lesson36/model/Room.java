@@ -56,7 +56,7 @@ public class Room extends Entity{
 
     public boolean equalsByFilter(Filter filter) {
         if (numberOfGuests != filter.getNumberOfGuests()) return false;
-        if (Double.compare(price, filter.getPrice()) == 1) return false;
+        if (price > filter.getPrice()) return false;
         if (breakfastIncluded != filter.isBreakfastIncluded()) return false;
         if (petsAllowed != filter.isPetsAllowed()) return false;
 

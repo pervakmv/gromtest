@@ -1,11 +1,8 @@
 package lesson36.repository;
 
-import lesson36.Utils.Common;
 import lesson36.Utils.Utils;
-import lesson36.Utils.ValidateType;
 import lesson36.model.*;
 
-import java.io.*;
 import java.util.*;
 
 
@@ -13,7 +10,6 @@ public class RoomRepository extends Repository<Room> {
 
     //считывание данных обработка данных - считывание файла
     //обработка данных - маппинг данных
-
 
 //    public RoomRepository() {
 //    }
@@ -29,8 +25,8 @@ public class RoomRepository extends Repository<Room> {
 
     public Room deleteRoom(long roomId) throws Exception {
         //Нужно сначала удалить все заказы этой комнаты
-        OrderRepository orderRepository = new OrderRepository();
-        orderRepository.deleteOrder(orderRepository.findOrderByRoomId(roomId).getId());
+        OrderRepository orderRepository = new OrderRepository(Utils.pathByOrderFile, Utils.koefByOrderId, Utils.numberElementInLineOrder);
+        orderRepository.deleteOrders(orderRepository.findOrdersByRoomId(roomId));
         return super.deleteEntity(roomId);
     }
 
@@ -39,18 +35,14 @@ public class RoomRepository extends Repository<Room> {
         return super.findEntityById(id);
     }
 
-
-
-
-
     public void bookRoom(long roomId, long userId, long hotelId) throws Exception {
         //проверяем наличие такого отеля
-        HotelRepository hotelRepository = new HotelRepository("c:/Temp/Hotel.txt", 1000, 5, null);
+        HotelRepository hotelRepository = new HotelRepository(Utils.pathByHotelFile, Utils.koefByHotelId, Utils.numberElementInLineHotel, null);
         Hotel hotel = hotelRepository.findHotelById(hotelId);
         if (hotel == null)
             throw new Exception("bookRoom: There is hotel with id:" + hotelId + " is not exist");
         //проверяем наличие зарегистрированного пользователя
-        UserRepository userRepository = new UserRepository();
+        UserRepository userRepository = new UserRepository(Utils.pathByUserFile, Utils.koefByUserId, Utils.numberElementInLineUser);
         User user = userRepository.findUserById(userId);
 
         if (user == null)
@@ -70,14 +62,14 @@ public class RoomRepository extends Repository<Room> {
         dateTo.setDate(dateFrom.getDate() + amountOfDays);
         double moneyPaid = (double) amountOfDays * room.getPrice();
         Order order = new Order(user, room, dateFrom, dateTo, moneyPaid);
-        OrderRepository orderRepository = new OrderRepository();
+        OrderRepository orderRepository = new OrderRepository(Utils.pathByOrderFile, Utils.koefByOrderId, Utils.numberElementInLineOrder);
         orderRepository.addOrder(order);
 
     }
 
     public void cancelReservation(long roomId, long userId) throws Exception {
-        OrderRepository orderRepository = new OrderRepository();
-        Set<Order> orders = orderRepository.mapping();
+        OrderRepository orderRepository = new OrderRepository(Utils.pathByOrderFile, Utils.koefByOrderId, Utils.numberElementInLineOrder);
+        ArrayList<Order> orders = orderRepository.mapping();
         boolean thereIsSuchAnElement = false;
 
         for (Order element : orders) {
@@ -94,10 +86,7 @@ public class RoomRepository extends Repository<Room> {
         }
 
     }
-
-
-
-
+    
     public Room lineToMap(String line) throws Exception {
         line = line.replaceAll("\t", "");
         String[] array = line.split(",");
@@ -113,18 +102,13 @@ public class RoomRepository extends Repository<Room> {
             petsAllowed = true;
 
         Date date = Utils.dateMapping(array[5]);
-        HotelRepository hotelRepository = new HotelRepository("c:/Temp/Hotel.txt", 1000, 5, null);
+        HotelRepository hotelRepository = new HotelRepository(Utils.pathByHotelFile, Utils.koefByHotelId, Utils.numberElementInLineHotel, null);
         Hotel hotel = hotelRepository.findHotelById(Long.parseLong(array[6]));
         if (hotel == null)
             throw new Exception("Hotel with id: " + array[6] + " was not find in repository");
 
         return new Room(Long.parseLong(array[0]), numberOfGuests, price, breakfastIncluded, petsAllowed, date, hotel);
-
-
     }
-
-
-
 
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
         ArrayList<Room> res = new ArrayList<>();

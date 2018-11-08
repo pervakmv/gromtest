@@ -34,7 +34,7 @@ public abstract class Repository<T extends Entity> {
 
     public T findEntityById(long id) throws Exception {
         for (T object : mapping()) {
-            if (id == object.getId()) {
+            if (object!=null && id == object.getId()) {
                 return object;
             }
         }

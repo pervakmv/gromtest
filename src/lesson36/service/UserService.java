@@ -1,11 +1,12 @@
 package lesson36.service;
 
+import lesson36.Utils.Utils;
 import lesson36.model.User;
 import lesson36.repository.UserRepository;
 
 public class UserService {
 
-    private UserRepository userRepository = new UserRepository();
+    private UserRepository userRepository = new UserRepository(Utils.pathByUserFile, Utils.koefByUserId, Utils.numberElementInLineUser);
 
     public User registerUser(User user) throws Exception {
 
